@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MAMM 2026 — QR poster</title>
+<style>
+  :root{--brand:#0f6466;--ink:#14181d;--muted:#5b6672;--border:#dfe3e8}
+  *{box-sizing:border-box}
+  body{margin:0;background:#eef0f3;color:var(--ink);
+       font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+  .bar{background:var(--brand);color:#fff;padding:14px 18px}
+  .bar h1{margin:0;font-size:16px;font-weight:700}
+  .bar p{margin:3px 0 0;font-size:13px;opacity:.85}
+  .controls{max-width:840px;margin:18px auto;padding:0 18px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end}
+  label{font-size:12px;font-weight:700;color:var(--muted);display:flex;flex-direction:column;gap:4px;flex:1;min-width:260px}
+  input,select{font:inherit;padding:9px 11px;border:1px solid var(--border);border-radius:9px;background:#fff}
+  button{font:inherit;font-weight:600;padding:9px 16px;border-radius:9px;border:1px solid var(--brand);
+         background:var(--brand);color:#fff;cursor:pointer}
+  button.ghost{background:#fff;color:var(--brand)}
+  .sheet{
+    width:210mm;min-height:297mm;margin:18px auto 40px;background:#fff;padding:24mm 20mm;
+    box-shadow:0 10px 40px rgba(0,0,0,.14);display:flex;flex-direction:column;align-items:center;text-align:center;
+  }
+  .sheet .kicker{font-size:13pt;letter-spacing:.22em;text-transform:uppercase;color:var(--brand);font-weight:800}
+  .sheet h2{font-size:34pt;line-height:1.05;margin:10px 0 4px;letter-spacing:-.02em}
+  .sheet .sub{font-size:12.5pt;color:var(--muted);max-width:150mm;line-height:1.5;margin:0 0 4mm}
+  .sheet .when{font-size:13pt;font-weight:700;margin:0 0 10mm}
+  .qr{border:2px solid var(--ink);border-radius:8px;padding:8mm;line-height:0}
+  .qr svg{width:105mm;height:105mm;display:block}
+  .cta{font-size:19pt;font-weight:800;margin:9mm 0 2mm}
+  .url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:11.5pt;color:var(--brand);word-break:break-all;max-width:150mm}
+  .feat{display:flex;gap:6mm;flex-wrap:wrap;justify-content:center;margin-top:10mm;max-width:160mm}
+  .feat span{border:1px solid var(--border);border-radius:30px;padding:2mm 5mm;font-size:10.5pt;color:var(--muted)}
+  .foot{margin-top:auto;padding-top:10mm;font-size:9.5pt;color:var(--muted)}
+  @media print{
+    body{background:#fff}
+    .bar,.controls{display:none}
+    .sheet{box-shadow:none;margin:0;width:auto;min-height:auto;padding:14mm}
+    @page{size:A4;margin:8mm}
+  }
+</style>
+</head>
+<body>
+<div class="bar">
+  <h1>MAMM 2026 — printable QR poster</h1>
+  <p>Set the address of your published programme, then press Print. Not part of the attendee site.</p>
+</div>
+
+<div class="controls">
+  <label>Programme URL
+    <input id="url" type="url" placeholder="https://your-account.github.io/mamm2026/">
+  </label>
+  <label style="flex:0 0 150px;min-width:0">Error correction
+    <select id="ec"><option value="M" selected>M — standard</option><option value="Q">Q — robust</option><option value="H">H — very robust</option></select>
+  </label>
+  <button onclick="window.print()">Print / Save as PDF</button>
+  <button class="ghost" id="dl">Download QR (SVG)</button>
+</div>
+
+<div class="sheet">
+  <div class="kicker">MAMM 2026</div>
+  <h2>Technical Programme</h2>
+  <p class="sub">8th International Conference on Microactuators, Microsensors and Micromechanisms · Sun Moon Lake Teachers' Hostel, Nantou, Taiwan</p>
+  <p class="when">5 – 7 November 2026</p>
+  <div class="qr" id="qr"></div>
+  <div class="cta">Scan for the full programme</div>
+  <div class="url" id="urlout"></div>
+  <div class="feat">
+    <span>All 89 papers &amp; abstracts</span><span>Search by author or keyword</span>
+    <span>Filter by day, room &amp; session</span><span>Star your own schedule</span><span>Add to calendar</span>
+  </div>
+  <div class="foot">Hosted by National Chung Hsing University, Taiwan · Works on any phone browser, no app required</div>
+</div>
+
+<script src="assets/qrcode.js"></script>
+<script>
+(function(){
+  var input=document.getElementById('url'), out=document.getElementById('urlout'),
+      box=document.getElementById('qr'), ec=document.getElementById('ec');
+  var guess=location.href.replace(/qr\.html.*$/,'');
+  if(/^file:/.test(location.protocol)) guess='https://your-account.github.io/mamm2026/';
+  input.value=localStorage.getItem('mamm2026.posterUrl')||guess;
+  function draw(){
+    var u=input.value.trim()||guess;
+    localStorage.setItem('mamm2026.posterUrl',u);
+    out.textContent=u.replace(/^https?:\/\//,'');
+    var q=qrcode(0,ec.value); q.addData(u); q.make();
+    box.innerHTML=q.createSvgTag({cellSize:8,margin:0,scalable:true});
+  }
+  input.addEventListener('input',draw); ec.addEventListener('change',draw);
+  document.getElementById('dl').addEventListener('click',function(){
+    var svg=box.querySelector('svg').outerHTML;
+    var a=document.createElement('a');
+    a.href=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'}));
+    a.download='mamm2026-qr.svg'; a.click();
+  });
+  draw();
+})();
+</script>
+</body>
+</html>

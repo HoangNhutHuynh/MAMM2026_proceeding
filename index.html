@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MAMM 2026 — Technical Programme</title>
+<meta name="description" content="Searchable technical programme of MAMM 2026, the 8th International Conference on Microactuators, Microsensors and Micromechanisms. 5–7 November 2026, Sun Moon Lake, Nantou, Taiwan.">
+<meta name="theme-color" content="#0f6466">
+<meta property="og:title" content="MAMM 2026 — Technical Programme">
+<meta property="og:description" content="Search 89 papers by title, author, keyword, session, room or time.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230f6466'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial' font-size='15' font-weight='bold' fill='white' text-anchor='middle'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#/schedule">
+      <span class="brand-mark">MAMM <span>2026</span></span>
+      <span class="brand-sub">8th International Conference on Microactuators, Microsensors and Micromechanisms</span>
+    </a>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="btn-qr" title="Show QR code for this page">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14h1M14 20h3M20 17v4"/></svg>
+        <span>QR</span>
+      </button>
+      <button class="icon-btn" id="btn-theme" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="meta-strip">
+    <div class="wrap">
+      <span>5–7 November 2026</span><span>·</span>
+      <span>Sun Moon Lake Teachers' Hostel, Nantou, Taiwan</span><span>·</span>
+      <span id="countdown"></span>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" id="tabs"></div>
+</nav>
+
+<div class="searchbar">
+  <div class="wrap">
+    <div class="search-field">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="text" autocomplete="off" placeholder="Search papers, authors, keywords, sessions…" aria-label="Search the programme">
+      <button class="clear-btn" id="q-clear" hidden aria-label="Clear search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <span class="kbd" aria-hidden="true">/</span>
+  </div>
+</div>
+
+<main><div class="wrap" id="view"></div></main>
+
+<footer>
+  <div class="wrap">
+    <span>MAMM 2026 · hosted by National Chung Hsing University, Taiwan</span>
+    <span id="foot-note"></span>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <h2 id="modal-title">Scan to open</h2>
+    <p id="modal-url"></p>
+    <div class="qr-box" id="qr-target"></div>
+    <div class="detail-actions" style="justify-content:center;border:0;padding-top:14px">
+      <button class="btn" id="qr-copy">Copy link</button>
+      <button class="btn primary" id="qr-close">Close</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/qrcode.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
