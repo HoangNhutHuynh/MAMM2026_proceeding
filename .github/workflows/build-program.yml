@@ -1,0 +1,45 @@
+# Rebuilds program.json whenever a new Word proceedings file is pushed to source/.
+# Put the updated .docx in source/ (any filename ending in .docx) and push:
+# the workflow regenerates program.json, commits it, and GitHub Pages redeploys.
+name: Rebuild programme data
+
+on:
+  push:
+    paths:
+      - 'source/*.docx'
+      - 'tools/build_program.py'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install python-docx
+        run: pip install python-docx
+
+      - name: Rebuild program.json
+        run: |
+          DOCX=$(ls source/*.docx | head -n 1)
+          echo "Building from $DOCX"
+          python3 tools/build_program.py "$DOCX" -o program.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- program.json; then
+            echo "program.json unchanged."
+          else
+            git add program.json
+            git commit -m "Rebuild program.json from ${GITHUB_SHA::7}"
+            git push
+          fi
