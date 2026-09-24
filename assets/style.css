@@ -74,7 +74,7 @@ button{font:inherit;color:inherit}
 .meta-strip .wrap{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 
 /* ---------- tabs ---------- */
-.tabs{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:40}
+.tabs{background:var(--surface);border-bottom:1px solid var(--border);position:sticky;top:env(safe-area-inset-top,0px);z-index:40}
 .tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
 .tabs .wrap::-webkit-scrollbar{display:none}
 .tab{
@@ -314,3 +314,17 @@ footer .wrap{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between}
   .card,.detail,.prose{box-shadow:none;border-color:#ccc;break-inside:avoid}
   .slot{break-inside:avoid}
 }
+
+/* ---------- authors list ---------- */
+.pitem.alpha{background:var(--surface-2)}
+.alpha-head{
+  font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:.1em;
+  color:var(--faint);padding:5px 14px;
+}
+.arow .pid{background:var(--surface-2);color:var(--muted)}
+.arow .pid.oral{background:var(--brand-soft);color:var(--brand-2)}
+:root[data-theme="dark"] .arow .pid.oral{color:var(--brand)}
+.arow .ptitle{font-size:14px}
+.arow .pmeta{gap:5px}
+.arow .pmeta .tag{font-family:var(--mono);letter-spacing:0;padding:1px 6px;font-size:10.5px}
+@media (max-width:640px){ .alpha-head{padding-left:12px} }
