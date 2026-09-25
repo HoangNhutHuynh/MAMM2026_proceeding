@@ -17,7 +17,10 @@ Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
    ```
    index.html
    qr.html
+   checkin.html
+   badges.html
    program.json
+   robots.txt
    README.md
    .nojekyll
    assets/style.css
@@ -25,6 +28,7 @@ Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
    assets/qrcode.js
    tools/build_program.py
    tools/pdf_program.py
+   tools/apps-script/Code.gs
    .github/workflows/build-program.yml
    source/          <- the programme PDF and the Word proceedings file
    ```
@@ -199,7 +203,37 @@ rebuild overwrites it, so anything worth keeping belongs in the source documents
 committing. The site requests `program.json` with `cache: no-cache`, so delegates get the
 update on their next page load — the QR code and every link stay the same.
 
-## 5. Preview locally
+## 5. Meal & banquet check-in (organisers only)
+
+Two extra pages ship with the site. Neither is linked from the programme and both are excluded in
+`robots.txt`, so delegates will not stumble into them.
+
+| Page | For |
+|---|---|
+| `checkin.html` | volunteers at the dining-room door: scan a badge, see green / red / amber, hand over the meal |
+| `badges.html` | printing name badges with each delegate's QR code, eight per A4 page |
+
+They talk to a **Google Sheet** through a small Apps Script web app, so several phones and tablets
+share one live state and the organisers watch it fill up in the spreadsheet. Setup takes about
+twenty minutes and is written out in **`tools/apps-script/README.md`**; the script itself is
+`tools/apps-script/Code.gs`, and `source/delegates-template.csv` shows the columns the delegate
+list needs.
+
+**Do not put the delegate list in this repository.** It stays in the Google Sheet. Names, e-mail
+addresses and institutions of everyone attending do not belong in a public repo.
+
+What the volunteer sees, at a glance:
+
+- **green** — hand it over. Name, institution and any dietary note in large type.
+- **red** — already collected, with the time and the station that served it.
+- **amber** — not registered for this meal; two override buttons (*paid at the door*,
+  *approved by organiser*) that write the reason into the log.
+- **grey** — code not recognised; jumps to search-by-name.
+
+Every screen has **Undo** for a few seconds, the **Board** tab shows served / entitled per meal for
+the kitchen, and the whole thing keeps working offline and syncs when the Wi-Fi comes back.
+
+## 6. Preview locally
 
 `index.html` fetches `program.json`, so opening the file directly with `file://` will not work.
 Serve the folder over HTTP:
@@ -211,7 +245,7 @@ python3 -m http.server 8000
 
 ---
 
-## 6. Notes on how the data was produced
+## 7. Notes on how the data was produced
 
 - Source: `Proceedings MAMM_revise.docx` (technical programme + abstracts).
 - Speaker biography pages (keynote / invited speaker profiles) were **excluded** on request.

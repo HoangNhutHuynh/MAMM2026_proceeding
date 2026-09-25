@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /checkin.html
+Disallow: /badges.html

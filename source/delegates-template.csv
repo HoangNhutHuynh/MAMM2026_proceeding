@@ -1,0 +1,4 @@
+id,name,affiliation,email,lunch_d1,lunch_d2,banquet,diet,note,token
+D001,Zhetenbayev Nursultan,Satbayev University,someone@example.org,Y,Y,Y,,,
+D002,Vivien Platl,Technische Universität Ilmenau,someone@example.de,Y,Y,N,Vegetarian,,
+D003,Bill Cheng,National Chung Hsing University,someone@nchu.edu.tw,Y,N,Y,,Speaker,

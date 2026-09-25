@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<title>MAMM 2026 — Meal check-in (staff)</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0f6466">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/checkin.css">
+</head>
+<body>
+
+<header class="bar">
+  <img src="assets/logo-h.png" alt="MAMM 2026" class="bar-logo">
+  <span class="bar-title">Meal check-in</span>
+  <span class="pill" id="net">·</span>
+  <span class="pill" id="station-pill"></span>
+</header>
+
+<div class="meals" id="meals" role="tablist" aria-label="Which meal"></div>
+
+<main>
+  <!-- SCAN -->
+  <section id="view-scan" class="view">
+    <div class="scanbox">
+      <video id="cam" playsinline muted></video>
+      <canvas id="frame" hidden></canvas>
+      <div class="reticle"></div>
+      <div class="scan-hint" id="scan-hint">Press <b>Start camera</b> and point at the QR code on the badge</div>
+    </div>
+    <div class="row">
+      <button class="btn primary big" id="cam-start">Start camera</button>
+      <button class="btn big" id="cam-stop" hidden>Stop</button>
+    </div>
+    <label class="manual">
+      <span>Or type the badge code</span>
+      <div class="row">
+        <input id="manual-code" inputmode="text" autocomplete="off" spellcheck="false" placeholder="M26-7F3K">
+        <button class="btn primary" id="manual-go">Check</button>
+      </div>
+    </label>
+  </section>
+
+  <!-- SEARCH -->
+  <section id="view-search" class="view" hidden>
+    <input id="q" type="text" autocomplete="off" placeholder="Search by name or institution…">
+    <p class="muted" id="search-count"></p>
+    <ul class="people" id="people"></ul>
+    <button class="btn" id="add-walkin">+ Add a walk-in</button>
+  </section>
+
+  <!-- BOARD -->
+  <section id="view-board" class="view" hidden>
+    <div id="board"></div>
+    <div class="row wrap">
+      <button class="btn" id="refresh">Refresh from the sheet</button>
+      <button class="btn" id="export">Export CSV</button>
+    </div>
+    <h2 class="h2">Recent</h2>
+    <ul class="feed" id="feed"></ul>
+  </section>
+
+  <!-- SETUP -->
+  <section id="view-setup" class="view" hidden>
+    <div class="card">
+      <h2 class="h2">Connection</h2>
+      <label class="field"><span>Apps Script web app URL</span>
+        <input id="cfg-url" type="url" autocomplete="off" placeholder="https://script.google.com/macros/s/…/exec"></label>
+      <label class="field"><span>Staff PIN</span>
+        <input id="cfg-pin" type="text" inputmode="numeric" autocomplete="off"></label>
+      <label class="field"><span>Station name (shown in the sheet)</span>
+        <input id="cfg-station" type="text" autocomplete="off" placeholder="Door A"></label>
+      <label class="field"><span>Your name (optional)</span>
+        <input id="cfg-staff" type="text" autocomplete="off"></label>
+      <div class="row wrap">
+        <button class="btn primary" id="cfg-save">Save &amp; connect</button>
+        <button class="btn" id="cfg-test">Test connection</button>
+      </div>
+      <p class="muted" id="cfg-msg"></p>
+    </div>
+    <div class="card">
+      <h2 class="h2">This device</h2>
+      <p class="muted" id="cache-info"></p>
+      <div class="row wrap">
+        <button class="btn" id="flush">Send queued check-ins</button>
+        <button class="btn danger" id="wipe">Clear local data</button>
+      </div>
+    </div>
+    <p class="muted small">This page is for organisers. It is not linked from the public programme and is
+      hidden from search engines, but anyone with the address and the PIN can use it — share both only
+      with the volunteers on duty.</p>
+  </section>
+</main>
+
+<nav class="tabbar" id="tabs"></nav>
+
+<!-- result overlay -->
+<div class="result" id="result" hidden>
+  <div class="result-inner">
+    <div class="result-icon" id="r-icon"></div>
+    <div class="result-verdict" id="r-verdict"></div>
+    <div class="result-name" id="r-name"></div>
+    <div class="result-sub" id="r-sub"></div>
+    <div class="result-chips" id="r-chips"></div>
+    <div class="result-actions" id="r-actions"></div>
+  </div>
+</div>
+
+<!-- walk-in dialog -->
+<div class="modal" id="walkin" hidden>
+  <div class="modal-card">
+    <h2 class="h2">Add a walk-in</h2>
+    <label class="field"><span>Name</span><input id="w-name" autocomplete="off"></label>
+    <label class="field"><span>Institution</span><input id="w-aff" autocomplete="off"></label>
+    <label class="field"><span>Dietary note</span><input id="w-diet" autocomplete="off"></label>
+    <div class="field"><span>Entitled to</span><div class="chips" id="w-meals"></div></div>
+    <div class="row wrap">
+      <button class="btn primary" id="w-save">Add</button>
+      <button class="btn" id="w-cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script src="assets/jsqr.js"></script>
+<script src="assets/checkin.js"></script>
+</body>
+</html>
