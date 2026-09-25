@@ -1,0 +1,20 @@
+{
+  "_comment": "Rename this file to extra-papers.json to use it. It fills in papers that are in the programme PDF but not yet in the Word proceedings file, and overrides anything the Word file does have. Delete an entry once the Word file carries it.",
+  "papers": {
+    "ID_91": {
+      "title": "Full title of the paper",
+      "authors": [
+        { "name": "First Author", "affiliations": ["Department, University, Country"] },
+        { "name": "Second Author", "affiliations": ["Department, University, Country"] }
+      ],
+      "abstract": "The full abstract text, as one paragraph.",
+      "keywords": ["keyword one", "keyword two", "keyword three"]
+    },
+    "ID_92": {
+      "title": "Full title of the paper",
+      "authors": [{ "name": "Author Name", "affiliations": ["University"] }],
+      "abstract": "The full abstract text.",
+      "keywords": ["keyword"]
+    }
+  }
+}

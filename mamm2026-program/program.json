@@ -31,113 +31,157 @@
    "slots": [
     {
      "time": "08:30-09:00",
-     "room": "Room 1",
-     "text": "Registration & Welcome Reception"
+     "room": "Outside Room 1",
+     "text": "Registration & Welcome Reception (Outside Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "09:00-09:20",
      "room": "Room 1",
-     "text": "Invited Speech (1) – Dr. Eng. Trung Nghia Tran (Room 1)"
+     "text": "Invited Speech (1) - Room 1",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "09:00-09:20",
      "room": "Room 2",
-     "text": "Invited Speech (2) – Dr. Xuan Dai Le (Room 2)"
+     "text": "Invited Speech (2) - Room 2",
+     "col": 1,
+     "ncols": 3
     },
     {
      "time": "09:00-09:20",
      "room": "Room 3",
-     "text": "Invited Speech – Dr. Quoc Tuan Nguyen Diep"
+     "text": "Session for ISET 2026 - Room 3",
+     "col": 2,
+     "ncols": 3
     },
     {
      "time": "09:20-10:50",
      "room": "Room 1",
-     "text": "Oral Session (1) - Biomedical Devices, Prosthetics & Neurostimulation (Room 1)"
+     "text": "Oral Session (1) - Biomedical Devices, Prosthetics & Neurostimulation (Room 1)",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "09:20-10:50",
      "room": "Room 2",
-     "text": "Oral Session (2) - Biosensing, Microfluidics & Diagnostic Technologies (Room 2)"
+     "text": "Oral Session (2) - Biosensing, Microfluidics & Diagnostic Technologies (Room 2)",
+     "col": 1,
+     "ncols": 3
     },
     {
      "time": "09:20-10:50",
      "room": "Room 3",
-     "text": "Session for ISET 2026 (Room 3)"
+     "text": "Session for ISET 2026 (cont'd) - Room 3",
+     "col": 2,
+     "ncols": 3
+    },
+    {
+     "time": "09:20-10:50 / 14:40-16:10",
+     "room": "Room 1",
+     "text": "Poster Session (1) - Day 1 - competition judging (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "10:50-11:10",
      "room": "Room 1",
-     "text": "Tea Break"
-    },
-    {
-     "time": "10:50-11:10 / 14:00-14:20",
-     "room": "Room 1",
-     "text": "Poster Session (1) - Day 1 - competition judging (Room 1)"
+     "text": "Tea Break (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "11:10-11:30",
      "room": "Room 1",
-     "text": "Opening Ceremony & Group Photo"
+     "text": "Opening Ceremony & Group Photo (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "11:30-12:00",
      "room": "Room 1",
-     "text": "Keynote Speech (2) - Speaker: Prof. Dong-Sing Wuu (Room 1)"
+     "text": "Keynote Speech (1) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "12:00-13:00",
-     "room": "Room 1",
-     "text": "Lunch"
+     "room": "All",
+     "text": "Lunch",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "13:00-13:30",
      "room": "Room 1",
-     "text": "Keynote Speech (3) - Speaker: Prof. Fan-Gang Tseng (Room 1)"
+     "text": "Keynote Speech (2) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "13:30-14:00",
      "room": "Room 1",
-     "text": "Keynote Speech (1) - Speaker: Prof. Ashok Kumar Pandey (Room 1)"
+     "text": "Keynote Speech (3) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "14:00-14:20",
      "room": "Room 1",
-     "text": "Tea Break"
+     "text": "Tea Break (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "14:20-14:40",
      "room": "Room 1",
-     "text": "Invited Speech (3) – Dr. Yu-Hsiang Lai (Room 1)"
+     "text": "Invited Speech (3) - Room 1",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "14:20-14:40",
      "room": "Room 2",
-     "text": "Invited Speech (10) – Dr. Thanh-Qua Nguyen (Room 2)"
+     "text": "Room 2 - available (TBD)",
+     "col": 1,
+     "ncols": 3
+    },
+    {
+     "time": "14:20-14:40",
+     "room": "Room 3",
+     "text": "Session for ISET 2026 - Room 3",
+     "col": 2,
+     "ncols": 3
     },
     {
      "time": "14:40-16:40",
      "room": "Room 1",
-     "text": "Oral Session (3) - Functional Materials, Micro-fabrication & Computational Biomedicine (Room 1)"
+     "text": "Oral Session (3) - Functional Materials, Micro-fabrication & Computational Biomedicine (Room 1)",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "14:40-16:40",
      "room": "Room 2",
-     "text": "Oral Session (10) - Advanced Biosensing, Spectroscopy & Cellular Diagnostics (Room 2)"
+     "text": "Room 2 - available (TBD)",
+     "col": 1,
+     "ncols": 3
     },
     {
      "time": "14:40-16:40",
      "room": "Room 3",
-     "text": "Invited Speech – Dr. Thien Luan Phan"
-    },
-    {
-     "time": "14:40-16:40",
-     "room": "Room 3",
-     "text": "Session for ISET 2026 (Room 3)"
+     "text": "Session for ISET 2026 (cont'd) - Room 3",
+     "col": 2,
+     "ncols": 3
     },
     {
      "time": "18:00-",
      "room": "All",
-     "text": "Banquet"
+     "text": "Banquet",
+     "col": 0,
+     "ncols": 1
     }
    ]
   },
@@ -149,97 +193,149 @@
     {
      "time": "08:30-09:00",
      "room": "Outside Room 1",
-     "text": "Registration & Welcome Reception (Outside Room 1)"
+     "text": "Registration & Welcome Reception (Outside Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "09:00-09:20",
      "room": "Room 1",
-     "text": "Invited Speech (4) – Dr. Che-Hao Liao (Room 1)"
+     "text": "Invited Speech (4) - Room 1",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "09:00-09:20",
      "room": "Room 2",
-     "text": "Invited Speech (5) – Dr. Nguyen Van Hieu (Room 2)"
+     "text": "Invited Speech (5) - Room 2",
+     "col": 1,
+     "ncols": 3
     },
     {
      "time": "09:00-09:20",
      "room": "Room 3",
-     "text": "Invited Speech (6) – Dr. Vo Hong Hai (Room 3)"
+     "text": "Invited Speech (6) - Room 3",
+     "col": 2,
+     "ncols": 3
     },
     {
      "time": "09:20-11:05",
      "room": "Room 1",
-     "text": "Oral Session (4) - Advanced Materials for Functional Devices and Applications (Room 1)"
+     "text": "Oral Session (4) - Advanced Materials for Functional Devices and Applications (Room 1) / (chaired by Dr. Che-Hao Liao & Dr. Shih-Hung Lin)",
+     "col": 0,
+     "ncols": 3
     },
     {
      "time": "09:20-11:05",
      "room": "Room 2",
-     "text": "Oral Session (5) - Compliant & Multistable Mechanisms (Room 2)"
+     "text": "Oral Session (5) - Compliant & Multistable Mechanisms (Room 2) / (chaired by Prof. Ashok Kumar Pandey & Prof. Lena Zentner)",
+     "col": 1,
+     "ncols": 3
     },
     {
      "time": "09:20-11:05",
      "room": "Room 3",
-     "text": "Oral Session (6) - Structural & Solid Mechanics Modeling (Room 3)"
+     "text": "Oral Session (6) - Structural & Solid Mechanics Modeling (Room 3)",
+     "col": 2,
+     "ncols": 3
+    },
+    {
+     "time": "09:20-10:50 / 14:40-16:10",
+     "room": "All rooms",
+     "text": "Poster Session (2) - Day 2 - competition judging (Rooms 1, 2 & 3)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "11:05-11:25",
-     "room": "Room 1",
-     "text": "Tea Break"
-    },
-    {
-     "time": "11:05-11:25",
-     "room": "Room 1",
-     "text": "Poster Session (2) - Day 2 – competition judging (Room 1)"
+     "room": "All",
+     "text": "Tea Break",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "11:25-11:55",
      "room": "Room 1",
-     "text": "Keynote Speech (4) - Speaker: Prof. Takahito Ono"
+     "text": "Keynote Speech (4) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
-     "time": "11:55-12:25",
+     "time": "11:55-13:00",
+     "room": "All",
+     "text": "Lunch",
+     "col": 0,
+     "ncols": 1
+    },
+    {
+     "time": "13:00-13:30",
      "room": "Room 1",
-     "text": "Keynote Speech (5) - Speaker: Prof. Lena Zentner"
+     "text": "Keynote Speech (5) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
-     "time": "12:25-13:30",
+     "time": "13:30-14:00",
      "room": "Room 1",
-     "text": "Lunch"
+     "text": "Keynote Speech (6) - Speaker: To be announced (Room 1)",
+     "col": 0,
+     "ncols": 1
     },
     {
-     "time": "13:30-13:50",
+     "time": "14:00-14:20",
+     "room": "All",
+     "text": "Tea Break",
+     "col": 0,
+     "ncols": 1
+    },
+    {
+     "time": "14:20-14:40",
      "room": "Room 1",
-     "text": "Invited Speech (7) – Dr. Nguyen Van Toan (Room 1)"
+     "text": "Invited Speech (7) - Room 1",
+     "col": 0,
+     "ncols": 3
     },
     {
-     "time": "13:30-13:50",
+     "time": "14:20-14:40",
      "room": "Room 2",
-     "text": "Invited Speech (8) – Dr. Hoang-Dung Nguyen (Room 2)"
+     "text": "Invited Speech (8) - Room 2",
+     "col": 1,
+     "ncols": 3
     },
     {
-     "time": "13:30-13:50",
+     "time": "14:20-14:40",
      "room": "Room 3",
-     "text": "Invited Speech (9) – Dr. Ngoc Dang Khoa Tran (Room 3)"
+     "text": "Invited Speech (9) - Room 3",
+     "col": 2,
+     "ncols": 3
     },
     {
-     "time": "13:50-15:50",
+     "time": "14:40-16:40",
      "room": "Room 1",
-     "text": "Oral Session (7) - IoT & Connectivity Technologies (Room 1)"
+     "text": "Oral Session (7) - IoT & Connectivity Technologies (Room 1)",
+     "col": 0,
+     "ncols": 3
     },
     {
-     "time": "13:50-15:50",
+     "time": "14:40-16:40",
      "room": "Room 2",
-     "text": "Oral Session (8) - Advanced Sensing, Actuation & Smart Micro-Devices (Room 2)"
+     "text": "Oral Session (8) - Advanced Sensing, Actuation & Smart Micro-Devices (Room 2)",
+     "col": 1,
+     "ncols": 3
     },
     {
-     "time": "13:50-15:50",
+     "time": "14:40-16:40",
      "room": "Room 3",
-     "text": "Oral Session (9) - Autonomous Systems, Robotics & Applied Modeling (Room 3)"
+     "text": "Oral Session (9) - Autonomous Systems, Robotics & Applied Modeling (Room 3)",
+     "col": 2,
+     "ncols": 3
     },
     {
-     "time": "15:50-16:10",
+     "time": "16:40-17:00",
      "room": "Room 1",
-     "text": "Closing Remarks and Awards Ceremony"
+     "text": "Closing Remarks and Awards Ceremony (Room 1)",
+     "col": 0,
+     "ncols": 1
     }
    ]
   },
@@ -250,13 +346,17 @@
    "slots": [
     {
      "time": "08:30-10:30",
-     "room": "Sun Moon Lake",
-     "text": "Sun Moon Lake Cruise (self-funded activity; advance reservation required through the MAMM 2026 organizer)"
+     "room": "All",
+     "text": "Sun Moon Lake Cruise (self-funded activity; advance reservation required through the MAMM 2026 organizer)",
+     "col": 0,
+     "ncols": 1
     },
     {
      "time": "10:30-",
      "room": "All",
-     "text": "Take the shuttle bus back to Taichung"
+     "text": "Take the shuttle bus back to Taichung",
+     "col": 0,
+     "ncols": 1
     }
    ]
   }
@@ -267,51 +367,48 @@
    "kind": "oral",
    "num": 1,
    "name": "Biomedical Devices, Prosthetics & Neurostimulation",
-   "subtitle": "Biomedical Devices, Prosthetics & Neurostimulation",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "day": 1,
+   "chairs": null,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "day": 1,
+   "time": "09:20-10:50",
    "room": "Room 1",
    "paperIds": [
     "ID_01",
     "ID_25",
     "ID_44",
-    "ID_69",
-    "ID_88"
-   ],
-   "time": "09:20-10:50",
-   "dateLabel": "5 Nov"
+    "ID_69"
+   ]
   },
   {
    "id": "OS2",
    "kind": "oral",
    "num": 2,
    "name": "Biosensing, Microfluidics & Diagnostic Technologies",
-   "subtitle": "Biosensing, Microfluidics & Diagnostic Technologies",
-   "chairs": "Dr. Xuan Dai Le",
-   "day": 1,
+   "chairs": null,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "day": 1,
+   "time": "09:20-10:50",
    "room": "Room 2",
    "paperIds": [
     "ID_15",
     "ID_34",
     "ID_47",
-    "ID_56",
     "ID_57",
     "ID_90"
-   ],
-   "time": "09:20-10:50",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "OS3",
    "kind": "oral",
    "num": 3,
    "name": "Functional Materials, Micro-fabrication & Computational Biomedicine",
-   "subtitle": "Functional Materials, Micro-fabrication & Computational Biomedicine",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "day": 1,
+   "chairs": null,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "day": 1,
+   "time": "14:40-16:40",
    "room": "Room 1",
    "paperIds": [
     "ID_03",
@@ -319,20 +416,20 @@
     "ID_20",
     "ID_53",
     "ID_68",
-    "ID_80"
-   ],
-   "time": "14:40-16:40",
-   "dateLabel": "5 Nov"
+    "ID_80",
+    "ID_86"
+   ]
   },
   {
    "id": "OS4",
    "kind": "oral",
    "num": 4,
    "name": "Advanced Materials for Functional Devices and Applications",
-   "subtitle": "Advanced Materials for Functional Devices and Applications",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "09:20-11:05",
    "room": "Room 1",
    "paperIds": [
     "ID_18",
@@ -341,19 +438,18 @@
     "ID_23",
     "ID_24",
     "ID_46"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS5",
    "kind": "oral",
    "num": 5,
    "name": "Compliant & Multistable Mechanisms",
-   "subtitle": "Compliant & Multistable Mechanisms",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "09:20-11:05",
    "room": "Room 2",
    "paperIds": [
     "ID_02",
@@ -362,19 +458,18 @@
     "ID_33",
     "ID_83",
     "ID_84"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS6",
    "kind": "oral",
    "num": 6,
    "name": "Structural & Solid Mechanics Modeling",
-   "subtitle": "Structural & Solid Mechanics Modeling",
-   "chairs": "Dr. Vo Hong Hai",
-   "day": 2,
+   "chairs": null,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "09:20-11:05",
    "room": "Room 3",
    "paperIds": [
     "ID_27",
@@ -383,19 +478,18 @@
     "ID_45",
     "ID_55",
     "ID_70"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS7",
    "kind": "oral",
    "num": 7,
    "name": "IoT & Connectivity Technologies",
-   "subtitle": "IoT & Connectivity Technologies",
-   "chairs": "Dr. Nguyen Van Toan",
-   "day": 2,
+   "chairs": null,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "14:40-16:40",
    "room": "Room 1",
    "paperIds": [
     "ID_48",
@@ -405,19 +499,18 @@
     "ID_72",
     "ID_73",
     "ID_77"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS8",
    "kind": "oral",
    "num": 8,
    "name": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "subtitle": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "day": 2,
+   "chairs": null,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "14:40-16:40",
    "room": "Room 2",
    "paperIds": [
     "ID_04",
@@ -427,21 +520,21 @@
     "ID_66",
     "ID_71",
     "ID_89"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS9",
    "kind": "oral",
    "num": 9,
    "name": "Autonomous Systems, Robotics & Applied Modeling",
-   "subtitle": "Autonomous Systems, Robotics & Applied Modeling",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "day": 2,
+   "chairs": null,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "14:40-16:40",
    "room": "Room 3",
    "paperIds": [
+    "ID_05",
     "ID_07",
     "ID_41",
     "ID_30",
@@ -449,89 +542,68 @@
     "ID_42",
     "ID_54",
     "ID_85"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
-  },
-  {
-   "id": "OS10",
-   "kind": "oral",
-   "num": 10,
-   "name": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "subtitle": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "day": 1,
-   "date": "2026-11-05",
-   "room": "Room 2",
-   "paperIds": [
-    "ID_81",
-    "ID_82",
-    "ID_38",
-    "ID_39",
-    "ID_79",
-    "ID_12"
-   ],
-   "time": "14:40-16:40",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "PS1",
    "kind": "poster",
    "num": 1,
    "name": "Poster Session 1",
-   "subtitle": "Day 1 - competition judging",
    "chairs": null,
-   "day": 1,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "day": 1,
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "paperIds": [
-    "ID_05",
+    "ID_09",
+    "ID_11",
+    "ID_16",
+    "ID_28",
+    "ID_35",
     "ID_50",
-    "ID_51",
     "ID_52",
     "ID_58",
     "ID_59",
+    "ID_60",
     "ID_61",
     "ID_63",
-    "ID_65",
     "ID_74",
     "ID_75",
     "ID_76",
-    "ID_78",
-    "ID_86",
-    "ID_91"
-   ],
-   "time": "10:50-11:10 / 14:00-14:20",
-   "dateLabel": "5 Nov"
+    "ID_78"
+   ]
   },
   {
    "id": "PS2",
    "kind": "poster",
    "num": 2,
    "name": "Poster Session 2",
-   "subtitle": "Day 2 – competition judging",
    "chairs": null,
-   "day": 2,
    "date": "2026-11-06",
-   "room": "Room 1",
+   "dateLabel": "6 Nov",
+   "day": 2,
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "paperIds": [
-    "ID_09",
-    "ID_11",
+    "ID_12",
     "ID_13",
     "ID_14",
-    "ID_16",
     "ID_19",
     "ID_26",
-    "ID_28",
     "ID_29",
-    "ID_35",
     "ID_36",
     "ID_37",
-    "ID_60",
-    "ID_92"
-   ],
-   "time": "11:05-11:25",
-   "dateLabel": "6 Nov"
+    "ID_38",
+    "ID_39",
+    "ID_51",
+    "ID_56",
+    "ID_65",
+    "ID_79",
+    "ID_81",
+    "ID_82",
+    "ID_88"
+   ]
   }
  ],
  "papers": [
@@ -596,9 +668,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_02",
@@ -662,8 +733,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_03",
@@ -730,9 +800,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_04",
@@ -782,11 +851,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_05",
@@ -825,17 +893,16 @@
     "minimization problems",
     "finite-difference equation"
    ],
-   "type": "poster",
-   "sessionId": "PS1",
-   "sessionName": "Poster Session 1",
-   "sessionNum": 1,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
-   "room": "Room 1",
+   "type": "oral",
+   "sessionId": "OS9",
+   "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
+   "sessionNum": 9,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "14:40-16:40",
+   "room": "Room 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_06",
@@ -881,9 +948,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_07",
@@ -927,11 +993,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_08",
@@ -973,11 +1038,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_09",
@@ -1008,16 +1072,15 @@
     "Melanoma"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_10",
@@ -1056,8 +1119,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_11",
@@ -1082,16 +1144,15 @@
     "Static Culture"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_12",
@@ -1119,17 +1180,16 @@
     "Chronic kidney disease",
     "Cortical anisotropic backscattering artifact"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_13",
@@ -1159,11 +1219,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_14",
@@ -1194,11 +1253,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_15",
@@ -1249,9 +1307,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_16",
@@ -1284,16 +1341,15 @@
     "Artificial Intelligence (AI)"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_17",
@@ -1330,11 +1386,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_18",
@@ -1400,8 +1455,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_19",
@@ -1433,11 +1487,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_20",
@@ -1482,9 +1535,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_21",
@@ -1551,8 +1603,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_22",
@@ -1599,8 +1650,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_23",
@@ -1646,8 +1696,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_24",
@@ -1686,8 +1735,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_25",
@@ -1727,9 +1775,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_26",
@@ -1766,11 +1813,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_27",
@@ -1817,9 +1863,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_28",
@@ -1875,16 +1920,15 @@
     "low-power"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_29",
@@ -1929,11 +1973,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_30",
@@ -1964,11 +2007,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_31",
@@ -2010,9 +2052,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_32",
@@ -2052,8 +2093,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_33",
@@ -2086,8 +2126,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_34",
@@ -2126,9 +2165,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": true
   },
   {
    "id": "ID_35",
@@ -2159,16 +2197,15 @@
     "Rapid Diagnosis"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_36",
@@ -2211,11 +2248,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_37",
@@ -2251,11 +2287,10 @@
    "sessionNum": 2,
    "day": 2,
    "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_38",
@@ -2285,17 +2320,16 @@
     "Silver Nanowires",
     "Coffee-Ring Effect"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_39",
@@ -2325,17 +2359,16 @@
     "microplastic identification",
     "Raman spectroscopy analysis"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_40",
@@ -2369,11 +2402,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_41",
@@ -2412,11 +2444,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_42",
@@ -2448,11 +2479,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_43",
@@ -2500,9 +2530,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_44",
@@ -2562,9 +2591,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_45",
@@ -2615,9 +2643,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_46",
@@ -2677,8 +2704,7 @@
    "time": "09:20-11:05",
    "room": "Room 1",
    "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_47",
@@ -2718,9 +2744,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_48",
@@ -2768,11 +2793,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_49",
@@ -2817,11 +2841,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": true
   },
   {
    "id": "ID_50",
@@ -2866,11 +2889,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_51",
@@ -2916,16 +2938,15 @@
     "V2X networks"
    ],
    "type": "poster",
-   "sessionId": "PS1",
-   "sessionName": "Poster Session 1",
-   "sessionNum": 1,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
-   "room": "Room 1",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_52",
@@ -2970,11 +2991,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_53",
@@ -3015,9 +3035,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_54",
@@ -3073,11 +3092,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_55",
@@ -3118,9 +3136,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_56",
@@ -3177,17 +3194,16 @@
     "electrode distance",
     "numerical simulation"
    ],
-   "type": "oral",
-   "sessionId": "OS2",
-   "sessionName": "Biosensing, Microfluidics & Diagnostic Technologies",
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
    "sessionNum": 2,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "09:20-10:50",
-   "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_57",
@@ -3251,9 +3267,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_58",
@@ -3297,11 +3312,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_59",
@@ -3346,11 +3360,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_60",
@@ -3396,16 +3409,15 @@
     "Traffic Video Analytics"
    ],
    "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
+   "sessionId": "PS1",
+   "sessionName": "Poster Session 1",
+   "sessionNum": 1,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_61",
@@ -3456,11 +3468,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_62",
@@ -3503,11 +3514,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_63",
@@ -3545,11 +3555,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_64",
@@ -3593,11 +3602,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_65",
@@ -3636,16 +3644,15 @@
     "bypass corridor"
    ],
    "type": "poster",
-   "sessionId": "PS1",
-   "sessionName": "Poster Session 1",
-   "sessionNum": 1,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
-   "room": "Room 1",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_66",
@@ -3684,11 +3691,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_67",
@@ -3730,11 +3736,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_68",
@@ -3780,9 +3785,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_69",
@@ -3814,9 +3818,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_70",
@@ -3850,9 +3853,8 @@
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_71",
@@ -3923,11 +3925,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": true
   },
   {
    "id": "ID_72",
@@ -3958,11 +3959,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_73",
@@ -3994,11 +3994,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_74",
@@ -4043,11 +4042,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_75",
@@ -4092,11 +4090,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_76",
@@ -4141,11 +4138,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_77",
@@ -4189,11 +4185,10 @@
    "sessionNum": 7,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_78",
@@ -4224,11 +4219,10 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "09:20-10:50 / 14:40-16:10",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_79",
@@ -4258,17 +4252,16 @@
     "Microwave-Assisted Extraction MAE",
     "Circular Economy"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_80",
@@ -4307,9 +4300,8 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_81",
@@ -4366,17 +4358,16 @@
     "Severe Dengue",
     "IFI6lnc2"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_82",
@@ -4433,17 +4424,16 @@
     "Cortisol",
     "Gold Interdigitated Electrodes"
    ],
-   "type": "oral",
-   "sessionId": "OS10",
-   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_83",
@@ -4476,8 +4466,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_84",
@@ -4523,8 +4512,7 @@
    "time": "09:20-11:05",
    "room": "Room 2",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_85",
@@ -4624,11 +4612,10 @@
    "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_86",
@@ -4672,17 +4659,16 @@
     "electrochemical sensor",
     "hybrid 1D-CNN"
    ],
-   "type": "poster",
-   "sessionId": "PS1",
-   "sessionName": "Poster Session 1",
-   "sessionNum": 1,
+   "type": "oral",
+   "sessionId": "OS3",
+   "sessionName": "Functional Materials, Micro-fabrication & Computational Biomedicine",
+   "sessionNum": 3,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:40-16:40",
    "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": false
+   "provisional": false
   },
   {
    "id": "ID_88",
@@ -4776,17 +4762,16 @@
     "wearable sensor",
     "hemodynamic response"
    ],
-   "type": "oral",
-   "sessionId": "OS1",
-   "sessionName": "Biomedical Devices, Prosthetics & Neurostimulation",
-   "sessionNum": 1,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "09:20-10:50",
-   "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
-   "provisional": false,
-   "pending": false
+   "type": "poster",
+   "sessionId": "PS2",
+   "sessionName": "Poster Session 2",
+   "sessionNum": 2,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-10:50 / 14:40-16:10",
+   "room": "Rooms 1, 2 & 3",
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_89",
@@ -4837,11 +4822,10 @@
    "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
-   "time": "13:50-15:50",
+   "time": "14:40-16:40",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
-   "provisional": false,
-   "pending": false
+   "chairs": null,
+   "provisional": false
   },
   {
    "id": "ID_90",
@@ -4871,51 +4855,8 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
-   "provisional": false,
-   "pending": false
-  },
-  {
-   "id": "ID_91",
-   "num": 91,
-   "title": "Title to be announced",
-   "authors": [],
-   "authorsLine": "",
-   "affiliations": [],
-   "abstract": "",
-   "keywords": [],
-   "type": "poster",
-   "sessionId": "PS1",
-   "sessionName": "Poster Session 1",
-   "sessionNum": 1,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
-   "room": "Room 1",
    "chairs": null,
-   "provisional": false,
-   "pending": true
-  },
-  {
-   "id": "ID_92",
-   "num": 92,
-   "title": "Title to be announced",
-   "authors": [],
-   "authorsLine": "",
-   "affiliations": [],
-   "abstract": "",
-   "keywords": [],
-   "type": "poster",
-   "sessionId": "PS2",
-   "sessionName": "Poster Session 2",
-   "sessionNum": 2,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "11:05-11:25",
-   "room": "Room 1",
-   "chairs": null,
-   "provisional": false,
-   "pending": true
+   "provisional": false
   }
  ],
  "committees": [
@@ -5156,7 +5097,7 @@
   }
  ],
  "notes": [
-  "Details for ID_91, ID_92 will be announced.",
-  "Keynote and invited speaker slots follow the numbering printed in the official technical programme."
+  "Papers marked with an asterisk (*) in the professor-selection groups are a provisional pick pending confirmation from the corresponding professor.",
+  "ID_28 moved from Oral to Poster at the author’s request (17 September 2026)."
  ]
 }

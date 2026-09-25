@@ -1,18 +1,34 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Rebuild program.json for the MAMM 2026 programme website from the Word proceedings file.
+Rebuild program.json for the MAMM 2026 programme website.
 
-    pip install python-docx
-    python tools/build_program.py "source/Proceedings MAMM_revise.docx"
+Two sources, either or both:
 
-Writes program.json next to index.html and prints a validation report.
-Tables are located by their content, not by position, so adding or removing
-keynote/invited-speaker pages does not break the script.
+  * the technical-program PDF  -> schedule, sessions, chairs, keynote and
+    invited speakers, and which paper is in which session
+  * the Word proceedings file  -> paper titles, authors, affiliations,
+    abstracts, keywords, committees, preface
+
+    pip install python-docx pdfplumber
+    python3 tools/build_program.py source/Technical.pdf "source/Proceedings MAMM_revise.docx"
+
+Give the files in any order; they are told apart by extension. With only the
+.docx, the schedule is read from the Word tables instead (the original
+behaviour). With only the .pdf, papers have no abstracts.
+
+Papers listed in the PDF but missing from the Word file are kept as
+placeholders ("Title to be announced") so they still appear in the schedule.
+Fill them in without waiting for a new Word file by creating
+source/extra-papers.json:
+
+    {"papers": {"ID_91": {"title": "...", "abstract": "...",
+                          "keywords": ["..."],
+                          "authors": [{"name": "...", "affiliations": ["..."]}]}}}
 
 Options:
-    -o PATH        output file (default: program.json beside this repo's index.html)
-    --keep-hyphens do not rejoin words broken by Word's justified hyphenation
+    -o PATH        output file (default: program.json beside index.html)
+    --keep-hyphens do not rejoin words broken by justified hyphenation
     --check-only   validate and report, write nothing
 """
 
@@ -21,6 +37,10 @@ import json
 import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+import pdf_program
 
 try:
     import docx
@@ -327,20 +347,21 @@ def parse_committees(items):
 
 
 # ----------------------------------------------------------------- validation
-def validate(sessions, summary_tables, papers_out):
+def validate_docx_lists(sessions, summary_tables):
+    """Cross-check each session against the document's own summary tables."""
     ok = True
     expected = {}
     for rows in summary_tables:
         for r in rows:
             if len(r) < 2:
                 continue
-            key = flat(r[0])
-            m = RE_SESSION_HEAD.match(key)
+            m = RE_SESSION_HEAD.match(flat(r[0]))
             if not m:
                 continue
             sid = ('OS' if m.group(1) == 'Oral' else 'PS') + m.group(2)
             expected[sid] = set(x.strip() for x in flat(r[1]).split(',') if x.strip())
-
+    if not expected:
+        return None
     for s in sessions:
         exp = expected.get(s['id'])
         if exp is None:
@@ -356,74 +377,141 @@ def validate(sessions, summary_tables, papers_out):
             if got - exp:
                 warn('%s: in the detail table but missing from the summary list: %s'
                      % (s['id'], ', '.join(sorted(got - exp))))
+    return ok
 
+
+def validate_common(sessions, papers_out):
+    seen = {}
+    for s in sessions:
+        if not s['paperIds']:
+            warn('%s: no papers assigned' % s['id'])
+        if not s.get('time') or not s.get('room'):
+            warn('%s: time or room could not be read' % s['id'])
+        for pid in s['paperIds']:
+            if pid in seen:
+                warn('%s is listed in two sessions: %s and %s' % (pid, seen[pid], s['id']))
+            seen[pid] = s['id']
     for p in papers_out:
+        if p.get('pending'):
+            continue
         if len(p['abstract']) < 50:
             warn('%s: abstract missing or very short' % p['id'])
         if not p['keywords']:
             warn('%s: no keywords' % p['id'])
         if not p['authors']:
             warn('%s: no authors' % p['id'])
-    return ok
 
 
 # ------------------------------------------------------------------ main flow
-def build(path, keep_hyphens=False):
-    items = read_body(path)
+def schedule_from_docx(items):
     day_tables, detail_tables, summary_tables, org_rows = classify_tables(items)
-
     if not day_tables:
-        sys.exit('No day-schedule tables found. Expected a table whose first cell '
-                 'reads like "MAMM 2026 - DAY 1 - 5 NOVEMBER 2026 (THURSDAY)".')
+        sys.exit('No day-schedule tables found in the Word file, and no PDF was given. '
+                 'Expected a table whose first cell reads like '
+                 '"MAMM 2026 - DAY 1 - 5 NOVEMBER 2026 (THURSDAY)".')
     if not detail_tables:
-        sys.exit('No session tables found. Expected tables whose first cell starts '
-                 'with "Oral Session (1) - ..." or "Poster Session (1) - ...".')
-
+        sys.exit('No session tables found in the Word file. Expected tables whose first cell '
+                 'starts with "Oral Session (1) - ..." or "Poster Session (1) - ...".')
     days = parse_days(day_tables)
     sessions, sched = parse_sessions(detail_tables)
-    abstracts = parse_abstracts(items)
+    return days, sessions, sched, summary_tables, org_rows
 
-    sess_by_id = {s['id']: s for s in sessions}
-    out_papers = []
-    for pid, a in abstracts.items():
-        if pid not in sched:
-            warn('%s has an abstract but is not listed in any session table' % pid)
-            continue
-        s = sess_by_id[sched[pid]['session']]
+
+def load_extras(pdf_path, docx_path, explicit=None):
+    """source/extra-papers.json, if present, fills in papers the Word file lacks."""
+    cands = []
+    if explicit:
+        cands.append(explicit)
+    for f in (pdf_path, docx_path):
+        if f:
+            cands.append(os.path.join(os.path.dirname(os.path.abspath(f)), 'extra-papers.json'))
+    here = os.path.dirname(os.path.abspath(__file__))
+    cands.append(os.path.join(os.path.dirname(here), 'source', 'extra-papers.json'))
+    for c in cands:
+        if c and os.path.exists(c):
+            with open(c, encoding='utf-8') as fh:
+                data = json.load(fh)
+            return data.get('papers', data), c
+    return {}, None
+
+
+def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
+    items = read_body(docx_path) if docx_path else []
+    abstracts = parse_abstracts(items) if items else {}
+    extras, extras_file = load_extras(pdf_path, docx_path, extras_path)
+
+    summary_tables, org_rows, lists_ok = [], None, None
+    if pdf_path:
+        sched_src = 'PDF'
+        pdfdata = pdf_program.parse(pdf_path, warn)
+        days, sessions = pdfdata['days'], pdfdata['sessions']
+        provisional = {}
+        if items:
+            _, _, summary_tables, org_rows = classify_tables(items)
+    else:
+        sched_src = 'Word'
+        days, sessions, sched, summary_tables, org_rows = schedule_from_docx(items)
+        provisional = dict((k, v['provisional']) for k, v in sched.items())
+        lists_ok = validate_docx_lists(sessions, summary_tables)
+
+    where = {}
+    for s in sessions:
+        for pid in s['paperIds']:
+            where.setdefault(pid, s)
+
+    out_papers, pending = [], []
+    for pid, s in sorted(where.items(), key=lambda kv: int(kv[0].split('_')[1])):
+        a = abstracts.get(pid)
+        x = extras.get(pid) or {}
+        if a is None and not x:
+            pending.append(pid)
+        title = x.get('title') or (a['title'] if a else 'Title to be announced')
+        if a:
+            authors = []
+            for au in a['authors']:
+                au['affiliations'] = [a['affiliations'][r] for r in au['refs']
+                                      if r in a['affiliations']]
+                authors.append({'name': au['name'], 'affiliations': au['affiliations']})
+        else:
+            authors = []
+        if x.get('authors'):
+            authors = [{'name': au.get('name', ''),
+                        'affiliations': au.get('affiliations', [])} for au in x['authors']]
         affs = []
-        for au in a['authors']:
-            au['affiliations'] = [a['affiliations'][r] for r in au['refs'] if r in a['affiliations']]
-            for x in au['affiliations']:
-                if x not in affs:
-                    affs.append(x)
-        if not affs:
+        for au in authors:
+            for y in au['affiliations']:
+                if y not in affs:
+                    affs.append(y)
+        if a and not affs:
             affs = list(a['affiliations'].values())
         out_papers.append({
             'id': pid, 'num': int(pid.split('_')[1]),
-            'title': a['title'],
-            'authors': [{'name': x['name'], 'affiliations': x['affiliations']} for x in a['authors']],
-            'authorsLine': a['authorsLine'],
+            'title': title,
+            'authors': authors,
+            'authorsLine': (a or {}).get('authorsLine', ''),
             'affiliations': affs,
-            'abstract': a['abstract'],
-            'keywords': a['keywords'],
+            'abstract': x.get('abstract') or (a['abstract'] if a else ''),
+            'keywords': x.get('keywords') or (a['keywords'] if a else []),
             'type': s['kind'],
             'sessionId': s['id'], 'sessionName': s['name'], 'sessionNum': s['num'],
             'day': s['day'], 'date': s['date'], 'time': s['time'], 'room': s['room'],
-            'chairs': s['chairs'],
-            'provisional': sched[pid]['provisional'],
+            'chairs': s.get('chairs'),
+            'provisional': bool(provisional.get(pid)),
+            'pending': a is None and not x,
         })
-    out_papers.sort(key=lambda x: x['num'])
 
-    for pid in sched:
-        if pid not in abstracts:
-            warn('%s is scheduled in %s but has no abstract page' % (pid, sched[pid]['session']))
+    for pid in abstracts:
+        if pid not in where:
+            warn('%s has an abstract in the Word file but is not in the schedule' % pid)
 
-    merged = [] if keep_hyphens else dehyphenate(out_papers)
+    merged = [] if keep_hyphens else dehyphenate([p for p in out_papers if p['abstract']])
 
     for p in out_papers:
-        p['affiliations'] = [x for x in (scrub(y) for y in p['affiliations']) if len(x) > 3]
+        p['affiliations'] = [y for y in (scrub(z) for z in p['affiliations']) if len(y) > 3]
         for au in p['authors']:
-            au['affiliations'] = [x for x in (scrub(y) for y in au['affiliations']) if len(x) > 3]
+            au['affiliations'] = [y for y in (scrub(z) for z in au['affiliations']) if len(y) > 3]
+
+    validate_common(sessions, out_papers)
 
     organizers = [flat(c) for r in (org_rows or []) for c in r if flat(c)]
     preface = [v for k, st, v in items[:12] if k == 'p' and st == 'Normal' and len(v) > 150]
@@ -432,56 +520,85 @@ def build(path, keep_hyphens=False):
     conf['organizers'] = organizers
     conf['preface'] = preface
 
+    notes = []
+    if any(p['provisional'] for p in out_papers):
+        notes.append('Papers marked with an asterisk (*) in the professor-selection groups are a '
+                     'provisional pick pending confirmation from the corresponding professor.')
+    if pending:
+        notes.append('Details for %s will be announced.' % ', '.join(pending))
+    notes.append('Keynote and invited speaker slots follow the numbering printed in the '
+                 'official technical programme.')
+
     data = {
         'conference': conf,
         'days': days,
         'sessions': sessions,
         'papers': out_papers,
-        'committees': parse_committees(items),
-        'notes': [
-            'Papers marked with an asterisk (*) in the professor-selection groups are a '
-            'provisional pick pending confirmation from the corresponding professor.',
-            'ID_28 moved from Oral to Poster at the author\u2019s request (17 September 2026).',
-        ],
+        'committees': parse_committees(items) if items else [],
+        'notes': notes,
     }
-    lists_ok = validate(sessions, summary_tables, out_papers)
-    return data, lists_ok, merged
+    info = {'source': sched_src, 'lists_ok': lists_ok, 'merged': merged,
+            'pending': pending, 'extras_file': extras_file}
+    return data, info
 
 
 def main():
     here = os.path.dirname(os.path.abspath(__file__))
     default_out = os.path.join(os.path.dirname(here), 'program.json')
 
-    ap = argparse.ArgumentParser(description='Rebuild program.json from the Word proceedings file.')
-    ap.add_argument('docx', help='path to the .docx proceedings file')
+    ap = argparse.ArgumentParser(description='Rebuild program.json from the programme PDF '
+                                             'and/or the Word proceedings file.')
+    ap.add_argument('files', nargs='+', help='the .pdf programme and/or the .docx proceedings')
     ap.add_argument('-o', '--out', default=default_out, help='output JSON path')
+    ap.add_argument('--extras', help='path to extra-papers.json')
     ap.add_argument('--keep-hyphens', action='store_true',
                     help='do not rejoin words broken by justified hyphenation')
     ap.add_argument('--check-only', action='store_true', help='validate only, write nothing')
     args = ap.parse_args()
 
-    data, lists_ok, merged = build(args.docx, args.keep_hyphens)
+    pdf_path = docx_path = None
+    for f in args.files:
+        ext = os.path.splitext(f)[1].lower()
+        if ext == '.pdf':
+            pdf_path = f
+        elif ext in ('.docx', '.dotx'):
+            docx_path = f
+        else:
+            sys.exit('Do not know what to do with %s (expected .pdf or .docx)' % f)
+    if not pdf_path and not docx_path:
+        sys.exit('Give at least one .pdf or .docx file.')
+
+    data, info = build(pdf_path, docx_path, args.keep_hyphens, args.extras)
 
     oral = [p for p in data['papers'] if p['type'] == 'oral']
     poster = [p for p in data['papers'] if p['type'] == 'poster']
     nums = sorted(p['num'] for p in data['papers'])
     gaps = [n for n in range(1, (nums[-1] if nums else 0) + 1) if n not in set(nums)]
 
-    print('-' * 62)
-    print('Papers      : %d  (%d oral, %d poster)' % (len(data['papers']), len(oral), len(poster)))
-    print('Sessions    : %d oral, %d poster'
+    print('-' * 64)
+    print('Schedule from : %s' % info['source'])
+    print('Abstracts from: %s' % (os.path.basename(docx_path) if docx_path else 'none'))
+    if info['extras_file']:
+        print('Extra papers  : %s' % info['extras_file'])
+    print('Papers        : %d  (%d oral, %d poster)' % (len(data['papers']), len(oral), len(poster)))
+    print('Sessions      : %d oral, %d poster'
           % (sum(1 for s in data['sessions'] if s['kind'] == 'oral'),
              sum(1 for s in data['sessions'] if s['kind'] == 'poster')))
-    print('Days        : %d' % len(data['days']))
-    print('Committees  : %d' % len(data['committees']))
-    print('Provisional : %s' % (', '.join(p['id'] for p in data['papers'] if p['provisional']) or 'none'))
+    print('Days          : %d' % len(data['days']))
+    print('Committees    : %d' % len(data['committees']))
+    prov = [p['id'] for p in data['papers'] if p['provisional']]
+    if prov:
+        print('Provisional   : %s' % ', '.join(prov))
     if gaps:
-        print('Unused IDs  : %s' % ', '.join('ID_%02d' % n for n in gaps))
-    if merged:
-        print('De-hyphenated %d word(s): %s' % (len(merged), ', '.join(merged[:12])
-              + (' ...' if len(merged) > 12 else '')))
-        print('              (add any that should stay hyphenated to KEEP_HYPHENATED)')
-    print('Session lists match the summary tables: %s' % ('YES' if lists_ok else 'NO'))
+        print('Unused IDs    : %s' % ', '.join('ID_%02d' % n for n in gaps))
+    if info['pending']:
+        print('AWAITING TITLE/ABSTRACT: %s' % ', '.join(info['pending']))
+        print('              (add them to source/extra-papers.json, or to the Word file)')
+    if info['merged']:
+        print('De-hyphenated %d word(s): %s' % (len(info['merged']), ', '.join(info['merged'][:10])
+              + (' ...' if len(info['merged']) > 10 else '')))
+    if info['lists_ok'] is not None:
+        print('Session lists match the summary tables: %s' % ('YES' if info['lists_ok'] else 'NO'))
 
     if warnings:
         print('\n%d warning(s):' % len(warnings))
@@ -489,17 +606,17 @@ def main():
             print('  ! ' + w)
     else:
         print('\nNo warnings.')
-    print('-' * 62)
+    print('-' * 64)
 
     if args.check_only:
         print('--check-only: nothing written.')
-        return 0 if lists_ok and not warnings else 1
+        return 0 if not warnings else 1
 
     with open(args.out, 'w', encoding='utf-8') as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
     print('Wrote %s (%.0f KB)' % (args.out, os.path.getsize(args.out) / 1024.0))
     print('Now commit program.json and push -- GitHub Pages redeploys automatically.')
-    return 0 if lists_ok else 1
+    return 0
 
 
 if __name__ == '__main__':

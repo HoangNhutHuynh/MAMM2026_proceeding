@@ -109,61 +109,21 @@ function downloadICS(events, filename) {
 /* ------------------------------------------------------------------ search */
 function buildIndex() {
   SEARCH = DATA.papers.map(function (p) {
-    var authn = p.authors.map(function (a) { return norm(a.name); });
-    var e = {
-      p: p,
-      idn: norm(p.id),
-      pad: ('0' + p.num).slice(-2),
-      num: String(p.num),
-      titlen: norm(p.title),
-      authn: authn,
-      kwn: norm(p.keywords.join(' · ')),
-      affn: norm(p.affiliations.join(' · ')),
-      sessn: norm([p.sessionName, p.sessionId, p.type, p.chairs || ''].join(' · ')),
-      metan: norm([p.room, p.time, 'day ' + p.day].join(' · ')),
-      absn: norm(p.abstract)
-    };
-    e.hay = [e.idn, 'id ' + e.pad, e.pad, e.num, e.titlen, authn.join(' · '),
-             e.affn, e.kwn, e.absn, e.sessn, e.metan].join(' · ');
-    return e;
+    var hay = norm([
+      p.id, p.id.replace('ID_', ''), p.id.replace('_', ' '), p.title,
+      p.authors.map(function (a) { return a.name; }).join(' '),
+      p.affiliations.join(' '), p.keywords.join(' '), p.abstract,
+      p.sessionName, p.type, p.room, p.time, 'day ' + p.day
+    ].join(' · '));
+    return { p: p, hay: hay };
   });
-}
-function terms(q) { return norm(q).split(/\s+/).filter(Boolean); }
-
-// Field weights: an exact paper ID beats everything, then title, author,
-// keyword, session, affiliation and finally a mention in the abstract.
-function scoreTerm(e, t) {
-  var sc = 0, i;
-  if (t === e.idn || t === 'id' + e.pad || t === e.pad || t === e.num) sc += 1000;
-  else if (e.idn.indexOf(t) >= 0) sc += 120;
-  if (e.titlen.indexOf(t) >= 0) {
-    sc += 60;
-    if (e.titlen.indexOf(t) === 0 || e.titlen.indexOf(' ' + t) >= 0) sc += 25;
-  }
-  for (i = 0; i < e.authn.length; i++) {
-    if (e.authn[i].indexOf(t) >= 0) { sc += 55; if (i === 0) sc += 10; break; }
-  }
-  if (e.kwn.indexOf(t) >= 0) sc += 35;
-  if (e.sessn.indexOf(t) >= 0) sc += 20;
-  if (e.metan.indexOf(t) >= 0) sc += 15;
-  if (e.affn.indexOf(t) >= 0) sc += 10;
-  if (e.absn.indexOf(t) >= 0) sc += 5;
-  return sc;
 }
 function runSearch(q) {
-  var ts = terms(q);
-  if (!ts.length) return DATA.papers.slice();
-  var hits = [];
-  SEARCH.forEach(function (e) {
-    var total = 0, ok = true;
-    for (var i = 0; i < ts.length; i++) {
-      if (e.hay.indexOf(ts[i]) < 0) { ok = false; break; }
-      total += scoreTerm(e, ts[i]);
-    }
-    if (ok) hits.push({ p: e.p, score: total });
-  });
-  hits.sort(function (a, b) { return (b.score - a.score) || (a.p.num - b.p.num); });
-  return hits.map(function (h) { h.p._score = h.score; return h.p; });
+  var terms = norm(q).split(/\s+/).filter(Boolean);
+  if (!terms.length) return DATA.papers.slice();
+  return SEARCH.filter(function (e) {
+    return terms.every(function (t) { return e.hay.indexOf(t) >= 0; });
+  }).map(function (e) { return e.p; });
 }
 function highlight(text, q) {
   var terms = norm(q).split(/\s+/).filter(function (t) { return t.length > 1; });
@@ -188,37 +148,10 @@ function highlight(text, q) {
   return out + esc(src.slice(pos));
 }
 
-function stats() {
-  var o = DATA.papers.filter(function (p) { return p.type === 'oral'; }).length;
-  var os = DATA.sessions.filter(function (s) { return s.kind === 'oral'; }).length;
-  var ps = DATA.sessions.filter(function (s) { return s.kind === 'poster'; }).length;
-  return DATA.papers.length + ' accepted papers \u00b7 ' + o + ' oral in ' + os +
-         ' sessions \u00b7 ' + (DATA.papers.length - o) + ' posters in ' + ps + ' sessions';
-}
-function dayLabel(p) {
-  var d = String(p.date || '');
-  var n = d.slice(8).replace(/^0/, '');
-  return 'Day ' + p.day + (n ? ' \u2014 ' + n + ' Nov' : '') +
-         (DAY_NAMES[p.day] ? ' (' + DAY_NAMES[p.day] + ')' : '');
-}
-
 /* ------------------------------------------------------------- components */
-function authorsShort(p, q) {
+function authorsShort(p) {
   var n = p.authors.map(function (a) { return a.name; });
   if (!n.length) return '';
-  var ts = q ? terms(q) : [];
-  if (ts.length) {
-    var matched = n.filter(function (x) {
-      var nx = norm(x);
-      return ts.some(function (t) { return nx.indexOf(t) >= 0; });
-    });
-    if (matched.length) {
-      var list = n.slice(0, 2);
-      matched.forEach(function (x) { if (list.indexOf(x) < 0) list.push(x); });
-      var rest = n.length - list.length;
-      return list.join(', ') + (rest > 0 ? ' and ' + rest + ' more' : '');
-    }
-  }
   if (n.length <= 3) return n.join(', ');
   return n[0] + ', ' + n[1] + ' and ' + (n.length - 2) + ' more';
 }
@@ -229,10 +162,8 @@ function paperRow(p, q) {
       '<button class="prow" data-paper="' + p.id + '">' +
         '<span class="pid ' + p.type + '">' + esc(p.id.replace('ID_', '')) + '</span>' +
         '<span>' +
-          '<span class="ptitle">' + highlight(p.title, q) +
-            (p.provisional ? ' <span class="tag prov">provisional</span>' : '') +
-            (p.pending ? ' <span class="tag prov">to be announced</span>' : '') + '</span>' +
-          '<span class="pauth">' + highlight(authorsShort(p, q), q) + '</span>' +
+          '<span class="ptitle">' + highlight(p.title, q) + (p.provisional ? ' <span class="tag prov">provisional</span>' : '') + '</span>' +
+          '<span class="pauth">' + highlight(authorsShort(p), q) + '</span>' +
           '<span class="pmeta">' +
             '<span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral' : 'Poster') + '</span>' +
             '<span>Day ' + p.day + ' · ' + esc(p.time) + '</span>' +
@@ -299,7 +230,7 @@ function viewSchedule() {
       var sid = slotSessionId(s.text);
       var title = cleanSlotTitle(s.text);
       var cls = 'ev ' + ROOM_CLASS(s.room) + (isBreak(s.text) ? ' break' : '');
-      var chairs = slotChairs(s.text) || (sid && SESS[sid] ? (SESS[sid].chairs || '') : '');
+      var chairs = slotChairs(s.text);
       var inner =
         '<span class="ev-room">' + esc(s.room === 'All' ? 'All delegates' : s.room) + '</span>' +
         '<span class="ev-title">' + esc(title) + '</span>' +
@@ -328,125 +259,41 @@ function viewPapers() {
   var q = $('#q').value;
   var f = route.params;
   var list = runSearch(q);
-  if (f.author) {
-    var an = norm(f.author);
-    list = list.filter(function (p) {
-      return p.authors.some(function (a) { return norm(a.name) === an; });
-    });
-  }
   if (f.type) list = list.filter(function (p) { return p.type === f.type; });
   if (f.day) list = list.filter(function (p) { return String(p.day) === String(f.day); });
   if (f.room) list = list.filter(function (p) { return p.room === f.room; });
   if (f.session) list = list.filter(function (p) { return p.sessionId === f.session; });
 
-  var sort = f.sort || (q ? 'relevance' : 'id');
+  var sort = f.sort || 'id';
   if (sort === 'title') list.sort(function (a, b) { return a.title.localeCompare(b.title); });
   else if (sort === 'time') list.sort(function (a, b) { return (a.day - b.day) || a.time.localeCompare(b.time) || a.num - b.num; });
-  else if (sort === 'id') list.sort(function (a, b) { return a.num - b.num; });
-  // 'relevance' keeps the order runSearch returned
+  else list.sort(function (a, b) { return a.num - b.num; });
 
   var rooms = {};
   DATA.papers.forEach(function (p) { rooms[p.room] = 1; });
 
-  var sortOpts = [['relevance', 'Best match'], ['id', 'Paper ID'], ['time', 'Time'], ['title', 'Title A-Z']];
-  if (!q) sortOpts = sortOpts.slice(1);
-
   var filters = '<div class="filters">' +
     '<label>Type<select id="f-type">' + opt([['', 'All'], ['oral', 'Oral only'], ['poster', 'Poster only']], f.type) + '</select></label>' +
-    '<label>Day<select id="f-day">' + opt([['', 'All days']].concat(
-      DATA.days.filter(function (d) {
-        return DATA.papers.some(function (p) { return p.day === d.day; });
-      }).map(function (d) {
-        return [String(d.day), 'Day ' + d.day + ' \u2014 ' + (d.date || '').slice(8).replace(/^0/, '') + ' Nov'];
-      })), f.day) + '</select></label>' +
+    '<label>Day<select id="f-day">' + opt([['', 'All days'], ['1', 'Day 1 — 5 Nov'], ['2', 'Day 2 — 6 Nov']], f.day) + '</select></label>' +
     '<label>Room<select id="f-room">' + opt([['', 'All rooms']].concat(Object.keys(rooms).sort().map(function (r) { return [r, r]; })), f.room) + '</select></label>' +
     '<label>Session<select id="f-session">' + opt([['', 'All sessions']].concat(DATA.sessions.map(function (s) {
-      return [s.id, (s.kind === 'oral' ? 'Oral ' + s.num : 'Poster ' + s.num) + ' \u2014 ' + s.name];
+      return [s.id, (s.kind === 'oral' ? 'Oral ' + s.num : 'Poster ' + s.num) + ' — ' + s.name];
     })), f.session) + '</select></label>' +
-    '<label>Sort<select id="f-sort">' + opt(sortOpts, sort) + '</select></label>' +
+    '<label>Sort<select id="f-sort">' + opt([['id', 'Paper ID'], ['time', 'Time'], ['title', 'Title A–Z']], sort) + '</select></label>' +
     '<span class="spacer"></span>' +
     '<button class="link-btn" id="f-reset">Reset filters</button>' +
     '</div>';
 
-  var authorChip = f.author
-    ? '<div class="chips"><button class="chip" aria-pressed="true" id="clear-author">Author: ' +
-      esc(f.author) + ' &nbsp;\u00d7</button></div>'
-    : '';
-
-  var what = f.author ? ' by ' + esc(f.author) : (q ? ' matching \u201c' + esc(q) + '\u201d' : '');
-
   return '<div class="page-head"><h1>All papers</h1>' +
-    '<p>' + stats() + '. ' +
-    'Search covers paper IDs, titles, authors, affiliations, keywords and full abstracts \u2014 ' +
-    'best matches first.</p></div>' +
-    authorChip + filters +
-    '<p class="result-count"><b>' + list.length + '</b> of ' + DATA.papers.length + ' papers' + what + '</p>' +
+    '<p>89 accepted papers · 56 oral in 9 sessions · 33 posters in 2 sessions. Search covers titles, authors, affiliations, keywords and full abstracts.</p></div>' +
+    filters +
+    '<p class="result-count"><b>' + list.length + '</b> of ' + DATA.papers.length + ' papers' + (q ? ' matching “' + esc(q) + '”' : '') + '</p>' +
     paperList(list, q);
 }
 function opt(pairs, cur) {
   return pairs.map(function (p) {
     return '<option value="' + esc(p[0]) + '"' + (String(p[0]) === String(cur || '') ? ' selected' : '') + '>' + esc(p[1]) + '</option>';
   }).join('');
-}
-
-/* ------------------------------------------------------------- view: authors */
-var AUTHORS = null;
-function buildAuthors() {
-  var map = {};
-  DATA.papers.forEach(function (p) {
-    p.authors.forEach(function (a) {
-      var key = norm(a.name);
-      if (!map[key]) map[key] = { name: a.name, affs: [], papers: [] };
-      if (map[key].papers.indexOf(p) < 0) map[key].papers.push(p);
-      (a.affiliations || []).forEach(function (x) {
-        if (map[key].affs.indexOf(x) < 0) map[key].affs.push(x);
-      });
-    });
-  });
-  AUTHORS = Object.keys(map).map(function (k) { return map[k]; });
-  AUTHORS.sort(function (a, b) { return a.name.localeCompare(b.name); });
-}
-function viewAuthors() {
-  if (!AUTHORS) buildAuthors();
-  var q = $('#q').value;
-  var ts = terms(q);
-  var list = AUTHORS;
-  if (ts.length) {
-    list = AUTHORS.filter(function (a) {
-      var hay = norm(a.name + ' ' + a.affs.join(' ') + ' ' +
-        a.papers.map(function (p) { return p.id + ' ' + p.title; }).join(' '));
-      return ts.every(function (t) { return hay.indexOf(t) >= 0; });
-    });
-  }
-
-  var head = '<div class="page-head"><h1>Authors</h1>' +
-    '<p>Every presenting and co-authoring name in the programme. ' +
-    'Tap a name to see that person\u2019s papers.</p></div>' +
-    '<p class="result-count"><b>' + list.length + '</b> of ' + AUTHORS.length + ' authors' +
-    (q ? ' matching \u201c' + esc(q) + '\u201d' : '') + '</p>';
-
-  if (!list.length) {
-    return head + '<div class="empty"><b>No author matches</b>Check the spelling, or try a surname on its own.</div>';
-  }
-
-  var letter = '', html = '<div class="card"><ul class="plist">';
-  list.forEach(function (a) {
-    var L = a.name.charAt(0).toUpperCase();
-    if (!/[A-Z]/.test(L)) L = '#';
-    if (L !== letter) {
-      letter = L;
-      html += '<li class="pitem alpha"><div class="alpha-head">' + esc(letter) + '</div></li>';
-    }
-    html += '<li class="pitem"><button class="prow arow" data-author="' + esc(a.name) + '">' +
-      '<span class="pid ' + (a.papers.length > 1 ? 'oral' : '') + '">' + a.papers.length + '</span>' +
-      '<span><span class="ptitle">' + highlight(a.name, q) + '</span>' +
-      (a.affs.length ? '<span class="pauth">' + esc(a.affs.slice(0, 2).join(' \u00b7 ')) +
-        (a.affs.length > 2 ? ' \u00b7 +' + (a.affs.length - 2) : '') + '</span>' : '') +
-      '<span class="pmeta">' + a.papers.map(function (p) {
-        return '<span class="tag ' + p.type + '">' + esc(p.id.replace('ID_', '#')) + '</span>';
-      }).join('') + '</span></span></button></li>';
-  });
-  return head + html + '</ul></div>';
 }
 
 /* --------------------------------------------------------------- view: rooms */
@@ -538,10 +385,6 @@ function viewPaper(id) {
   var isSaved = saved.indexOf(p.id) >= 0;
   var s = SESS[p.sessionId];
 
-  var pendingNote = p.pending
-    ? '<div class="note">This paper is in the programme, but its title, authors and abstract ' +
-      'have not been published yet. It will appear here as soon as the organisers release them.</div>'
-    : '';
   var authors = p.authors.length
     ? '<ul class="authors">' + p.authors.map(function (a) {
         return '<li><span class="an">' + esc(a.name) + '</span>' +
@@ -554,7 +397,7 @@ function viewPaper(id) {
       '<div class="idline"><span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral' : 'Poster') + '</span>' +
         '<span class="pid ' + p.type + '" style="padding:2px 9px">' + esc(p.id) + '</span>' +
         (p.provisional ? '<span class="tag prov">provisional selection</span>' : '') + '</div>' +
-      '<h1>' + esc(p.title) + '</h1>' + pendingNote +
+      '<h1>' + esc(p.title) + '</h1>' +
       '<dl class="factgrid">' +
         '<div class="fact"><dt>Day</dt><dd>Day ' + p.day + ' — ' + (p.day === 1 ? '5' : '6') + ' Nov (' + DAY_NAMES[p.day] + ')</dd></div>' +
         '<div class="fact"><dt>Time</dt><dd>' + esc(p.time) + '</dd></div>' +
@@ -565,8 +408,7 @@ function viewPaper(id) {
       '<div class="section-title">Session</div><p style="margin:0">' + esc(p.sessionName) +
         (p.chairs ? '<br><span style="color:var(--muted);font-size:13px">Chairs: ' + esc(p.chairs) + '</span>' : '') + '</p>' +
       '<div class="section-title">Authors</div>' + authors +
-      (p.abstract ? '<div class="section-title">Abstract</div><p class="abstract">' +
-        esc(p.abstract) + '</p>' : '') +
+      '<div class="section-title">Abstract</div><p class="abstract">' + esc(p.abstract) + '</p>' +
       (p.keywords.length ? '<div class="section-title">Keywords</div><div class="kw">' +
         p.keywords.map(function (k) { return '<button data-kw="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '</div>' : '') +
       '<div class="detail-actions">' +
@@ -598,7 +440,6 @@ function viewSession(id) {
 var TABS = [
   { k: 'schedule', label: 'Schedule' },
   { k: 'papers', label: 'Papers', count: function () { return DATA.papers.length; } },
-  { k: 'authors', label: 'Authors' },
   { k: 'rooms', label: 'Rooms' },
   { k: 'saved', label: 'My programme', count: function () { return saved.length; } },
   { k: 'info', label: 'Info' }
@@ -616,7 +457,6 @@ function renderTabs() {
 function render() {
   var v = route.view, html;
   if (v === 'papers') html = viewPapers();
-  else if (v === 'authors') html = viewAuthors();
   else if (v === 'rooms') html = viewRooms();
   else if (v === 'saved') html = viewSaved();
   else if (v === 'info') html = viewInfo();
@@ -626,9 +466,6 @@ function render() {
   $('#view').innerHTML = html;
   renderTabs();
   document.querySelector('.searchbar').style.display = (v === 'paper' || v === 'info' || v === 'rooms') ? 'none' : '';
-  $('#q').placeholder = (v === 'authors')
-    ? 'Search authors by name, affiliation or paper\u2026'
-    : 'Search papers, authors, keywords, sessions\u2026';
 }
 
 /* --------------------------------------------------------------- QR modal */
@@ -666,11 +503,6 @@ function wire() {
     if ((el = e.target.closest('[data-star]'))) { e.stopPropagation(); toggleStar(el.dataset.star); return; }
     if ((el = e.target.closest('[data-day]'))) { go('schedule', { day: el.dataset.day }); return; }
     if ((el = e.target.closest('[data-kw]'))) { $('#q').value = el.dataset.kw; go('papers', {}); return; }
-    if ((el = e.target.closest('[data-author]'))) {
-      $('#q').value = ''; $('#q-clear').hidden = true;
-      go('papers', { author: el.dataset.author }); window.scrollTo(0, 0); return;
-    }
-    if (e.target.closest('#clear-author')) { go('papers', {}); return; }
     if ((el = e.target.closest('[data-ics-paper]'))) {
       var p = IDX[el.dataset.icsPaper];
       downloadICS([{ uid: p.id, date: p.date, time: p.time, room: p.room,
@@ -722,8 +554,7 @@ function wire() {
     $('#q-clear').hidden = !$('#q').value;
     clearTimeout(t);
     t = setTimeout(function () {
-      if (route.view === 'papers' || route.view === 'authors') render();
-      else go('papers', {});
+      if (route.view !== 'papers') go('papers', {}); else render();
     }, 160);
   });
   $('#q-clear').addEventListener('click', function () {
