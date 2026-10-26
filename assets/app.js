@@ -328,15 +328,42 @@ function slotCell(day, s, extraCls, showTime) {
 function overview() {
   var c = counts();
   return '<div class="overview" role="list">' +
-    '<div class="ov" role="listitem"><b>' + c.papers + '</b><span>accepted papers</span></div>' +
-    '<div class="ov" role="listitem"><b>' + c.os + '</b><span>oral sessions · ' + c.oral + ' talks</span></div>' +
-    '<div class="ov" role="listitem"><b>' + c.ps + '</b><span>poster sessions · ' + c.poster + ' posters</span></div>' +
-    '<div class="ov" role="listitem"><b>' + (c.keynote + c.invited) + '</b><span>keynote &amp; invited talks</span></div>' +
-    '<div class="ov" role="listitem"><b>' + c.authors + '</b><span>authors</span></div>' +
+    '<div class="ov" role="listitem"><b data-count="' + c.papers + '">' + c.papers + '</b><span>accepted papers</span></div>' +
+    '<div class="ov" role="listitem"><b data-count="' + c.os + '">' + c.os + '</b><span>oral sessions · ' + c.oral + ' talks</span></div>' +
+    '<div class="ov" role="listitem"><b data-count="' + c.ps + '">' + c.ps + '</b><span>poster sessions · ' + c.poster + ' posters</span></div>' +
+    '<div class="ov" role="listitem"><b data-count="' + (c.keynote + c.invited) + '">' + (c.keynote + c.invited) + '</b><span>keynote &amp; invited talks</span></div>' +
+    '<div class="ov" role="listitem"><b data-count="' + c.authors + '">' + c.authors + '</b><span>authors</span></div>' +
     '</div>';
 }
+/* "now" in conference local time (UTC+8); ?now=2026-11-05T09:30 in the page URL simulates a moment */
+function confNow() {
+  var m = location.search.match(/[?&]now=([0-9T:\-]+)/);
+  var d = m ? new Date(m[1] + ':00+08:00') : new Date();
+  var t = new Date(d.getTime() + 8 * 3600000);              // shift to UTC+8, read as UTC
+  var ymd = t.toISOString().slice(0, 10);
+  var day = { '2026-11-05': 1, '2026-11-06': 2, '2026-11-07': 3 }[ymd] || 0;
+  return { day: day, min: t.getUTCHours() * 60 + t.getUTCMinutes() };
+}
+function toMin(hhmm) { var p = String(hhmm || '').split(':'); return p.length === 2 ? (+p[0]) * 60 + (+p[1]) : NaN; }
+function slotState(day, t) {
+  var now = confNow();
+  if (now.day !== day) return '';
+  var r = String(t).split(' / ')[0].split('-');
+  var a = toMin(r[0]), b = r[1] ? toMin(r[1]) : a + 120;
+  return (now.min >= a && now.min < b) ? 'live' : '';
+}
+function nextSlot(day, order) {
+  var now = confNow();
+  if (now.day !== day) return null;
+  for (var i = 0; i < order.length; i++) {
+    if (toMin(order[i].split('-')[0]) > now.min) return order[i];
+  }
+  return null;
+}
+
 function viewSchedule() {
-  var day = +(route.params.day || STORE.get('day', 1)) || 1;
+  var today = confNow().day;
+  var day = +(route.params.day || (today && DATA.days.some(function (x) { return x.day === today; }) ? today : STORE.get('day', 1))) || 1;
   STORE.set('day', day);
   var d = DATA.days.filter(function (x) { return x.day === day; })[0] || DATA.days[0];
   day = d.day;
@@ -356,7 +383,9 @@ function viewSchedule() {
   });
 
   var hasTracks = false;
+  var upNext = nextSlot(day, order);
   var rows = order.map(function (t) {
+    var state = slotState(day, t);
     var items = groups[t];
     var rooms = items.map(function (s) { return roomClass(s.room); });
     var distinct = rooms.filter(function (r, i) { return r && rooms.indexOf(r) === i; }).length === items.length;
@@ -372,8 +401,10 @@ function viewSchedule() {
     } else {
       cells = items.map(function (s) { return slotCell(day, s); }).join('');
     }
-    return '<div class="slot">' +
-      '<div class="slot-time">' + esc(t.replace(/-$/, ' –').replace(/-/, ' – ').replace(' / ', '\n')) + '</div>' +
+    return '<div class="slot' + (state ? ' ' + state : '') + (t === upNext ? ' next' : '') + '">' +
+      '<div class="slot-time">' + esc(t.replace(/-$/, ' –').replace(/-/, ' – ').replace(' / ', '\n')) +
+        (state === 'live' ? '<span class="live-badge"><i aria-hidden="true"></i>Now</span>' : '') +
+        (t === upNext ? '<span class="next-badge">Up next</span>' : '') + '</div>' +
       '<div class="slot-items' + (track ? ' tracks' : '') + '">' + cells + '</div></div>';
   }).join('');
 
@@ -741,12 +772,14 @@ function renderTabs() {
     var on = t.k === active;
     return '<button class="tab" type="button" role="tab" aria-selected="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t.k + '">' +
       esc(t.label) + (c ? '<span class="badge">' + c + '</span>' : '') + '</button>';
-  }).join('');
+  }).join('') + '<span class="tab-ink" aria-hidden="true"></span>';
+  moveInk();
   var cur = $('#tabs .tab[aria-selected="true"]');
   if (cur && cur.scrollIntoView && window.innerWidth < 820) cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
 var TITLES = { schedule: 'Schedule', papers: 'Papers', speakers: 'Speakers', authors: 'Authors', rooms: 'Rooms', saved: 'My programme', info: 'About' };
-function render() {
+var lastKey = '';
+function render(opts) {
   var v = route.view, html;
   if (v === 'papers') html = viewPapers();
   else if (v === 'authors') html = viewAuthors();
@@ -767,7 +800,87 @@ function render() {
         : v === 'session' && SESS[route.id] ? sessionLabel(SESS[route.id]) + ' — ' + SESS[route.id].name
         : TITLES[v];
   document.title = t + ' · MAMM 2026';
+
+  var key = v + '|' + (route.id || '') + '|' + (route.params.day || '') + '|' + (route.params.author || '');
+  var changed = key !== lastKey;
+  lastKey = key;
+  if (!(opts && opts.quiet)) animateView(changed);
+  updateProgress();
 }
+
+/* ------------------------------------------------------------------ motion
+   Purposeful motion: fade + 12 px rise, staggered, when the view changes;
+   scroll reveal further down long lists; count-up on the overview figures;
+   a sliding tab indicator; a live "Now" marker during the conference.
+   Everything is skipped under prefers-reduced-motion. */
+var REDUCED = !!(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+var revealer = null;
+var countedOnce = false;
+var REVEAL_SEL = '.page-head, .sess-head, .overview, .day-btn, .legend, .slot, .pitem, .spk, .prose, ' +
+                 '.article-main, .aside > *, .room-col, .filters, .spk-group, .empty, .actions, .result-count';
+
+function animateView(changed) {
+  if (!changed || REDUCED || !('IntersectionObserver' in window)) return;
+  if (revealer) revealer.disconnect();
+  var els = Array.prototype.slice.call($('#view').querySelectorAll(REVEAL_SEL));
+  if (els.length > 260) els = els.slice(0, 260);            // very long lists: only the top animates
+  els.forEach(function (el) { el.classList.add('rv'); });
+  revealer = new IntersectionObserver(function (entries) {
+    var k = 0;
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      en.target.style.setProperty('--d', Math.min(k++ * 40, 400) + 'ms');
+      en.target.classList.add('in');
+      revealer.unobserve(en.target);
+    });
+  }, { rootMargin: '0px 0px -3% 0px', threshold: 0.01 });
+  els.forEach(function (el) { revealer.observe(el); });
+  if (!countedOnce && document.querySelector('[data-count]')) { countedOnce = true; countUp(); }
+}
+function countUp() {
+  var nodes = document.querySelectorAll('[data-count]');
+  var t0 = null, dur = 1200;
+  function step(ts) {
+    if (t0 === null) t0 = ts;
+    var p = Math.min(1, (ts - t0) / dur), e = 1 - Math.pow(1 - p, 3);
+    Array.prototype.forEach.call(nodes, function (n) { n.textContent = Math.round(e * (+n.dataset.count)); });
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+function moveInk() {
+  var ink = $('#tabs .tab-ink'), cur = $('#tabs .tab[aria-selected="true"]');
+  if (!ink || !cur) return;
+  ink.style.width = (cur.offsetWidth - 20) + 'px';
+  ink.style.transform = 'translateX(' + (cur.offsetLeft + 10) + 'px)';
+}
+function updateProgress() {
+  var bar = $('#read-progress');
+  if (!bar) return;
+  var on = route.view === 'paper';
+  bar.hidden = !on;
+  if (!on) return;
+  var h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.transform = 'scaleX(' + (h > 0 ? Math.min(1, window.scrollY / h) : 1) + ')';
+}
+var ticking = false;
+function onScroll() {
+  if (ticking) return;
+  ticking = true;
+  requestAnimationFrame(function () {
+    ticking = false;
+    updateProgress();
+    var top = $('#to-top');
+    if (top) top.classList.toggle('show', window.scrollY > 700);
+    // anything scrolled past too fast to be "seen" is shown immediately
+    if (revealer) {
+      Array.prototype.forEach.call(document.querySelectorAll('.rv:not(.in)'), function (el) {
+        if (el.getBoundingClientRect().bottom < 0) { el.style.setProperty('--d', '0ms'); el.classList.add('in'); revealer.unobserve(el); }
+      });
+    }
+  });
+}
+
 
 /* --------------------------------------------------------------- QR modal */
 function showQR(url, label) {
@@ -796,8 +909,11 @@ function toggleStar(id) {
   if (i >= 0) saved.splice(i, 1); else saved.push(id);
   STORE.set('saved', saved);
   var y = window.scrollY;
-  render();
+  render({ quiet: true });
   window.scrollTo(0, y);
+  if (!REDUCED) {
+    Array.prototype.forEach.call(document.querySelectorAll('[data-star="' + id + '"]'), function (b) { b.classList.add('pop'); });
+  }
 }
 function navTo(view, params, id) {
   go(view, params, id);
@@ -873,7 +989,7 @@ function wire() {
       }), 'mamm2026-my-programme.ics');
       return;
     }
-    if (e.target.closest('#clear-saved')) { saved = []; STORE.set('saved', saved); render(); return; }
+    if (e.target.closest('#clear-saved')) { saved = []; STORE.set('saved', saved); render({ quiet: true }); return; }
     if (e.target.closest('#share-qr')) { showQR(location.href, 'Scan to open this page'); return; }
     if (e.target.closest('#f-reset')) { $('#q').value = ''; $('#q-clear').hidden = true; go('papers', {}); render(); return; }
   });
@@ -891,12 +1007,12 @@ function wire() {
     $('#q-clear').hidden = !$('#q').value;
     clearTimeout(t);
     t = setTimeout(function () {
-      if (route.view === 'papers' || route.view === 'authors') render();
+      if (route.view === 'papers' || route.view === 'authors') render({ quiet: true });
       else go('papers', {});
     }, 160);
   });
   $('#q-clear').addEventListener('click', function () {
-    $('#q').value = ''; $('#q-clear').hidden = true; render(); $('#q').focus();
+    $('#q').value = ''; $('#q-clear').hidden = true; render({ quiet: true }); $('#q').focus();
   });
   document.addEventListener('keydown', function (e) {
     var tag = (document.activeElement && document.activeElement.tagName) || '';
@@ -929,11 +1045,21 @@ function wire() {
     route = parseHash();
     render();
   });
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', moveInk);
+  $('#to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: REDUCED ? 'auto' : 'smooth' });
+    $('#main').focus({ preventScroll: true });
+  });
+  // keep the "Now" marker current during the conference
+  setInterval(function () { if (route.view === 'schedule' && confNow().day) render({ quiet: true }); }, 60000);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(moveInk);
 }
 
 /* ------------------------------------------------------------- countdown */
 function countdown() {
-  var now = new Date();
+  var sim = location.search.match(/[?&]now=([0-9T:\-]+)/);
+  var now = sim ? new Date(sim[1] + ':00+08:00') : new Date();
   var start = new Date('2026-11-05T08:30:00+08:00');
   var end = new Date('2026-11-07T12:00:00+08:00');
   var el = $('#countdown');
@@ -959,6 +1085,7 @@ function boot(data) {
   countdown();
   wire();
   render();
+  requestAnimationFrame(function () { $('#tabs').classList.add('ink-ready'); });
 }
 
 fetch('program.json', { cache: 'no-cache' })
