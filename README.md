@@ -4,8 +4,8 @@ A mobile-first, searchable web version of the MAMM 2026 technical programme, gen
 `Proceedings MAMM_revise.docx`. Delegates scan a QR code and instantly look up **which paper is
 presented when, in which room, in which session** — plus the full abstract of every paper.
 
-**91 papers** · 62 oral in 10 sessions · 29 posters in 2 judged sessions · 3 rooms · 5–7 Nov 2026,
-Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
+**92 papers** · 63 oral in 10 sessions · 29 posters in 2 judged sessions · 5 keynote lectures ·
+9 invited talks · 3 rooms · 5–7 Nov 2026, Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
 
 ---
 
@@ -17,8 +17,6 @@ Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
    ```
    index.html
    qr.html
-   checkin.html
-   badges.html
    program.json
    robots.txt
    README.md
@@ -28,7 +26,7 @@ Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
    assets/qrcode.js
    tools/build_program.py
    tools/pdf_program.py
-   tools/apps-script/Code.gs
+   tools/docx_program.py
    .github/workflows/build-program.yml
    source/          <- the programme PDF and the Word proceedings file
    ```
@@ -66,12 +64,13 @@ can share a QR that opens their own paper.
 
 | Tab | What it does |
 |---|---|
-| **Schedule** | The three-day grid. Day selector, colour-coded by room. Tap any session to see its papers. |
+| **Schedule** | The three-day timetable, Room 1 / 2 / 3 side by side, colour-coded by room, keynotes in gold, talk titles shown under each keynote and invited speech. Tap a session to see its papers. |
 | **Papers** | All papers. Full-text search + filters: **type** (oral / poster), **day**, **room**, **session**; sort by ID, time or title. |
+| **Speakers** | Keynote and invited speakers with affiliation, talk title, time, room and abstract. |
 | **Authors** | Every author A–Z with their papers. Tap a name to filter the programme down to that person. |
 | **Rooms** | Everything that happens in Room 1 / 2 / 3, hour by hour. |
 | **My programme** | Papers starred with ☆, stored in the delegate's own browser. Export to `.ics`, or print. |
-| **Info** | Venue, Day 3 excursion, programme notes, preface, organisers, committees. |
+| **About** | At a glance, preface, organisers and sponsors, committees, programme notes. |
 
 Other details:
 
@@ -94,8 +93,8 @@ Everything the site shows lives in `program.json`, generated from the files in `
 
 | Source file | What it provides |
 |---|---|
-| `Technical.pdf` | the schedule — days, times, rooms, sessions, session chairs, keynote and invited speakers, and which paper is in which session |
-| `Proceedings MAMM_revise.docx` | titles, authors, affiliations, abstracts, keywords, committees, preface |
+| `Proceedings MAMM_revise.docx` | **everything**: the schedule tables (days, times, rooms, sessions, chairs, keynote/invited slots), titles, authors, affiliations, abstracts, keywords, keynote/invited talk titles and abstracts, committees, organisers, preface |
+| `Technical.pdf` *(fallback)* | the schedule, used only if the Word file has no schedule tables |
 | `extra-papers.json` *(optional)* | papers that are in the PDF but not yet in the Word file |
 
 Never hand-edit `index.html` or `assets/app.js` to change programme content.
@@ -118,9 +117,12 @@ python3 tools/build_program.py source/Technical.pdf "source/Proceedings MAMM_rev
 git add program.json && git commit -m "Update programme" && git push
 ```
 
-The two files can be given in either order; they are told apart by extension. Either one
-alone also works: with only the `.docx` the schedule is read from the Word tables instead,
-with only the `.pdf` the papers have no abstracts.
+The two files can be given in either order; they are told apart by extension. When the Word
+file contains the day and session tables (as `Proceedings MAMM_revise.docx` does), **the Word
+file is the single source of truth** and the PDF is ignored, so an outdated `Technical.pdf`
+can no longer override a revised Word file. The PDF is read only when the Word file has no
+schedule tables. `python3 tools/docx_program.py "source/Proceedings MAMM_revise.docx"` prints
+the schedule exactly as it is read from the Word file.
 
 | Flag | Effect |
 |---|---|
@@ -132,13 +134,13 @@ with only the `.pdf` the papers have no abstracts.
 ### What the script prints
 
 ```
-Schedule from : PDF
+Schedule from : Word
 Abstracts from: Proceedings MAMM_revise.docx
-Papers        : 91  (62 oral, 29 poster)
+Papers        : 92  (63 oral, 29 poster)
 Sessions      : 10 oral, 2 poster
+Committees    : 7
 Unused IDs    : ID_87
-AWAITING TITLE/ABSTRACT: ID_91, ID_92
-No warnings.
+Session lists match the summary tables: YES
 ```
 
 Read the last two lines first. The script warns about a paper listed in two sessions, a
@@ -203,37 +205,7 @@ rebuild overwrites it, so anything worth keeping belongs in the source documents
 committing. The site requests `program.json` with `cache: no-cache`, so delegates get the
 update on their next page load — the QR code and every link stay the same.
 
-## 5. Meal & banquet check-in (organisers only)
-
-Two extra pages ship with the site. Neither is linked from the programme and both are excluded in
-`robots.txt`, so delegates will not stumble into them.
-
-| Page | For |
-|---|---|
-| `checkin.html` | volunteers at the dining-room door: scan a badge, see green / red / amber, hand over the meal |
-| `badges.html` | printing name badges with each delegate's QR code, eight per A4 page |
-
-They talk to a **Google Sheet** through a small Apps Script web app, so several phones and tablets
-share one live state and the organisers watch it fill up in the spreadsheet. Setup takes about
-twenty minutes and is written out in **`tools/apps-script/README.md`**; the script itself is
-`tools/apps-script/Code.gs`, and `source/delegates-template.csv` shows the columns the delegate
-list needs.
-
-**Do not put the delegate list in this repository.** It stays in the Google Sheet. Names, e-mail
-addresses and institutions of everyone attending do not belong in a public repo.
-
-What the volunteer sees, at a glance:
-
-- **green** — hand it over. Name, institution and any dietary note in large type.
-- **red** — already collected, with the time and the station that served it.
-- **amber** — not registered for this meal; two override buttons (*paid at the door*,
-  *approved by organiser*) that write the reason into the log.
-- **grey** — code not recognised; jumps to search-by-name.
-
-Every screen has **Undo** for a few seconds, the **Board** tab shows served / entitled per meal for
-the kitchen, and the whole thing keeps working offline and syncs when the Wi-Fi comes back.
-
-## 6. Preview locally
+## 5. Preview locally
 
 `index.html` fetches `program.json`, so opening the file directly with `file://` will not work.
 Serve the folder over HTTP:
@@ -245,18 +217,26 @@ python3 -m http.server 8000
 
 ---
 
-## 7. Notes on how the data was produced
+## 6. Notes on how the data was produced
 
-- Source: `Proceedings MAMM_revise.docx` (technical programme + abstracts).
-- Speaker biography pages (keynote / invited speaker profiles) were **excluded** on request.
-  Their time slots are kept in the schedule.
-- Session paper lists were cross-checked against the document's own *ORAL Presentation List* and
-  *POSTER Presentation List* summary tables — all 11 lists match exactly.
-- The document contains IDs `ID_01`–`ID_90` with **no `ID_87`**; 89 papers in total.
-- E-mail addresses and phone numbers that appeared in the author/affiliation fields of a few
-  entries were removed before publication.
-- Words broken by Word's justified hyphenation (e.g. `sys-tem`, `find-ings`) were rejoined in the
-  abstracts; genuine compounds such as `non-invasive` and `pre-clinical` were preserved.
+- Source: `Proceedings MAMM_revise.docx` (technical programme, abstracts, speakers, committees).
+- Session paper lists are cross-checked against the document's own *ORAL Presentation List* and
+  *POSTER Presentation List* summary tables on every build.
+- The document contains IDs `ID_01`–`ID_93` with **no `ID_87`**; 92 papers in total.
+- Author lines such as `Tran1,2, Ha1,2*, and Ching3,4,5*` are split on names, not on the commas
+  inside the affiliation numbers; affiliations that Word wrapped onto a second line are rejoined.
+  A name written twice in the source (`Ira Puspitasari Ira Puspitasari`) is shown once, and the
+  build prints a warning so it can also be fixed in the Word file.
+- E-mail addresses and phone numbers that appear in the author/affiliation fields are removed.
+- Words broken by Word's justified hyphenation (e.g. `sys-tem`, `find-ings`) are rejoined in the
+  abstracts; genuine compounds such as `non-invasive` and `pre-clinical` are preserved.
+
+## Design
+
+Academic navy and teal taken from the MAMM logo, gold for keynotes, one colour per room.
+Crimson Pro for headings, IBM Plex Sans for text, IBM Plex Mono for paper IDs and times
+(Google Fonts, with system-font fallbacks). Light and dark themes, keyboard navigation with
+visible focus, 44 px touch targets, `prefers-reduced-motion` respected, print stylesheet.
 
 ## Licence
 

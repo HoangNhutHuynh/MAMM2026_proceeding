@@ -11,11 +11,13 @@
    "Organizers",
    "National Chung Hsing University (NCHU), Taiwan / International Federation for the Promotion of Mechanism and Machine Science (IFToMM) / Nanotechnology and Micro System Association, Taiwan",
    "Co-Organizers",
-   "Academia-Industry Collaboration Center, NCHU, Taiwan / HCM City Semiconductor Industry Association (HSIA), Vietnam / Ho Chi Minh City University of Technology (HCMUT), Vietnam / University of Science, Ho Chi Minh City, Vietnam / International University, Ho Chi Minh City, Vietnam / Industrial University of Ho Chi Minh City (IUH), Vietnam / The Education University of Hong Kong, Hong Kong / Taiwan Society for Aerosol in Medicine, Taiwan",
+   "Academia-Industry Collaboration Center, NCHU, Taiwan / HCM City Semiconductor Industry Association (HSIA), Vietnam / Ho Chi Minh City University of Technology (HCMUT), Vietnam / University of Science, Ho Chi Minh City, Vietnam / International University, Ho Chi Minh City, Vietnam / Industrial University of Ho Chi Minh City (IUH), Vietnam / The Education University of Hong Kong, Hong Kong / Taiwan Society for Aerosol in Medicine, Taiwan / National Yunlin University of Science and Technology",
    "Executing Organizations",
    "Graduate Institute of Biomedical Engineering, NCHU, Taiwan / Department of Mechanical Engineering, NCHU, Taiwan / Department of Computer Science and Engineering, NCHU, Taiwan / Faculty of Applied Science, HCMUT, Vietnam",
    "Supervising Organizations",
-   "National Science and Technology Council, Taiwan / Ministry of Education, Taiwan"
+   "National Science and Technology Council, Taiwan / Ministry of Education, Taiwan",
+   "Sponsors",
+   "Blossom Biotechnologies, Taiwan. / ProTrusTech, Taiwan"
   ],
   "preface": [
    "MAMM 2026 (the 8th International Conference on Microactuators, Microsensors and Micromechanisms) provides an international forum for researchers, students, and industry professionals to present recent research findings, exchange knowledge, and promote interdisciplinary collaboration in microsystems technology. The conference highlights advances in micro-robotics, micro-IC packaging, micro-scale heat transfer, microsurgical technologies, unmanned aerial systems, and miniature rigid-body and compliant mechanisms.",
@@ -37,7 +39,7 @@
     {
      "time": "09:00-09:20",
      "room": "Room 1",
-     "text": "Invited Speech (1) – Dr. Eng. Trung Nghia Tran (Room 1)"
+     "text": "Invited Speech (1) – Dr. Trung Nghia Tran (Room 1)"
     },
     {
      "time": "09:00-09:20",
@@ -52,12 +54,14 @@
     {
      "time": "09:20-10:50",
      "room": "Room 1",
-     "text": "Oral Session (1) - Biomedical Devices, Prosthetics & Neurostimulation (Room 1)"
+     "text": "Oral Session (1) - Biomedical Devices, Prosthetics & Neurostimulation (Room 1)",
+     "sessionId": "OS1"
     },
     {
      "time": "09:20-10:50",
      "room": "Room 2",
-     "text": "Oral Session (2) - Biosensing, Microfluidics & Diagnostic Technologies (Room 2)"
+     "text": "Oral Session (2) - Biosensing, Microfluidics & Diagnostic Technologies (Room 2)",
+     "sessionId": "OS2"
     },
     {
      "time": "09:20-10:50",
@@ -70,11 +74,6 @@
      "text": "Tea Break"
     },
     {
-     "time": "10:50-11:10 / 14:00-14:20",
-     "room": "Room 1",
-     "text": "Poster Session (1) - Day 1 - competition judging (Room 1)"
-    },
-    {
      "time": "11:10-11:30",
      "room": "Room 1",
      "text": "Opening Ceremony & Group Photo"
@@ -82,7 +81,7 @@
     {
      "time": "11:30-12:00",
      "room": "Room 1",
-     "text": "Keynote Speech (2) - Speaker: Prof. Dong-Sing Wuu (Room 1)"
+     "text": "Keynote Speech (1) - Speaker: Prof. Dong-Sing Wuu (Room 1)"
     },
     {
      "time": "12:00-13:00",
@@ -92,17 +91,22 @@
     {
      "time": "13:00-13:30",
      "room": "Room 1",
-     "text": "Keynote Speech (3) - Speaker: Prof. Fan-Gang Tseng (Room 1)"
+     "text": "Keynote Speech (2) - Speaker: Prof. Fan-Gang Tseng (Room 1)"
     },
     {
      "time": "13:30-14:00",
      "room": "Room 1",
-     "text": "Keynote Speech (1) - Speaker: Prof. Ashok Kumar Pandey (Room 1)"
+     "text": "Keynote Speech (3) - Speaker: Prof. Ashok Kumar Pandey (Room 1)"
     },
     {
      "time": "14:00-14:20",
      "room": "Room 1",
      "text": "Tea Break"
+    },
+    {
+     "time": "14:00-14:20",
+     "room": "Room 1",
+     "text": "Poster Session (1) - Day 1 – competition judging (Room 1)"
     },
     {
      "time": "14:20-14:40",
@@ -112,22 +116,24 @@
     {
      "time": "14:20-14:40",
      "room": "Room 2",
-     "text": "Invited Speech (10) – Dr. Thanh-Qua Nguyen (Room 2)"
+     "text": "Invited Speech (4) – Dr. Thanh-Qua Nguyen (Room 2)"
+    },
+    {
+     "time": "14:20-14:40",
+     "room": "Room 3",
+     "text": "Invited Speech – Dr. Thien Luan Phan"
     },
     {
      "time": "14:40-16:40",
      "room": "Room 1",
-     "text": "Oral Session (3) - Functional Materials, Micro-fabrication & Computational Biomedicine (Room 1)"
+     "text": "Oral Session (3) - Functional Materials, Micro-fabrication & Computational Biomedicine (Room 1)",
+     "sessionId": "OS3"
     },
     {
      "time": "14:40-16:40",
      "room": "Room 2",
-     "text": "Oral Session (10) - Advanced Biosensing, Spectroscopy & Cellular Diagnostics (Room 2)"
-    },
-    {
-     "time": "14:40-16:40",
-     "room": "Room 3",
-     "text": "Invited Speech – Dr. Thien Luan Phan"
+     "text": "Oral Session (4) - Structural & Solid Mechanics Modeling (Room 2)",
+     "sessionId": "OS4"
     },
     {
      "time": "14:40-16:40",
@@ -154,32 +160,35 @@
     {
      "time": "09:00-09:20",
      "room": "Room 1",
-     "text": "Invited Speech (4) – Dr. Che-Hao Liao (Room 1)"
+     "text": "Invited Speech (5) – Dr. Che-Hao Liao (Room 1)"
     },
     {
      "time": "09:00-09:20",
      "room": "Room 2",
-     "text": "Invited Speech (5) – Dr. Nguyen Van Hieu (Room 2)"
+     "text": "Invited Speech (6) – Dr. Nguyen Van Hieu (Room 2)"
     },
     {
      "time": "09:00-09:20",
      "room": "Room 3",
-     "text": "Invited Speech (6) – Dr. Vo Hong Hai (Room 3)"
+     "text": "Invited Speech (7) – Dr. Vo Hong Hai (Room 3)"
     },
     {
      "time": "09:20-11:05",
      "room": "Room 1",
-     "text": "Oral Session (4) - Advanced Materials for Functional Devices and Applications (Room 1)"
+     "text": "Oral Session (5) - Advanced Materials for Functional Devices and Applications (Room 1)",
+     "sessionId": "OS5"
     },
     {
      "time": "09:20-11:05",
      "room": "Room 2",
-     "text": "Oral Session (5) - Compliant & Multistable Mechanisms (Room 2)"
+     "text": "Oral Session (6) - Compliant & Multistable Mechanisms (Room 2)",
+     "sessionId": "OS6"
     },
     {
      "time": "09:20-11:05",
      "room": "Room 3",
-     "text": "Oral Session (6) - Structural & Solid Mechanics Modeling (Room 3)"
+     "text": "Oral Session (7) - Advanced Biosensing, Spectroscopy & Cellular Diagnostics (Room 3)",
+     "sessionId": "OS7"
     },
     {
      "time": "11:05-11:25",
@@ -209,32 +218,35 @@
     {
      "time": "13:30-13:50",
      "room": "Room 1",
-     "text": "Invited Speech (7) – Dr. Nguyen Van Toan (Room 1)"
+     "text": "Invited Speech (8) – Dr. Nguyen Van Toan (Room 1)"
     },
     {
      "time": "13:30-13:50",
      "room": "Room 2",
-     "text": "Invited Speech (8) – Dr. Hoang-Dung Nguyen (Room 2)"
+     "text": "Invited Speech (9) – Dr. Hoang Dung Nguyen (Room 2)"
     },
     {
      "time": "13:30-13:50",
      "room": "Room 3",
-     "text": "Invited Speech (9) – Dr. Ngoc Dang Khoa Tran (Room 3)"
+     "text": "Invited Speech (10) – Dr. Ngoc Dang Khoa Tran (Room 3)"
     },
     {
      "time": "13:50-15:50",
      "room": "Room 1",
-     "text": "Oral Session (7) - IoT & Connectivity Technologies (Room 1)"
+     "text": "Oral Session (8) - IoT & Connectivity Technologies (Room 1)",
+     "sessionId": "OS8"
     },
     {
      "time": "13:50-15:50",
      "room": "Room 2",
-     "text": "Oral Session (8) - Advanced Sensing, Actuation & Smart Micro-Devices (Room 2)"
+     "text": "Oral Session (9) - Advanced Sensing, Actuation & Smart Micro-Devices (Room 2)",
+     "sessionId": "OS9"
     },
     {
      "time": "13:50-15:50",
      "room": "Room 3",
-     "text": "Oral Session (9) - Autonomous Systems, Robotics & Applied Modeling (Room 3)"
+     "text": "Oral Session (10) - Autonomous Systems, Robotics & Applied Modeling (Room 3)",
+     "sessionId": "OS10"
     },
     {
      "time": "15:50-16:10",
@@ -251,7 +263,7 @@
     {
      "time": "08:30-10:30",
      "room": "Sun Moon Lake",
-     "text": "Sun Moon Lake Cruise (self-funded activity; advance reservation required through the MAMM 2026 organizer)"
+     "text": "Sun Moon Lake Cruise"
     },
     {
      "time": "10:30-",
@@ -268,9 +280,11 @@
    "num": 1,
    "name": "Biomedical Devices, Prosthetics & Neurostimulation",
    "subtitle": "Biomedical Devices, Prosthetics & Neurostimulation",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "day": 1,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "time": "09:20-10:50",
    "room": "Room 1",
    "paperIds": [
     "ID_01",
@@ -278,9 +292,7 @@
     "ID_44",
     "ID_69",
     "ID_88"
-   ],
-   "time": "09:20-10:50",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "OS2",
@@ -288,20 +300,20 @@
    "num": 2,
    "name": "Biosensing, Microfluidics & Diagnostic Technologies",
    "subtitle": "Biosensing, Microfluidics & Diagnostic Technologies",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "day": 1,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "time": "09:20-10:50",
    "room": "Room 2",
    "paperIds": [
     "ID_15",
     "ID_34",
-    "ID_47",
     "ID_56",
     "ID_57",
-    "ID_90"
-   ],
-   "time": "09:20-10:50",
-   "dateLabel": "5 Nov"
+    "ID_90",
+    "ID_93"
+   ]
   },
   {
    "id": "OS3",
@@ -309,9 +321,11 @@
    "num": 3,
    "name": "Functional Materials, Micro-fabrication & Computational Biomedicine",
    "subtitle": "Functional Materials, Micro-fabrication & Computational Biomedicine",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "day": 1,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "time": "14:40-16:40",
    "room": "Room 1",
    "paperIds": [
     "ID_03",
@@ -320,19 +334,40 @@
     "ID_53",
     "ID_68",
     "ID_80"
-   ],
-   "time": "14:40-16:40",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "OS4",
    "kind": "oral",
    "num": 4,
+   "name": "Structural & Solid Mechanics Modeling",
+   "subtitle": "Structural & Solid Mechanics Modeling",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
+   "day": 1,
+   "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "paperIds": [
+    "ID_27",
+    "ID_31",
+    "ID_43",
+    "ID_45",
+    "ID_55",
+    "ID_70"
+   ]
+  },
+  {
+   "id": "OS5",
+   "kind": "oral",
+   "num": 5,
    "name": "Advanced Materials for Functional Devices and Applications",
    "subtitle": "Advanced Materials for Functional Devices and Applications",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "09:20-11:05",
    "room": "Room 1",
    "paperIds": [
     "ID_18",
@@ -341,19 +376,19 @@
     "ID_23",
     "ID_24",
     "ID_46"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
-   "id": "OS5",
+   "id": "OS6",
    "kind": "oral",
-   "num": 5,
+   "num": 6,
    "name": "Compliant & Multistable Mechanisms",
    "subtitle": "Compliant & Multistable Mechanisms",
    "chairs": "Prof. Ashok Kumar Pandey & Prof. Lena Zentner",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "09:20-11:05",
    "room": "Room 2",
    "paperIds": [
     "ID_02",
@@ -362,40 +397,41 @@
     "ID_33",
     "ID_83",
     "ID_84"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
-  },
-  {
-   "id": "OS6",
-   "kind": "oral",
-   "num": 6,
-   "name": "Structural & Solid Mechanics Modeling",
-   "subtitle": "Structural & Solid Mechanics Modeling",
-   "chairs": "Dr. Vo Hong Hai",
-   "day": 2,
-   "date": "2026-11-06",
-   "room": "Room 3",
-   "paperIds": [
-    "ID_27",
-    "ID_31",
-    "ID_43",
-    "ID_45",
-    "ID_55",
-    "ID_70"
-   ],
-   "time": "09:20-11:05",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
    "id": "OS7",
    "kind": "oral",
    "num": 7,
-   "name": "IoT & Connectivity Technologies",
-   "subtitle": "IoT & Connectivity Technologies",
-   "chairs": "Dr. Nguyen Van Toan",
+   "name": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
+   "subtitle": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "paperIds": [
+    "ID_81",
+    "ID_82",
+    "ID_38",
+    "ID_39",
+    "ID_79",
+    "ID_12",
+    "ID_47"
+   ]
+  },
+  {
+   "id": "OS8",
+   "kind": "oral",
+   "num": 8,
+   "name": "IoT & Connectivity Technologies",
+   "subtitle": "IoT & Connectivity Technologies",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
+   "day": 2,
+   "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "13:50-15:50",
    "room": "Room 1",
    "paperIds": [
     "ID_48",
@@ -405,19 +441,19 @@
     "ID_72",
     "ID_73",
     "ID_77"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
-   "id": "OS8",
+   "id": "OS9",
    "kind": "oral",
-   "num": 8,
+   "num": 9,
    "name": "Advanced Sensing, Actuation & Smart Micro-Devices",
    "subtitle": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "13:50-15:50",
    "room": "Room 2",
    "paperIds": [
     "ID_04",
@@ -427,19 +463,19 @@
     "ID_66",
     "ID_71",
     "ID_89"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
+   ]
   },
   {
-   "id": "OS9",
+   "id": "OS10",
    "kind": "oral",
-   "num": 9,
+   "num": 10,
    "name": "Autonomous Systems, Robotics & Applied Modeling",
    "subtitle": "Autonomous Systems, Robotics & Applied Modeling",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "13:50-15:50",
    "room": "Room 3",
    "paperIds": [
     "ID_07",
@@ -449,40 +485,19 @@
     "ID_42",
     "ID_54",
     "ID_85"
-   ],
-   "time": "13:50-15:50",
-   "dateLabel": "6 Nov"
-  },
-  {
-   "id": "OS10",
-   "kind": "oral",
-   "num": 10,
-   "name": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "subtitle": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "chairs": "Dr. Thanh-Qua Nguyen",
-   "day": 1,
-   "date": "2026-11-05",
-   "room": "Room 2",
-   "paperIds": [
-    "ID_81",
-    "ID_82",
-    "ID_38",
-    "ID_39",
-    "ID_79",
-    "ID_12"
-   ],
-   "time": "14:40-16:40",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "PS1",
    "kind": "poster",
    "num": 1,
    "name": "Poster Session 1",
-   "subtitle": "Day 1 - competition judging",
-   "chairs": null,
+   "subtitle": "Day 1 – competition judging",
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "day": 1,
    "date": "2026-11-05",
+   "dateLabel": "5 Nov",
+   "time": "14:00-14:20",
    "room": "Room 1",
    "paperIds": [
     "ID_05",
@@ -500,9 +515,7 @@
     "ID_78",
     "ID_86",
     "ID_91"
-   ],
-   "time": "10:50-11:10 / 14:00-14:20",
-   "dateLabel": "5 Nov"
+   ]
   },
   {
    "id": "PS2",
@@ -510,9 +523,11 @@
    "num": 2,
    "name": "Poster Session 2",
    "subtitle": "Day 2 – competition judging",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "day": 2,
    "date": "2026-11-06",
+   "dateLabel": "6 Nov",
+   "time": "11:05-11:25",
    "room": "Room 1",
    "paperIds": [
     "ID_09",
@@ -529,9 +544,7 @@
     "ID_37",
     "ID_60",
     "ID_92"
-   ],
-   "time": "11:05-11:25",
-   "dateLabel": "6 Nov"
+   ]
   }
  ],
  "papers": [
@@ -596,7 +609,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "provisional": false,
    "pending": false
   },
@@ -654,9 +667,9 @@
     "compliance matrix"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -730,7 +743,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -777,14 +790,14 @@
     "bistable mechanism"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -794,13 +807,13 @@
    "title": "Dynamic Programming Technique for Waveguide Quasi-TM Mode Problem",
    "authors": [
     {
-     "name": "Y. J. Chiang Y. J. Chiang",
+     "name": "Y. J. Chiang",
      "affiliations": [
       "Oriental Institute of Technology"
      ]
     },
     {
-     "name": "Ira Puspitasari Ira Puspitasari",
+     "name": "Ira Puspitasari",
      "affiliations": [
       "Universitas Airlangga"
      ]
@@ -812,7 +825,7 @@
      ]
     }
    ],
-   "authorsLine": "Y. J. Chiang Y. J. Chiang1, Ira Puspitasari Ira Puspitasari2 and C.S. Hsiao3",
+   "authorsLine": "Y. J. Chiang1, Ira Puspitasari Ira Puspitasari2 and C.S. Hsiao3",
    "affiliations": [
     "Oriental Institute of Technology",
     "Universitas Airlangga",
@@ -831,9 +844,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -881,7 +894,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -922,14 +935,14 @@
     "CNC spindle head"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -968,14 +981,14 @@
     "Magnetic anisotropy"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -1015,7 +1028,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1048,9 +1061,9 @@
     "non-destructive material characterization"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -1089,7 +1102,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1120,14 +1133,14 @@
     "Cortical anisotropic backscattering artifact"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -1161,7 +1174,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1196,7 +1209,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1249,7 +1262,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "provisional": false,
    "pending": false
   },
@@ -1291,7 +1304,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1325,14 +1338,14 @@
     "Spin-current volume effect"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -1392,14 +1405,14 @@
     "Heterojunction UV"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -1435,7 +1448,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1482,7 +1495,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -1543,14 +1556,14 @@
     "photodetector"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -1591,14 +1604,14 @@
     "ionic substitution"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -1638,14 +1651,14 @@
     "CaTiO₃-based composite ceramics"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -1678,14 +1691,14 @@
     "Dielectric Properties"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -1727,7 +1740,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "provisional": false,
    "pending": false
   },
@@ -1768,7 +1781,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1810,14 +1823,14 @@
     "Finite Element Analysis"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -1882,7 +1895,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1931,7 +1944,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -1959,14 +1972,14 @@
     "marine animal model ship"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2003,14 +2016,14 @@
     "geometric nonlinearity"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -2044,9 +2057,9 @@
     "nonsymmetric flexure hinges"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -2078,9 +2091,9 @@
     "spherical trigonometry"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -2126,7 +2139,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "provisional": false,
    "pending": false
   },
@@ -2166,7 +2179,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2213,7 +2226,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2253,7 +2266,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2286,14 +2299,14 @@
     "Coffee-Ring Effect"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -2326,14 +2339,14 @@
     "Raman spectroscopy analysis"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -2364,14 +2377,14 @@
     "Microcontrollers"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2407,14 +2420,14 @@
     "Inverse load reconstruction"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2443,14 +2456,14 @@
     "switching control framework"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2493,14 +2506,14 @@
     "UMESHMOTION"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -2562,7 +2575,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "provisional": false,
    "pending": false
   },
@@ -2608,14 +2621,14 @@
     "method of moving asymptotes"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -2659,7 +2672,7 @@
    "affiliations": [
     "National Yunlin University of Science and Technology, Taiwan"
    ],
-   "abstract": "Surface acoustic wave (SAW) technology serves as a vital component in wireless communications and sensing applications due to its exceptional physical properties. Among various piezoelectric materials, aluminum nitride (AlN) stands out for its high acoustic velocity and stable piezoelectric coefficient [1]. This study develops an AlN-based SAW sensing device and enhances its humidity sensing performance through electrode linewidth refinement and nanosphere functionalization. The device was fabricated by growing a 2.8μm AlN piezoelectric film on a sapphire substrate via metal-organic chemical vapor deposition (MOCVD). Interdigital transducers (IDTs) with varied linewidths of 5, 10, and 20 μm were patterned using direct-write photolithography system to optimize operating frequency and sensitivity [2]. To further expand the active surface area and boost water molecule adsorption, silica nanospheres (SiO2 NSs) were spin-coated onto the sensing layer in varying concentrations. Humidity sensing performance was systematically evaluated using a vector network analyzer (VNA). Experimental results indicate that reducing the IDT linewidth while maintaining a constant total electrode area significantly enhances sensitivity without degrading response time. Miniaturizing the electrode linewidth from 20, 10, down to 5 μm consistently improved sensing performance, with each 50% reduction in linewidth driving a 1.33-fold sensitivity increase. Furthermore, incorporating silica nanoparticles onto the optimal 5 μm linewidth device achieved a 2.25-fold sensitivity increase and reduced the response time of 0.77 when compared to the bare device. These results demonstrate a promising device with nano-structure for high-performance sensing applications.",
+   "abstract": "Surface acoustic wave (SAW) technology serves as a vital component in wireless communications and sensing applications due to its exceptional physical properties. Among various piezoelectric materials, aluminum nitride (AlN) stands out for its high acoustic velocity and stable piezoelectric coefficient [1]. This study develops an AlN-based SAW sensing device and enhances its humidity sensing performance through electrode linewidth refinement and nanosphere functionalization. The device was fabricated by growing a 2.8μm AlN piezoelectric film on a sapphire substrate via metal-organic chemical vapor deposition (MOCVD). Interdigital transducers (IDTs) with varied linewidths of 5, 10, and 20 μm were patterned using direct-write photolithography system to optimize operating frequency and sensitivity [2]. To further expand the active surface area and boost water molecule adsorption, silica nanospheres (SiO2 NSs) were spin-coated onto the sensing layer in varying concentrations. Humidity sensing performance was systematically evaluated using a vector network analyzer (VNA). Experimental results indicate that reducing the IDT linewidth while maintaining a constant total electrode area significantly enhances sensitivity without degrading response time. Miniaturizing the electrode linewidth from 20, 10, down to 5 μm consistently improved sensing performance, with each 50% reduction in linewidth driving a 1.33-fold sensitivity increase. Furthermore, incorporating silica nanoparticles onto the optimal 5 μm linewidth device achieved a 2.25-fold sensitivity increase and reduced the response time of 0.77 when compared to the bare device. These results demonstrate a promising device with nanostructure for high-performance sensing applications.",
    "keywords": [
     "silica nanoparticles",
     "surface acoustic wave",
@@ -2669,14 +2682,14 @@
     "aluminum nitride"
    ],
    "type": "oral",
-   "sessionId": "OS4",
+   "sessionId": "OS5",
    "sessionName": "Advanced Materials for Functional Devices and Applications",
-   "sessionNum": 4,
+   "sessionNum": 5,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
    "room": "Room 1",
-   "chairs": "Dr. Che-Hao Liao & Dr. Shih-Hung Lin",
+   "chairs": "Prof. Shih-Hung Lin & Dr. Che-Hao Liao",
    "provisional": false,
    "pending": false
   },
@@ -2711,14 +2724,14 @@
     "Biomedical sensing"
    ],
    "type": "oral",
-   "sessionId": "OS2",
-   "sessionName": "Biosensing, Microfluidics & Diagnostic Technologies",
-   "sessionNum": 2,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "09:20-10:50",
-   "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "sessionId": "OS7",
+   "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -2763,14 +2776,14 @@
     "MQTT"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -2812,14 +2825,14 @@
     "Tabu search"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -2866,9 +2879,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2921,9 +2934,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -2970,9 +2983,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3015,7 +3028,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -3068,14 +3081,14 @@
     "Rate Coding"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3111,14 +3124,14 @@
     "cleavage planes"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -3185,7 +3198,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "provisional": false,
    "pending": false
   },
@@ -3251,7 +3264,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "provisional": false,
    "pending": false
   },
@@ -3297,9 +3310,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3346,9 +3359,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3403,7 +3416,7 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3456,9 +3469,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3498,14 +3511,14 @@
     "magnetic sensor"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -3545,9 +3558,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3588,14 +3601,14 @@
     "detour scheduling"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -3641,9 +3654,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -3679,14 +3692,14 @@
     "Stepped Cylindrical Part"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -3725,14 +3738,14 @@
     "Linux"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -3780,7 +3793,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -3814,7 +3827,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "provisional": false,
    "pending": false
   },
@@ -3843,14 +3856,14 @@
     "impedance"
    ],
    "type": "oral",
-   "sessionId": "OS6",
+   "sessionId": "OS4",
    "sessionName": "Structural & Solid Mechanics Modeling",
-   "sessionNum": 6,
-   "day": 2,
-   "date": "2026-11-06",
-   "time": "09:20-11:05",
-   "room": "Room 3",
-   "chairs": "Dr. Vo Hong Hai",
+   "sessionNum": 4,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:40-16:40",
+   "room": "Room 2",
+   "chairs": "Prof. Chin-Sung Hsiao & Dr. Thanh Qua Nguyen",
    "provisional": false,
    "pending": false
   },
@@ -3918,14 +3931,14 @@
     "Ga₂O₃@5%Sn"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -3953,14 +3966,14 @@
     "Model Pruning"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -3989,14 +4002,14 @@
     "Model Partitioning"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -4043,9 +4056,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4092,9 +4105,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4141,9 +4154,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4184,14 +4197,14 @@
     "Slotted ALOHA Mitigation"
    ],
    "type": "oral",
-   "sessionId": "OS7",
+   "sessionId": "OS8",
    "sessionName": "IoT & Connectivity Technologies",
-   "sessionNum": 7,
+   "sessionNum": 8,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 1",
-   "chairs": "Dr. Nguyen Van Toan",
+   "chairs": "Dr. Nguyen Van Toan & Dr. Quoc Tuan Nguyen Diep",
    "provisional": false,
    "pending": false
   },
@@ -4224,9 +4237,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4237,7 +4250,9 @@
    "authors": [
     {
      "name": "Tzuhao Liu",
-     "affiliations": []
+     "affiliations": [
+      "CMU"
+     ]
     },
     {
      "name": "Bill Cheng",
@@ -4248,6 +4263,7 @@
    ],
    "authorsLine": "Tzuhao Liu1 and Bill Cheng2",
    "affiliations": [
+    "CMU",
     "NCHU"
    ],
    "abstract": "Objectives: This study investigates the potential anti-cancer efficacy and molecular mechanisms of spent coffee grounds (SCG) extracts in the breast tumor microenvironment. While massive SCG disposal (40-50% of coffee chain waste) generates toxic, water-polluting leachate, its richness in anti-inflammatory and antioxidant bioactive compounds offers great potential for functional food development. Targeting the high-inflammation and high-oxidative stress characteristics of the tumor microenvironment is key to suppressing tumor progression. Methodology: Active-rich SCG samples from various bean sources were screened and subjected to microwave-assisted extraction (MAE) to break tough cell walls and retrieve polyphenols. The extracts underwent simulated gastrointestinal digestion to obtain metabolic variants. These were introduced into a microfluidic 3D breast tumor microenvironment model—comprising breast cancer spheroids, human endothelial cells, and monocyte-derived macrophages—to analyze spheroid volume changes and cellular molecular interactions, using Doxorubicin as a control. Expected Outcomes: This research aims to promote a circular economy and advance natural-product tumor inhibition mechanisms. We developed a 3D microfluidic breast cancer model as a high-resolution, biomimetic platform to visualize SCG's impact on angiogenesis inhibition and immune regulation, providing an advanced alternative for in vivo studies. Specific SCG digested extracts are expected to effectively inhibit spheroid growth and modulate microenvironmental inflammation and oxidative stress. Conclusion: This project bridges food waste valorization with advanced 3D microfluidic oncology modeling. It opens sustainable pathways for eco-friendly recycling and establishes a clinically relevant platform for screening natural anti-cancer compounds.",
@@ -4259,14 +4275,14 @@
     "Circular Economy"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -4307,7 +4323,7 @@
    "date": "2026-11-05",
    "time": "14:40-16:40",
    "room": "Room 1",
-   "chairs": "Dr. Yu-Hsiang Lai",
+   "chairs": "Dr. Yu-Hsiang Lai & Mr. Minh Khue Ha",
    "provisional": false,
    "pending": false
   },
@@ -4367,14 +4383,14 @@
     "IFI6lnc2"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -4434,14 +4450,14 @@
     "Gold Interdigitated Electrodes"
    ],
    "type": "oral",
-   "sessionId": "OS10",
+   "sessionId": "OS7",
    "sessionName": "Advanced Biosensing, Spectroscopy & Cellular Diagnostics",
-   "sessionNum": 10,
-   "day": 1,
-   "date": "2026-11-05",
-   "time": "14:40-16:40",
-   "room": "Room 2",
-   "chairs": "Dr. Thanh-Qua Nguyen",
+   "sessionNum": 7,
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:20-11:05",
+   "room": "Room 3",
+   "chairs": "Dr. Vo Hong Hai & Dr. Nguyen Van Hieu",
    "provisional": false,
    "pending": false
   },
@@ -4468,9 +4484,9 @@
     "Back-relaxation"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -4515,9 +4531,9 @@
     "nonlinear behavior"
    ],
    "type": "oral",
-   "sessionId": "OS5",
+   "sessionId": "OS6",
    "sessionName": "Compliant & Multistable Mechanisms",
-   "sessionNum": 5,
+   "sessionNum": 6,
    "day": 2,
    "date": "2026-11-06",
    "time": "09:20-11:05",
@@ -4619,14 +4635,14 @@
     "Deterministic Motion"
    ],
    "type": "oral",
-   "sessionId": "OS9",
+   "sessionId": "OS10",
    "sessionName": "Autonomous Systems, Robotics & Applied Modeling",
-   "sessionNum": 9,
+   "sessionNum": 10,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 3",
-   "chairs": "Dr. Ngoc Dang Khoa Tran",
+   "chairs": "Dr. Ngoc Dang Khoa Tran & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4678,9 +4694,9 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
    "pending": false
   },
@@ -4784,7 +4800,7 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 1",
-   "chairs": "Dr. Eng. Trung Nghia Tran",
+   "chairs": "Dr. Trung Nghia Tran & Dr. Thien Luan Phan",
    "provisional": false,
    "pending": false
   },
@@ -4832,14 +4848,14 @@
     "measurement uncertainty"
    ],
    "type": "oral",
-   "sessionId": "OS8",
+   "sessionId": "OS9",
    "sessionName": "Advanced Sensing, Actuation & Smart Micro-Devices",
-   "sessionNum": 8,
+   "sessionNum": 9,
    "day": 2,
    "date": "2026-11-06",
    "time": "13:50-15:50",
    "room": "Room 2",
-   "chairs": "Dr. Hoang-Dung Nguyen",
+   "chairs": "Dr. Hoang-Dung Nguyen & Dr. Bill Cheng",
    "provisional": false,
    "pending": false
   },
@@ -4871,18 +4887,23 @@
    "date": "2026-11-05",
    "time": "09:20-10:50",
    "room": "Room 2",
-   "chairs": "Dr. Xuan Dai Le",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
    "provisional": false,
    "pending": false
   },
   {
    "id": "ID_91",
    "num": 91,
-   "title": "Title to be announced",
-   "authors": [],
-   "authorsLine": "",
+   "title": "Morphological Control of Electrochemically Deposited Silver Nanostructures in Anodic Aluminum Oxide Nanopores for Enhanced SERS Performance",
+   "authors": [
+    {
+     "name": "苡佑 陳",
+     "affiliations": []
+    }
+   ],
+   "authorsLine": "苡佑 陳",
    "affiliations": [],
-   "abstract": "",
+   "abstract": "Rapid and sensitive detection of pesticide residues is essential for food safety. In this study, a highly ordered surface-enhanced Raman scattering (SERS) substrate was fabricated using anodic aluminum oxide (AAO) as a template and electrochemically deposited silver nanostructures. Two-step anodization was used to form ordered AAO nanopores, followed by silver deposition, AAO sidewall removal, and a second electrochemical deposition to reduce nanostructure spacing and enhance SERS activity. Using rhodamine 6G (R6G) as a probe molecule, the optimal conditions were an AAO sidewall removal time of 15 min and a second deposition at 3 Vᵣₘₛ for 40 cycles.\nThe Raman intensity at 1509 cm⁻¹ increased by approximately 3.98 times compared with that of the substrate without the second deposition. The optimized substrate retained a distinguishable 1509 cm⁻¹ peak at 10⁻¹³ M R6G, while log–log regression yielded a theoretical limit of detection of 4.49 × 10⁻¹⁴ M, demonstrating its capability for low-concentration detection. The analytical enhancement factor was 6.010 × 10¹¹. In addition, at an R6G concentration of 10⁻⁶ M, measurements at 10 randomly selected positions yielded a relative standard deviation of 5.73%, indicating good spatial uniformity and reproducibility. These results demonstrate that controlling the morphology and spacing of the silver nanostructures effectively enhances SERS performance, supporting the potential of AAO–Ag substrates for trace analyte sensing and rapid pesticide residue detection.",
    "keywords": [],
    "type": "poster",
    "sessionId": "PS1",
@@ -4890,20 +4911,41 @@
    "sessionNum": 1,
    "day": 1,
    "date": "2026-11-05",
-   "time": "10:50-11:10 / 14:00-14:20",
+   "time": "14:00-14:20",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
-   "pending": true
+   "pending": false
   },
   {
    "id": "ID_92",
    "num": 92,
-   "title": "Title to be announced",
-   "authors": [],
-   "authorsLine": "",
-   "affiliations": [],
-   "abstract": "",
+   "title": "Enhanced Sensitivity of Guided-Mode Resonance Sensors Using a Low-Refractive-Index Porous Silica Substrate",
+   "authors": [
+    {
+     "name": "En-Chi Yang",
+     "affiliations": [
+      "Department of Mechanical Engineering, National Yang Ming Chiao Tung University, Taiwan"
+     ]
+    },
+    {
+     "name": "Li-Chan Chien",
+     "affiliations": [
+      "Department of Mechanical Engineering, National Yang Ming Chiao Tung University, Taiwan"
+     ]
+    },
+    {
+     "name": "Cheng-Sheng Huang",
+     "affiliations": [
+      "Department of Mechanical Engineering, National Yang Ming Chiao Tung University, Taiwan"
+     ]
+    }
+   ],
+   "authorsLine": "En-Chi Yang, Li-Chan Chien and Cheng-Sheng Huang",
+   "affiliations": [
+    "Department of Mechanical Engineering, National Yang Ming Chiao Tung University, Taiwan"
+   ],
+   "abstract": "Guided-mode resonance (GMR) sensors exhibit narrow resonances for high resolution, but sensitivity can be limited by insufficient electric field overlap with the analyte. A lower-refractive-index (RI) substrate directs more of the electric field toward the sensing region, enhancing analyte interaction and sensitivity. Here, a porous SiO2 underlayer was fabricated on glass by glancing-angle deposition through electron-beam evaporation. The porous film exhibited a low RI of 1.1763 at 700 nm (Fig. 1a). After fabrication of a TiO2 grating and waveguide structure, where SEM images showed a grating period and depth of approximately 495 and 33.5 nm, respectively (Fig. 1b and 1c). Under TE polarization, transmission spectra measured with 0-30% sucrose solutions using a regular glass and a low RI substrate are shown in Fig. 2a and 2b. The porous SiO2 substrate increased the resonance wavelength shift from 3.288 to 4.53 nm and the sensitivity from 72.20 to 262.33 nm/RIU compared with the glass substrate (Fig. 2c), confirming the benefit of a low RI substrate.",
    "keywords": [],
    "type": "poster",
    "sessionId": "PS2",
@@ -4913,9 +4955,68 @@
    "date": "2026-11-06",
    "time": "11:05-11:25",
    "room": "Room 1",
-   "chairs": null,
+   "chairs": "Dr. Thien-Luan Phan, Dr. Quoc Tuan Nguyen Diep, Mr. Minh Khue Ha & Mr. Xuan Hien Pham",
    "provisional": false,
-   "pending": true
+   "pending": false
+  },
+  {
+   "id": "ID_93",
+   "num": 93,
+   "title": "Plasma Electrical Impedance Spectroscopy for Alzheimer’s Disease Discrimination",
+   "authors": [
+    {
+     "name": "Nguyen Thuy Linh Tran",
+     "affiliations": [
+      "School of Biomedical Engineering, International University, Vietnam National University Ho Chi Minh City, Vietnam",
+      "Vietnam National University Ho Chi Minh City, Vietnam"
+     ]
+    },
+    {
+     "name": "Thi Thanh Huong Ha",
+     "affiliations": [
+      "School of Biomedical Engineering, International University, Vietnam National University Ho Chi Minh City, Vietnam",
+      "Vietnam National University Ho Chi Minh City, Vietnam"
+     ]
+    },
+    {
+     "name": "Congo Tak Shing Ching",
+     "affiliations": [
+      "Graduate Institute of Biomedical Engineering, National Chung Hsing University, Taichung, Taiwan",
+      "Faculty of Mechanical Engineering, Industrial University of Ho Chi Minh City, Ho Chi Minh City, Vietnam",
+      "Industrial University of Ho Chi Minh City, Ho Chi Minh City, Vietnam"
+     ]
+    }
+   ],
+   "authorsLine": "Nguyen Thuy Linh Tran1,2, Thi Thanh Huong Ha1,2*, and Congo Tak Shing Ching3,4,5*",
+   "affiliations": [
+    "School of Biomedical Engineering, International University, Vietnam National University Ho Chi Minh City, Vietnam",
+    "Vietnam National University Ho Chi Minh City, Vietnam",
+    "Graduate Institute of Biomedical Engineering, National Chung Hsing University, Taichung, Taiwan",
+    "Faculty of Mechanical Engineering, Industrial University of Ho Chi Minh City, Ho Chi Minh City, Vietnam",
+    "Industrial University of Ho Chi Minh City, Ho Chi Minh City, Vietnam"
+   ],
+   "abstract": "Electrical impedance spectroscopy (EIS) can characterize the overall electrical response of plasma without requiring an antibody or other recognition element; however, the wide frequency range and the use of repeated measurements also create a risk of identifying apparent differences that do not generalize beyond the analyzed cohort. This study evaluated plasma EIS for discrimination of Alzheimer’s disease (AD) and cognitively normal (CN) participants using repeat averaging, measurement variability, and participant level internal validation. Plasma from 30 participants, including 13 CN and 17 AD cases, was measured from 10 Hz to 50 MHz using gold interdigitated electrodes. Each participant was measured in three independent runs, with three repeated spectra within each run. The repeated spectra were averaged in the complex domain within each run and subsequently across the three runs. The strongest low frequency phase difference occurred between 14.711 and 16.645 Hz and showed an apparent area under the curve (AUC) of 0.860, but it did not remain significant after correction across the phase pair search (adjusted p = 0.361). When feature selection was repeated within nested leave one out cross validation, the low frequency phase pair search and the broader static search achieved AUCs of 0.765 and 0.787, respectively. Phase variability among the three runs at 10.156 Hz was higher in AD than in CN, remained significant after correction across the searched frequencies (adjusted p = 0.0158), and achieved a nested AUC of 0.751. Although the fixed phase feature increased across the clinical categories, its association with severity was not significant within the AD group alone. These findings indicate that low frequency phase response and measurement variability may contain information related to AD status, while independent validation is required before diagnostic or staging applications.",
+   "keywords": [
+    "Alzheimer’s disease",
+    "Electrical impedance spectroscopy",
+    "Plasma",
+    "Interdigitated electrode",
+    "Repeat averaging",
+    "Phase response",
+    "Measurement variability",
+    "Internal validation"
+   ],
+   "type": "oral",
+   "sessionId": "OS2",
+   "sessionName": "Biosensing, Microfluidics & Diagnostic Technologies",
+   "sessionNum": 2,
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:20-10:50",
+   "room": "Room 2",
+   "chairs": "Dr. Xuan Dai Le & Dr. Peng-Ta Liu",
+   "provisional": false,
+   "pending": false
   }
  ],
  "committees": [
@@ -5033,7 +5134,7 @@
    ]
   },
   {
-   "name": "PUBLISHING CHAIR",
+   "name": "PUBLISHING CHAIRS",
    "members": [
     {
      "name": "Dr. Kuo-Chih Liao",
@@ -5155,8 +5256,177 @@
    ]
   }
  ],
+ "speakers": [
+  {
+   "kind": "keynote",
+   "name": "Prof. Dong-sing Wuu",
+   "affiliation": "President of National Chi Nan University, Taiwan",
+   "topic": "Advanced Gallium Oxide Materials for Diverse Sensor Applications",
+   "abstract": "This presentation provides a focused review of gallium oxide (Ga2O3) as an emerging semiconductor material for advanced sensing applications. Owing to its wide bandgap, excellent chemical and thermal stability, tunable surface chemistry, and defect-dependent electronic properties, Ga2O3 has been extensively investigated as a functional material for high-performance sensors. This review surveys recent progress in Ga2O3 based devices across three representative sensing domains, namely biosensing, optical sensing, and gas sensing, with particular emphasis on the manner in which intrinsic material characteristics govern sensing mechanisms and device performance. In biosensing, Ga2O3 based sensing layers integrated with extended-gate field-effect transistor architectures have been reported for the sensitive detection of pH, glucose, and cell-related metabolic activity, indicating substantial potential for biochemical analysis and physiological monitoring. In optical sensing, the intrinsic wide-bandgap characteristics of Ga2O3 render it particularly suitable for solar-blind deep-ultraviolet photodetectors, in which high responsivity, spectral selectivity, and operational stability have been widely demonstrated. In gas sensing, its surface reaction activity and oxygen-vacancy-related characteristics provide a strong basis for the rapid and sensitive detection of gaseous analytes, including hazardous species such as nitric oxide. Collectively, these studies establish Ga2O3 as a versatile material platform of considerable scientific interest and technological relevance. By summarizing representative material strategies, device structures, functional characteristics, and underlying sensing principles across these three domains, this review highlights the scientific significance, cross-disciplinary relevance, and application potential of Ga2O3 for next-generation sensing technologies in healthcare, environmental monitoring, industrial safety, and related analytical systems, with broad future research value.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "11:30-12:00",
+   "room": "Room 1",
+   "slot": 1
+  },
+  {
+   "kind": "keynote",
+   "name": "Prof. Fan-Gang Tseng",
+   "affiliation": "President, Nanotechnology and Micro System Association, Taiwan",
+   "topic": "Microfluidic Organ-on-a-chip Models for Cancer Drug Screening and Safety Assessment In Vitro",
+   "abstract": "Despite the recent advancement of biotechnology and pharmaceutical research, cancers remain the leading cause of human mortality. It is vital to diagnose cancers at an early stage when treatment can dramatically improve prognosis. So far, low-cost and easy to operate devices, which allow efficient isolation and sensitive detection of circulating tumor cells (CTCs) for routine blood screening, remain lacking. This talk will introduce a microfluidic platform (High-Density Self-Assembled-Cell-Array, HD-SACA system) which can not only isolate single CTCs/CTMs from the real blood sample in one hour for rapid CTCs identification and diagnosis, together with a nano particle sensing system, but also conduct Tumor organelle drug screening for precision medicine. This system includes a high throughput 3D Micro-Dialysis and Self Assembled Cell Array (SACA) chip to quickly self-assemble cells into a densed monolayer (10^6 cells/cm2) for rapid staining and in-parallel inspection at high speed (6x10^6 cells/1 hour for 4 images). The distinguished ratio can reach 1 to 1 billion, recovery rate more than 95%, and whole process can be finished in two hours for 4 ml blood sample. In this research, we have successfully enumerated CTCs/CTMs by self-assembled cell array (SACA) chip system for more than 1000 patients with diagnosed colorectal cancers and others. We found that the CTC count in PB but not IMV correlates with disease stages. Neoadjuvant chemotherapy did not lead to decreased CTC count in both types of blood samples. With the combination of CTCs/CTMs and other biomarkers, the detection odds ratio can be higher than 21. Due to the rapid and gentle process, the on-chip isolated CTCs are still vital and can be further characterized and cultivated for identification by using nano sensors for further prognosis by reading the information from cancer microenvironments in the Tumor-organoid on a chip. The cultivated/expanded CTCs on chip, when forming Tumor-organelles, can be further used as drug testing targets to screen combinatory drugs for AI-assisted precision medicine. The Tumor-organoid on a chip can be further integrated with Liver-on-a-chip and Kidney-on-a-chip for not only combinatory drug testing, but also drug toxicity validation.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "13:00-13:30",
+   "room": "Room 1",
+   "slot": 2
+  },
+  {
+   "kind": "keynote",
+   "name": "Prof. Ashok Kumar Pandey",
+   "affiliation": "Indian Institute of Technology Hyderabad, India",
+   "topic": "AI for Microsystem Technology",
+   "abstract": "Microsystems couple mechanics, electrostatics and electronics in structures at microscale. This coupling makes design slow: simulations are expensive, one geometry change moves several performance figures at once, and drift in bias, temperature and ageing pulls a calibrated device away from its specification. This talk asks where artificial intelligence earns a place in that workflow, and it answers with one running example: a closed-loop MEMS accelerometer that uses a force-amplifying compliant mechanism (FaCM) with a lever ratio of 2.7. The device is followed from design through to operation. The case study rests on a reduced-order physics model calibrated to one of our previous work. From the dimensions and material properties, the model derives stiffness and effective mass through the lever, the differential capacitive sensing gain, the electrostatic force gain and softening, and the loop stiffness. Closing the loop with a PID controller reduces proof-mass motion about 15 times for the FaCM and 19 times for a baseline design, and lowers the full-scale electrode voltage by about 40%. A nonlinear model with a fitted readout shows why this matters: open-loop nonlinearity reaches 8% to 16% at 30 g, while the closed loop stays below 0.02%. Input-referred noise falls from about 40 to 8 micro-g per root hertz for the FaCM, although that benefit depends on how far the lever also moves the actuation comb, an assumption the talk states openly. AI can be used for two different purposes. First one for design, a neural surrogate that learns only the residual left by the physics model predicts performance with less error than a network alone, and it supports inverse design: searching for the lowest electrode voltage that meets a residual-motion target. Second for operation, an adaptive layer sits outside the analog loop. Recursive least squares estimates scale factor and offset from the gravity projection in stationary windows, a health monitor raises an alarm at 1% deviation and a fault at 5%, and a gain correction limited to plus or minus 5% trims the output. In simulation with a drifting bias reference, the layer holds the scale-factor error to about 1% over 48 hours, against 3.7% uncorrected, and it flags an abrupt regulator fault within 18 minutes instead of hiding it. Based on the analysis, it is found that AI helps microsystems most when it is anchored to physics, bounded by hard limits. The results require to be validated by experiments in future.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "13:30-14:00",
+   "room": "Room 1",
+   "slot": 3
+  },
+  {
+   "kind": "keynote",
+   "name": "Prof. Lena Zentner",
+   "affiliation": "Technische Universität Ilmenau, Germany",
+   "topic": "Compliant mechanisms with constant force",
+   "abstract": "The mobility of the compliant mechanisms gains its fully or partially from the compliance of its deformable parts rather than from rigid-body joints. Compliant mechanisms are used to transmit forces and motion. The defining feature of such mechanisms is therefore the force-displacement characteristic curve. Those that exert an approximately constant force within a specific displacement range possess special properties: they have virtually zero stiffness within this working range and can be used to guide objects with low energy consumption. Furthermore, they can ensure a constant contact force on the object within the working range or be used to minimise vibrations. This presentation shows examples of such mechanisms and explains how to analyse and design them using large-deformation theory.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "11:55-12:25",
+   "room": "Room 1",
+   "slot": 5
+  },
+  {
+   "kind": "keynote",
+   "name": "Prof. Takahito Ono",
+   "affiliation": "Tohoku University, Japan",
+   "topic": "Magneto-Electromechanical Microsystems Based on Magnetostriction and Spin-mechatronic Transducers",
+   "abstract": "Magnetostrictive materials provide a versatile platform for coupling magnetic, mechanical, electrical, and spin-current signals in microscale systems. In this invited talk, I will present our recent progress on magneto-electric microsystems based on magnetostrictive thin films and hybrid transducer structures. First, FeGa thin films, including electroplated Galfenol films, are introduced as MEMS-compatible magnetostrictive materials for magnetic-field and strain sensing. Their inverse magnetostrictive effect is utilized for vibration and strain readout, where strain-induced magnetization changes in FeGa are detected by integrated Hall sensors. Second, rare-earth transition-metal films such as TbFeCo and DyTbFe are discussed in terms of deposition, magnetic anisotropy, and magnetostrictive properties. These films also provide a platform for spin-current-induced mechanical actuation. By injecting spin current generated through the spin Hall effect, volume strain can be induced in magnetostrictive films, opening a route toward spin-current-driven microactuators. Third, resonant magnetic sensors based on soft-magnetic-film-coated microresonators are presented, where external magnetic fields modulate resonance frequency or vibration amplitude. Finally, hybrid magnetostrictive/piezoelectric devices, including Metglas-based structures, are discussed for magnetoelectric conversion and magnetoelastic wave generation/detection. These studies demonstrate the potential of magnetostriction as a key transduction mechanism for integrated sensors, actuators, resonators, and spintronic microsystems.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "11:25-11:55",
+   "room": "Room 1",
+   "slot": 4
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Trung Nghia Tran",
+   "affiliation": "Vietnam National University Ho Chi Minh City, Vietnam",
+   "topic": "Depth-Aware Surface Bioimpedance Sensing of Bone-Fracture Healing: From Numerical Design Rules to AI-Enabled Monitoring Devices",
+   "abstract": "Fracture follow-up still relies on serial radiographs insensitive to early compositional change, or on CT and MRI constrained by radiation dose, cost and discrete acquisition. Electrical bioimpedance is non-ionizing, inexpensive and readily integrated into wearable or fixation-mounted microsystems, yet a basic sensing question has remained open: can a surface tetrapolar array retain sensitivity at fracture depth, and does the spectral change per healing stage exceed the noise floor of practical front-ends? This keynote presents a numerical framework addressing both questions. A three-dimensional multilayer limb model (skin, fat, muscle, cortical bone, marrow and an effective fracture-related region) was simulated across six ordered healing states combining geometric contraction of the fracture region with a blood-to-marrow dielectric transition. Wenner, Schlumberger and Dipole–Dipole arrays were compared through reciprocity-based sensitivity analysis, and 1 Hz–100 kHz transfer-impedance spectra were characterized with Cole-type equivalent circuits. Array lengths of 30–35 mm maximized sensitivity at a 15 mm target depth. A two-branch RC–CPE model reproduced the spectra with weighted R² above 0.999 and the lowest Akaike information criterion, its second-branch resistance rising and dispersion exponent falling across the early states before saturating. Monte Carlo perturbation showed that early transitions remain separable (AUC = 0.90) up to 0.76–1.09% measurement noise, whereas late transitions require 0.14–0.25%, and stage contrast decays exponentially with depth (length constant 3.80 mm), bounding the resolvable range to roughly 15 mm below the skin. These quantities translate into design targets for miniaturized impedance front-ends: electrode geometry, noise budget, input impedance and co-registered depth information. The talk then broadens to soft-tissue injury and bone repair as a continuum, discussing how machine- and deep-learning models trained on simulation, phantom and longitudinal in vivo data can replace least-squares circuit fitting with noise-robust, physics-informed estimators, classify healing stages from spectral trajectories, and run on embedded wearable or implantable platforms. The findings are numerical; phantom, animal and clinical validation define the roadmap ahead.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:00-09:20",
+   "room": "Room 1",
+   "slot": 1
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Yu-Hsiang Lai",
+   "affiliation": "Chung Cheng Institute of Technology, Taiwan",
+   "topic": "Scaling Bio-Inspired Flapping-Wing Mechanisms: From Insect Flight Principles to Large-Scale UAVs",
+   "abstract": "Bio-inspired flapping-wing systems provide a unique framework for integrating mechanism design, unsteady aerodynamics, and flight dynamics across different physical scales. This talk presents a cross-scale perspective on flapping-wing research, beginning with insect flight as a source of aerodynamic and dynamical insight and extending toward large-scale bird-inspired unmanned aerial vehicles. The objective is not to directly scale an insect flight mechanism into a bird-sized vehicle, but to identify which bio-inspired principles remain useful across scales and how they must be reinterpreted for engineering implementation. At the insect scale, computational studies of damselfly flight are used to examine how wing interaction, center-of-mass location, and time-dependent aerodynamic moments affect free-pitch dynamics. These studies provide insight into the coupled relationship among wing kinematics, aerodynamic force generation, and body motion. At larger scales, the focus shifts to mechanically driven flapping-wing UAVs, including flapping kinematics, structural loading, high-speed motion measurement, unsteady wing-tail aerodynamic interaction, and the contribution of tail configurations to force generation and pitching control. The large-scale platform is not the starting point; it is the engineering consequence of scaling bio-inspired design principles rather than directly scaling insect flight mechanisms. As system size increases, aerodynamic similarity alone becomes insufficient, while inertia, structural strength, transmission mechanisms, wing flexibility, and flight control become increasingly important. Numerical simulations, aerodynamic experiments, and free-flight measurements are therefore combined to examine these coupled effects. Finally, future directions toward compliant and adaptive flapping-wing structures are discussed, with emphasis on passive deformation and tailored structural flexibility as potential approaches for improving aerodynamic performance, reducing actuation requirements, and enabling more efficient bio-inspired aerial systems.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "14:20-14:40",
+   "room": "Room 1",
+   "slot": 3
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Nguyen Van Toan",
+   "affiliation": "Tohoku University, Japan",
+   "topic": "Thermoelectric Generators for Ambient Condition Energy Harvesting",
+   "abstract": "Wireless sensor nodes are deployed by the billions, and battery replacement sets their operating cost. Thermoelectric generators (TEGs) could remove that cost, but where nodes operate the temperature difference across the generator is below 10 °C and often unsteady. This presentation show how usable energy can be obtained under such conditions, where the figure of merit no longer decides. We follow the whole energy chain, from material to duty-cycled load. Our electrodeposited Bi2Te3-based thermoelectric materials and systems are the test case, compared with the literature on one basis: power normalised to the square of the harvested temperature difference. Electrodeposition now supplies device-grade legs of both polarities, 2 mm n-type with ZT of 0.78 and 650 µm p-type with ZT of 0.47. Integration density, contact resistance, fill factor, and cold-side design decide the output more than the material does. The DC-DC converter passes only 8-60% of the harvested electrical power. Self-powered sensing is demonstrated with spatial gradients, with day-night temperature fluctuations, and with finger touch. Co-design of the chain, not a record figure of merit, delivers useful energy. Finally, we outline six research priorities, ranging from standardized reporting to year-long autonomous operation.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "13:30-13:50",
+   "room": "Room 1",
+   "slot": 8
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Nguyen Van Hieu",
+   "affiliation": "Vietnam National University Ho Chi Minh City, Vietnam",
+   "topic": "An new approach to researching for Alzheimer's disease severity using biosensor MoS2-based FET, virtual reality technology and IoT system",
+   "abstract": "Alzheimer's disease is a progressive neurodegenerative disorder characterized by memory loss, cognitive decline, behavioral disturbances, and a gradual loss of independent living capabilities. From a modern diagnostic perspective, Alzheimer's is viewed not merely as a clinical syndrome defined by memory loss, but as a biological process identifiable through biomarkers. The A/T/N framework is widely used to describe key pathological changes: amyloid pathology, tau pathology, and neurodegeneration. Disease detection requires integrating multiple layers of information, ranging from biomarkers, cognitive function, behavior, and motor skills to long-term monitoring data. Current assessment methods for Alzheimer's include clinical examinations, cognitive rating scales, neuroimaging, cerebrospinal fluid (CSF) analysis, and blood tests. While methods such as amyloid PET, tau PET, and CSF biomarkers are highly valuable for confirming Alzheimer's pathology, they are costly, invasive, or require specialized equipment. Hospitals employ cognitive tests (ex: MMSE or MoCA), but these results are often influenced by a patient's education level, language proficiency, and psychological state. Consequently, there is a need for new assistive technologies capable of generating objective, quantitative, and minimally invasive data that can be integrated into a multidimensional assessment process. In this report, we propose an advanced method that combines biomedical sensor technology with virtual reality (VR) tests and IoT-AI technologies to create an integrated, multi-data system for assessing the severity of Alzheimer's in patients or the elderly. These data are subsequently processed via an FPGA-Edge AI architecture encompassing preprocessing, fusion, and analysis to generate results that support early screening, risk stratification, and disease severity assessment. This is a novel technique; the interdisciplinary integration of semiconductor chips, electronics, machine learning/AI, biology, and biomedicine will pave the way for a new approach to screening for various other diseases.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:00-09:20",
+   "room": "Room 2",
+   "slot": 6
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Che-Hao Liao",
+   "affiliation": "National Yunlin University of Science and Technology, Taiwan",
+   "topic": "Advanced Bandgap Engineering and Heterojunction Designs in UVA-UVC Photodetectors",
+   "abstract": "Sensitive photodetectors with tunable wavelengths are essential to mitigate health risks from deep-ultraviolet (Deep-UV) disinfection. Although β-Ga2O3 and its ternary alloys offer broad spectral selectivity, conventional direct-growth methods are limited by high costs and synthesis complexities. To address this challenge, we present Thermal Interdiffusion Alloying (TIA), a cost-effective approach that leverages thermal energy to drive cation interdiffusion, enabling precise bandgap engineering and high-performance photodetector fabrication. High-quality ternary β-(AlGa)2O3 thin films were synthesized on sapphire via pulsed laser deposition and thermal interdiffusion (>1000 °C), driving Al3+ interdiffusion to increase aluminum content up to 72% and broaden the optical bandgap (4.88–6.38 eV). High-temperature processing formed an intermediate α-(AlGa)2O3 transition layer and significantly enhanced crystalline quality. The resulting solar-blind photodetectors demonstrated a tunable spectral response (255 to 233 nm) and a 50% reduction in response time over binary β-Ga2O3 devices. The approach was successfully extended using RF sputtering for scalable production, high-performance p+n Li:NiO/Si:Ga2O3 heterojunctions, high responsivity (2.1 A/W), and bandgap-tunable β-(InGa)2O3 UVA photodetectors. We have demonstrated the Thermal Interdiffusion Alloying as a cost-effective, facile strategy for synthesizing bandgap-tunable β-(AlxGa1-x)2O3 and β-(InyGa1-y)2O3 thin films without complex growth equipment. Precise thermal annealing controls cation interdiffusion, enabling wide-range bandgap engineering and absorption edge tuning across the UVA–UVC spectra. Thermally induced crystal rearrangement minimizes defects and domain boundaries, yielding photodetectors with enhanced responsivity, high photocurrent-to-dark current contrast, and faster response dynamics.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:00-09:20",
+   "room": "Room 1",
+   "slot": 5
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Vo Hong Hai",
+   "affiliation": "Vietnam National University Ho Chi Minh City, Vietnam",
+   "topic": "Embedded Nuclear Electronics and Machine Learning for Radiation Detection and Monitoring",
+   "abstract": "Compact electronics, real-time data acquisition, and digital signal analysis are increasingly important for radiation detection and monitoring. This presentation brings together three developments for small-scale radiation measurement systems. First, an FPGA-based electronics platform integrates coincidence processing, pulse-height analysis, and real-time data acquisition for radiation detectors. Second, a wireless Internet of Things (IoT) system enables real-time radiation monitoring during medical linear accelerator (LINAC) beam delivery. Third, pulses from an EJ-276 plastic scintillation detector are digitized and analyzed using machine learning to improve neutron–gamma discrimination based on pulse shape. These examples demonstrate applications of embedded electronics, wireless monitoring, fast digitization, and data-driven signal analysis in radiation measurement. The presentation discusses the design and applications of the three systems and their potential integration into future instruments.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "09:00-09:20",
+   "room": "Room 3",
+   "slot": 7
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Xuan Dai Le",
+   "affiliation": "Vietnam National University Ho Chi Minh City, Vietnam",
+   "topic": "From Data to Decisions: Data Science for Sustainable Biomedical Engineering",
+   "abstract": "The rapid advancement of data science and artificial intelligence is transforming biomedical engineering from a primarily device- and experiment-driven discipline into an increasingly data-driven field. This invited talk presents a practical framework for translating biomedical data into meaningful knowledge and actionable decisions, with particular emphasis on sustainable biomedical engineering. The presentation will discuss the data-to-decision pipeline, including data acquisition and preprocessing, exploratory analysis, statistical and machine-learning modeling, model evaluation, interpretation, and decision support. Representative biomedical applications will be used to illustrate how data science can contribute to disease prediction, patient monitoring, biomedical signal analysis, medical devices, and personalized healthcare. Particular attention will be given to the integration of domain knowledge with data-driven approaches, as well as the importance of interpretability, reliability, data quality, and responsible use of artificial intelligence. Finally, the talk will discuss emerging opportunities for interdisciplinary collaboration among data scientists, biomedical engineers, clinicians, and researchers to develop intelligent, efficient, and sustainable healthcare solutions.",
+   "day": 1,
+   "date": "2026-11-05",
+   "time": "09:00-09:20",
+   "room": "Room 2",
+   "slot": 2
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Hoang-Dung Nguyen",
+   "affiliation": "Can Tho University, Vietnam",
+   "topic": "AI for Engineering: Research and real-world applications",
+   "abstract": "The fast growth of the artificial intelligence (AI) has been opening the novel approach directions for the complicated engineering problems. Specially they are related to recognition, classification, and control in real-time. One of the currently worthy noted trends is to directly integrate machine learning and neural network models into embedded systems and microcontrollers. It is really potential to develop the TinyML and Edge AI based solutions with the low latency, reasonable cost, and edge data processing capacities. The current presentation outlines and analyzes some recent research directions related to artificial neural network, machine learning, deep learning and computer vision. These developed intelligent models could be integrated into microcontroller and embedded systems for deploying the low cost and real-world applications including the medical field, agriculture, aquaculture, and industry. The experimental results showed that the deployment of the AI models integrated into the microcontroller and embedded systems is entirely feasible and effective.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "13:30-13:50",
+   "room": "Room 2",
+   "slot": 9
+  },
+  {
+   "kind": "invited",
+   "name": "Dr. Ngoc Dang Khoa Tran",
+   "affiliation": "Industrial University of Ho Chi Minh City, Vietnam",
+   "topic": "Research And Investigate The Compliant Bistable Structure Based On Stepped Profile",
+   "abstract": "The compliant mechanism is the kind of mechanism that restricts the assembly, which has been widely studied all over the world, with many benefits such as energy-saving operation, accurate movement, simple without regular maintenance. A compliant Bistable mechanism is a structure that has two stable positions during operation. There is now extensive research into various Bistable structural designs. In this study, a new model of compliant bistable mechanism is introduced. The structure is composed of horizontal and vertical line segments joined together in succession to form a stepped shape, with the advantage of being easier to design and manufacture compared to inclined and curved structures. The finite element method is used to analyze and predict the nonlinear characteristic of the mechanism. In addition, fabricated using 3D printing with PLA plastic have been produced and experimented. The evaluation results show agreement with the simulation. Dimensional parameters were investigated, revealing the influence of the number of steps on the mechanism's operating characteristics. Stepped compliant bistable mechanisms have the potential for widespread application in microstructures that are cost-effective to manufacture. INVITED SPEAKER Dr. Thanh-Qua Nguyen Vietnam National University Ho Chi Minh City, Vietnam Topic: Personalized Lower-Limb Orthotic System Based on Multi-IMU Motion Analysis, and Reverse Engineering for Rehabilitation Abstract: Personalized orthotic devices are essential for improving functional recovery in patients with lower-limb impairments. Conventional design approaches rely primarily on static anthropometric measurements and subjective clinical assessment, which inadequately represent dynamic biomechanical behavior. This study proposes an integrated orthotic system combining multi-point inertial measurement unit (IMU) sensing, three-dimensional (3D) scanning, and reverse engineering to enable data-driven, function-oriented rehabilitation. A wearable five-IMU system captures lower-limb kinematics, including joint angles, range of motion, gait symmetry, and temporal–spatial parameters, while 3D scanning acquires anatomical geometry under load and non-load conditions. Motion and geometric data are processed to reconstruct parametric digital models and map biomechanical indicators to orthotic design features. Patient-specific orthotic prototypes are fabricated using additive manufacturing and evaluated through closed-loop validation by comparing pre- and post-intervention gait metrics and functional outcomes. The results demonstrate the feasibility of translating quantitative motion data into personalized orthotic design, supporting rapid iteration and objective performance assessment.",
+   "day": 2,
+   "date": "2026-11-06",
+   "time": "13:30-13:50",
+   "room": "Room 3",
+   "slot": 10
+  }
+ ],
  "notes": [
-  "Details for ID_91, ID_92 will be announced.",
-  "Keynote and invited speaker slots follow the numbering printed in the official technical programme."
+  "Keynote and invited speech numbers follow the official technical programme. Invited speeches in Room 3 open the ISET 2026 sessions."
  ]
 }

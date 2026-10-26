@@ -1,5 +1,6 @@
 /* MAMM 2026 — technical programme browser
-   Plain ES2018, no build step. Data lives in program.json. */
+   Plain ES2018, no build step. All programme content lives in program.json,
+   which tools/build_program.py generates from the Word proceedings file. */
 (function () {
 'use strict';
 
@@ -18,24 +19,44 @@ var STORE = {
   set: function (k, v) { try { localStorage.setItem('mamm2026.' + k, JSON.stringify(v)); } catch (e) {} }
 };
 
+/* inline SVG icons (no emoji as icons) */
+var ICON = {
+  star: function (filled) {
+    return '<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="' + (filled ? 'currentColor' : 'none') +
+      '" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8z"/></svg>';
+  },
+  cal: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2"/><path d="M3 9.5h18M8 2.5v4M16 2.5v4"/></svg>',
+  clock: '<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  pin: '<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>',
+  user: '<svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>',
+  qr: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v1M14 20h3M20 18v3"/></svg>',
+  print: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2"/><rect x="6" y="14" width="12" height="7"/></svg>',
+  left: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>',
+  right: '<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>'
+};
+
 /* ------------------------------------------------------------------ state */
 var DATA = null;
 var IDX = {};            // paper id -> paper
 var SESS = {};           // session id -> session
-var SEARCH = [];         // [{p, hay}]
+var SEARCH = [];         // [{p, hay, ...}]
 var saved = STORE.get('saved', []);
 var route = { view: 'schedule', params: {} };
+var lastFocus = null;
 
 var DAY_NAMES = { 1: 'Thursday', 2: 'Friday', 3: 'Saturday' };
-var ROOM_CLASS = function (r) {
-  if (/Room 1\b/.test(r) && !/Rooms/.test(r)) return 'room1';
-  if (/Room 2\b/.test(r)) return 'room2';
-  if (/Room 3\b/.test(r)) return 'room3';
+var DAY_SHORT = { 1: '5 Nov', 2: '6 Nov', 3: '7 Nov' };
+
+function roomClass(r) {
+  if (/^Room 1$/.test(r)) return 'r1';
+  if (/^Room 2$/.test(r)) return 'r2';
+  if (/^Room 3$/.test(r)) return 'r3';
   return '';
-};
+}
 var isBreak = function (t) {
-  return /(Tea Break|Lunch|Banquet|Registration|Group Photo|Opening Ceremony|Closing Remarks|shuttle bus|Cruise|available \(TBD\))/i.test(t);
+  return /(Tea Break|Lunch|Banquet|Registration|Group Photo|Opening Ceremony|Closing Remarks|shuttle bus|Cruise)/i.test(t);
 };
+var isTalk = function (t) { return /(Keynote|Invited) Speech/i.test(t); };
 
 /* ------------------------------------------------------------- hash router */
 function parseHash() {
@@ -49,8 +70,7 @@ function parseHash() {
     if (!kv) return;
     var i = kv.indexOf('=');
     var k = decodeURIComponent(i < 0 ? kv : kv.slice(0, i));
-    var v = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' '));
-    params[k] = v;
+    params[k] = i < 0 ? '' : decodeURIComponent(kv.slice(i + 1).replace(/\+/g, ' '));
   });
   return { view: parts[0] || 'schedule', id: parts[1] || '', params: params };
 }
@@ -81,7 +101,7 @@ function icsFold(line) {
   while (s.length > 72) { out.push(s.slice(0, 72)); s = ' ' + s.slice(72); }
   out.push(s); return out.join('\r\n');
 }
-function icsEscape(s) { return String(s || '').replace(/[\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, '\\n'); }
+function icsEscape(s) { return String(s || '').replace(/[\\;,]/g, function (c) { return '\\' + c; }).replace(/\n/g, '\\n'); }
 function downloadICS(events, filename) {
   var L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//MAMM 2026//Technical Programme//EN', 'CALSCALE:GREGORIAN'];
   events.forEach(function (e) {
@@ -163,13 +183,13 @@ function runSearch(q) {
     if (ok) hits.push({ p: e.p, score: total });
   });
   hits.sort(function (a, b) { return (b.score - a.score) || (a.p.num - b.p.num); });
-  return hits.map(function (h) { h.p._score = h.score; return h.p; });
+  return hits.map(function (h) { return h.p; });
 }
 function highlight(text, q) {
-  var terms = norm(q).split(/\s+/).filter(function (t) { return t.length > 1; });
-  if (!terms.length) return esc(text);
+  var ts = norm(q).split(/\s+/).filter(function (t) { return t.length > 1; });
+  if (!ts.length) return esc(text);
   var src = String(text), low = norm(src), hits = [];
-  terms.forEach(function (t) {
+  ts.forEach(function (t) {
     var i = 0;
     while ((i = low.indexOf(t, i)) >= 0) { hits.push([i, i + t.length]); i += t.length; }
   });
@@ -188,18 +208,26 @@ function highlight(text, q) {
   return out + esc(src.slice(pos));
 }
 
-function stats() {
-  var o = DATA.papers.filter(function (p) { return p.type === 'oral'; }).length;
-  var os = DATA.sessions.filter(function (s) { return s.kind === 'oral'; }).length;
-  var ps = DATA.sessions.filter(function (s) { return s.kind === 'poster'; }).length;
-  return DATA.papers.length + ' accepted papers \u00b7 ' + o + ' oral in ' + os +
-         ' sessions \u00b7 ' + (DATA.papers.length - o) + ' posters in ' + ps + ' sessions';
+/* ------------------------------------------------------------------ counts */
+function counts() {
+  var oral = DATA.papers.filter(function (p) { return p.type === 'oral'; }).length;
+  var sp = DATA.speakers || [];
+  return {
+    papers: DATA.papers.length,
+    oral: oral,
+    poster: DATA.papers.length - oral,
+    os: DATA.sessions.filter(function (s) { return s.kind === 'oral'; }).length,
+    ps: DATA.sessions.filter(function (s) { return s.kind === 'poster'; }).length,
+    keynote: sp.filter(function (s) { return s.kind === 'keynote'; }).length,
+    invited: sp.filter(function (s) { return s.kind === 'invited'; }).length,
+    authors: (buildAuthors(), AUTHORS.length)
+  };
 }
-function dayLabel(p) {
-  var d = String(p.date || '');
-  var n = d.slice(8).replace(/^0/, '');
-  return 'Day ' + p.day + (n ? ' \u2014 ' + n + ' Nov' : '') +
-         (DAY_NAMES[p.day] ? ' (' + DAY_NAMES[p.day] + ')' : '');
+function dayText(day) {
+  return 'Day ' + day + ' — ' + (DAY_SHORT[day] || '') + (DAY_NAMES[day] ? ' (' + DAY_NAMES[day] + ')' : '');
+}
+function sessionLabel(s) {
+  return (s.kind === 'oral' ? 'Oral Session ' : 'Poster Session ') + s.num;
 }
 
 /* ------------------------------------------------------------- components */
@@ -216,39 +244,38 @@ function authorsShort(p, q) {
       var list = n.slice(0, 2);
       matched.forEach(function (x) { if (list.indexOf(x) < 0) list.push(x); });
       var rest = n.length - list.length;
-      return list.join(', ') + (rest > 0 ? ' and ' + rest + ' more' : '');
+      return list.join(', ') + (rest > 0 ? ' + ' + rest + ' more' : '');
     }
   }
-  if (n.length <= 3) return n.join(', ');
-  return n[0] + ', ' + n[1] + ' and ' + (n.length - 2) + ' more';
+  if (n.length <= 4) return n.join(', ');
+  return n.slice(0, 3).join(', ') + ' + ' + (n.length - 3) + ' more';
 }
 function paperRow(p, q) {
   var isSaved = saved.indexOf(p.id) >= 0;
   return '<li class="pitem">' +
-    '<div style="display:flex;align-items:flex-start">' +
-      '<button class="prow" data-paper="' + p.id + '">' +
-        '<span class="pid ' + p.type + '">' + esc(p.id.replace('ID_', '')) + '</span>' +
-        '<span>' +
-          '<span class="ptitle">' + highlight(p.title, q) +
-            (p.provisional ? ' <span class="tag prov">provisional</span>' : '') +
-            (p.pending ? ' <span class="tag prov">to be announced</span>' : '') + '</span>' +
-          '<span class="pauth">' + highlight(authorsShort(p, q), q) + '</span>' +
-          '<span class="pmeta">' +
-            '<span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral' : 'Poster') + '</span>' +
-            '<span>Day ' + p.day + ' · ' + esc(p.time) + '</span>' +
-            '<span>' + esc(p.room) + '</span>' +
-            '<span>' + esc(p.sessionName) + '</span>' +
-          '</span>' +
+    '<button class="prow" type="button" data-paper="' + p.id + '">' +
+      '<span class="pid ' + p.type + '">' + esc(p.id) + '</span>' +
+      '<span class="pbody">' +
+        '<span class="ptitle">' + highlight(p.title, q) +
+          (p.provisional ? ' <span class="tag prov">provisional</span>' : '') +
+          (p.pending ? ' <span class="tag prov">to be announced</span>' : '') + '</span>' +
+        '<span class="pauth">' + highlight(authorsShort(p, q), q) + '</span>' +
+        '<span class="pmeta">' +
+          '<span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral' : 'Poster') + '</span>' +
+          '<span class="mono">Day ' + p.day + ' · ' + esc(p.time) + '</span>' +
+          '<span>' + esc(p.room) + '</span>' +
+          '<span>' + (p.type === 'oral' ? 'Oral ' + p.sessionNum + ' — ' + esc(p.sessionName) : 'Poster Session ' + p.sessionNum) + '</span>' +
         '</span>' +
-      '</button>' +
-      '<button class="star" data-star="' + p.id + '" aria-pressed="' + isSaved + '" title="Save to My programme">' +
-        '<svg width="18" height="18" viewBox="0 0 24 24" fill="' + (isSaved ? 'currentColor' : 'none') + '" stroke="currentColor" stroke-width="1.8"><path d="m12 3.6 2.6 5.3 5.8.8-4.2 4.1 1 5.8-5.2-2.7-5.2 2.7 1-5.8L3.6 9.7l5.8-.8z"/></svg>' +
-      '</button>' +
-    '</div></li>';
+      '</span>' +
+    '</button>' +
+    '<button class="star" type="button" data-star="' + p.id + '" aria-pressed="' + isSaved + '" aria-label="' +
+      (isSaved ? 'Remove ' + p.id + ' from My programme' : 'Save ' + p.id + ' to My programme') + '">' + ICON.star(isSaved) + '</button>' +
+    '</li>';
 }
 function paperList(papers, q) {
   if (!papers.length) {
-    return '<div class="empty"><b>No papers match</b>Try a different keyword, or clear the filters.</div>';
+    return '<div class="empty"><b>No papers match</b>Try a shorter word, an author’s surname or a paper ID such as “47”.' +
+      '<div class="actions"><button class="btn" type="button" id="f-reset">Clear search and filters</button></div></div>';
   }
   return '<div class="card"><ul class="plist">' +
     papers.map(function (p) { return paperRow(p, q); }).join('') + '</ul></div>';
@@ -256,71 +283,112 @@ function paperList(papers, q) {
 
 /* ------------------------------------------------------------ view: schedule */
 function slotSessionId(text) {
-  var m = text.match(/Oral Session \((\d)\)/);
+  var m = text.match(/Oral Session \((\d+)\)/);
   if (m) return 'OS' + m[1];
-  m = text.match(/Poster Session \((\d)\)/);
+  m = text.match(/Poster Session \((\d+)\)/);
   if (m) return 'PS' + m[1];
   return null;
 }
 function cleanSlotTitle(text) {
   return text
     .replace(/\s*\((Outside )?Rooms? [^)]*\)\s*/g, ' ')
-    .replace(/\s*-\s*Rooms? \d\s*$/, '')
-    .replace(/\s*\/\s*\(chaired by[^)]*\)/, '')
+    .replace(/^(Oral|Poster) Session \((\d+)\)\s*-\s*/, '')
+    .replace(/Speaker:\s*/, '')
     .trim();
 }
-function slotChairs(text) {
-  var m = text.match(/\(chaired by ([^)]*)\)/);
-  return m ? m[1] : '';
+function speakerFor(day, slot) {
+  if (!isTalk(slot.text)) return null;
+  var sp = (DATA.speakers || []).filter(function (s) {
+    return s.day === day && s.time === slot.time && s.room === slot.room;
+  });
+  return sp[0] || null;
+}
+function slotCell(day, s, extraCls, showTime) {
+  var sid = slotSessionId(s.text);
+  var sess = sid ? SESS[sid] : null;
+  var talk = isTalk(s.text);
+  var cls = 'ev ' + (isBreak(s.text) ? 'brk' : (/Keynote/.test(s.text) ? 'key' : roomClass(s.room))) + (extraCls ? ' ' + extraCls : '');
+  var roomTxt = s.room === 'All' ? 'All delegates' : s.room;
+  var top = '<span class="ev-top">' +
+    (sess ? '<span class="ev-code">' + esc(sess.id) + '</span>' : '') +
+    (/Keynote/.test(s.text) ? '<span class="ev-code">Keynote</span>' : '') +
+    (showTime ? '<span class="ev-room">' + esc(s.time) + '</span>' : (isBreak(s.text) ? '' : '<span class="ev-room">' + esc(roomTxt) + '</span>')) + '</span>';
+  var title = sess ? (sess.kind === 'oral' ? esc(sess.name) : esc(sessionLabel(sess) + ' — ' + (sess.subtitle || ''))) : esc(cleanSlotTitle(s.text));
+  var inner = top + '<span class="ev-title">' + title + '</span>';
+  var sp = talk ? speakerFor(day, s) : null;
+  if (sp && sp.topic) inner += '<span class="ev-talk">“' + esc(sp.topic) + '”</span>';
+  if (sess && sess.chairs) inner += '<span class="ev-sub">Chairs: ' + esc(sess.chairs) + '</span>';
+  if (sess) {
+    inner += '<span class="ev-count">' + sess.paperIds.length + ' ' + (sess.kind === 'oral' ? 'papers' : 'posters') + ' ' + ICON.right + '</span>';
+    return '<button type="button" class="' + cls + '" data-session="' + sid + '">' + inner + '</button>';
+  }
+  if (sp) return '<button type="button" class="' + cls + '" data-speaker="' + esc(sp.name) + '">' + inner + '</button>';
+  return '<div class="' + cls + '">' + inner + '</div>';
+}
+function overview() {
+  var c = counts();
+  return '<div class="overview" role="list">' +
+    '<div class="ov" role="listitem"><b>' + c.papers + '</b><span>accepted papers</span></div>' +
+    '<div class="ov" role="listitem"><b>' + c.os + '</b><span>oral sessions · ' + c.oral + ' talks</span></div>' +
+    '<div class="ov" role="listitem"><b>' + c.ps + '</b><span>poster sessions · ' + c.poster + ' posters</span></div>' +
+    '<div class="ov" role="listitem"><b>' + (c.keynote + c.invited) + '</b><span>keynote &amp; invited talks</span></div>' +
+    '<div class="ov" role="listitem"><b>' + c.authors + '</b><span>authors</span></div>' +
+    '</div>';
 }
 function viewSchedule() {
   var day = +(route.params.day || STORE.get('day', 1)) || 1;
   STORE.set('day', day);
   var d = DATA.days.filter(function (x) { return x.day === day; })[0] || DATA.days[0];
+  day = d.day;
 
-  var strip = '<div class="day-strip">' + DATA.days.map(function (x) {
+  var strip = '<div class="day-strip" role="group" aria-label="Choose a day">' + DATA.days.map(function (x) {
     var n = DATA.papers.filter(function (p) { return p.day === x.day; }).length;
-    return '<button class="day-btn" aria-pressed="' + (x.day === day) + '" data-day="' + x.day + '">' +
-      '<span class="d1">Day ' + x.day + '</span>' +
-      '<span class="d2">' + (x.day === 3 ? '7 Nov' : (x.day === 2 ? '6 Nov' : '5 Nov')) + ' · ' + DAY_NAMES[x.day] + '</span>' +
-      '<span class="d3">' + (n ? n + ' papers' : 'Excursion day') + '</span></button>';
+    return '<button type="button" class="day-btn" aria-pressed="' + (x.day === day) + '" data-day="' + x.day + '">' +
+      '<span class="d1">Day ' + x.day + '<span class="long"> · ' + DAY_NAMES[x.day] + '</span></span>' +
+      '<span class="d2"><span class="long">' + DAY_SHORT[x.day] + 'ember 2026</span><span class="short">' + DAY_SHORT[x.day] + '</span></span>' +
+      '<span class="d3">' + (n ? n + ' papers' : 'Excursion') + '</span></button>';
   }).join('') + '</div>';
 
-  // group slots by time label, preserving order
   var order = [], groups = {};
   d.slots.forEach(function (s) {
     if (!groups[s.time]) { groups[s.time] = []; order.push(s.time); }
     groups[s.time].push(s);
   });
 
+  var hasTracks = false;
   var rows = order.map(function (t) {
     var items = groups[t];
-    var cells = items.map(function (s) {
-      var sid = slotSessionId(s.text);
-      var title = cleanSlotTitle(s.text);
-      var cls = 'ev ' + ROOM_CLASS(s.room) + (isBreak(s.text) ? ' break' : '');
-      var chairs = slotChairs(s.text) || (sid && SESS[sid] ? (SESS[sid].chairs || '') : '');
-      var inner =
-        '<span class="ev-room">' + esc(s.room === 'All' ? 'All delegates' : s.room) + '</span>' +
-        '<span class="ev-title">' + esc(title) + '</span>' +
-        (chairs ? '<span class="ev-sub">Chairs: ' + esc(chairs) + '</span>' : '');
-      if (sid && SESS[sid]) {
-        inner += '<span class="ev-count">' + SESS[sid].paperIds.length + ' papers →</span>';
-        return '<button class="' + cls + '" data-session="' + sid + '">' + inner + '</button>';
-      }
-      return '<div class="' + cls + '">' + inner + '</div>';
-    }).join('');
-    return '<div class="slot' + (items.length > 1 ? ' multi' : '') + '">' +
-      '<div class="slot-time">' + esc(t.replace(' / ', '\n/ ')) + '</div>' +
-      '<div class="slot-items">' + cells + '</div></div>';
+    var rooms = items.map(function (s) { return roomClass(s.room); });
+    var distinct = rooms.filter(function (r, i) { return r && rooms.indexOf(r) === i; }).length === items.length;
+    var track = items.length > 1 && distinct;
+    var cells;
+    if (track) {
+      hasTracks = true;
+      var byCol = {};
+      items.forEach(function (s) { byCol[roomClass(s.room).slice(1)] = s; });
+      cells = [1, 2, 3].map(function (c) {
+        return byCol[c] ? slotCell(day, byCol[c], 'c' + c) : '<div class="empty-cell c' + c + '" aria-hidden="true"></div>';
+      }).join('');
+    } else {
+      cells = items.map(function (s) { return slotCell(day, s); }).join('');
+    }
+    return '<div class="slot">' +
+      '<div class="slot-time">' + esc(t.replace(/-$/, ' –').replace(/-/, ' – ').replace(' / ', '\n')) + '</div>' +
+      '<div class="slot-items' + (track ? ' tracks' : '') + '">' + cells + '</div></div>';
   }).join('');
 
-  return '<div class="page-head"><h1>' + esc(d.title.replace(/^MAMM 2026 - /, '')) + '</h1>' +
-    '<p>Tap a session to see its papers. All times are local (UTC+8).</p></div>' +
-    strip +
-    '<div class="card">' + rows + '</div>' +
-    '<div class="detail-actions" style="border:0"><button class="btn" id="ics-day">Add Day ' + day + ' to calendar (.ics)</button>' +
-    '<button class="btn" onclick="window.print()">Print this day</button></div>';
+  var head = hasTracks
+    ? '<div class="tt-head" aria-hidden="true"><span>Time (UTC+8)</span><span class="h1">Room 1</span><span class="h2">Room 2</span><span class="h3">Room 3</span></div>'
+    : '';
+
+  return '<div class="page-head"><p class="kicker">Programme at a glance</p><h1>Conference schedule</h1>' +
+    '<p>Three parallel rooms over two technical days, followed by an excursion. Select a session to see its papers; all times are local (UTC+8).</p></div>' +
+    overview() + strip +
+    '<div class="legend" aria-hidden="true"><span><i class="lg-r1"></i>Room 1</span><span><i class="lg-r2"></i>Room 2</span>' +
+    '<span><i class="lg-r3"></i>Room 3</span><span><i class="lg-key"></i>Keynote</span></div>' +
+    '<div class="card">' + head + rows + '</div>' +
+    '<div class="actions"><button class="btn" type="button" id="ics-day">' + ICON.cal + 'Add Day ' + day + ' sessions to calendar</button>' +
+    '<button class="btn" type="button" data-print>' + ICON.print + 'Print this day</button></div>';
 }
 
 /* -------------------------------------------------------------- view: papers */
@@ -343,44 +411,39 @@ function viewPapers() {
   if (sort === 'title') list.sort(function (a, b) { return a.title.localeCompare(b.title); });
   else if (sort === 'time') list.sort(function (a, b) { return (a.day - b.day) || a.time.localeCompare(b.time) || a.num - b.num; });
   else if (sort === 'id') list.sort(function (a, b) { return a.num - b.num; });
-  // 'relevance' keeps the order runSearch returned
 
   var rooms = {};
   DATA.papers.forEach(function (p) { rooms[p.room] = 1; });
 
-  var sortOpts = [['relevance', 'Best match'], ['id', 'Paper ID'], ['time', 'Time'], ['title', 'Title A-Z']];
+  var sortOpts = [['relevance', 'Best match'], ['id', 'Paper ID'], ['time', 'Time'], ['title', 'Title A–Z']];
   if (!q) sortOpts = sortOpts.slice(1);
 
   var filters = '<div class="filters">' +
-    '<label>Type<select id="f-type">' + opt([['', 'All'], ['oral', 'Oral only'], ['poster', 'Poster only']], f.type) + '</select></label>' +
+    '<label>Type<select id="f-type">' + opt([['', 'Oral & poster'], ['oral', 'Oral only'], ['poster', 'Poster only']], f.type) + '</select></label>' +
     '<label>Day<select id="f-day">' + opt([['', 'All days']].concat(
       DATA.days.filter(function (d) {
         return DATA.papers.some(function (p) { return p.day === d.day; });
-      }).map(function (d) {
-        return [String(d.day), 'Day ' + d.day + ' \u2014 ' + (d.date || '').slice(8).replace(/^0/, '') + ' Nov'];
-      })), f.day) + '</select></label>' +
+      }).map(function (d) { return [String(d.day), 'Day ' + d.day + ' — ' + DAY_SHORT[d.day]]; })), f.day) + '</select></label>' +
     '<label>Room<select id="f-room">' + opt([['', 'All rooms']].concat(Object.keys(rooms).sort().map(function (r) { return [r, r]; })), f.room) + '</select></label>' +
     '<label>Session<select id="f-session">' + opt([['', 'All sessions']].concat(DATA.sessions.map(function (s) {
-      return [s.id, (s.kind === 'oral' ? 'Oral ' + s.num : 'Poster ' + s.num) + ' \u2014 ' + s.name];
+      return [s.id, s.id + ' — ' + (s.kind === 'oral' ? s.name : 'Poster Session ' + s.num)];
     })), f.session) + '</select></label>' +
-    '<label>Sort<select id="f-sort">' + opt(sortOpts, sort) + '</select></label>' +
-    '<span class="spacer"></span>' +
-    '<button class="link-btn" id="f-reset">Reset filters</button>' +
+    '<label>Sort by<select id="f-sort">' + opt(sortOpts, sort) + '</select></label>' +
+    '<button class="link-btn reset" type="button" id="f-reset">Reset</button>' +
     '</div>';
 
   var authorChip = f.author
-    ? '<div class="chips"><button class="chip" aria-pressed="true" id="clear-author">Author: ' +
-      esc(f.author) + ' &nbsp;\u00d7</button></div>'
+    ? '<div class="chips"><button class="chip" type="button" id="clear-author" aria-label="Remove author filter ' + esc(f.author) + '">Author: ' +
+      esc(f.author) + ' <span aria-hidden="true">×</span></button></div>'
     : '';
+  var what = f.author ? ' by ' + esc(f.author) : (q ? ' matching “' + esc(q) + '”' : '');
+  var c = counts();
 
-  var what = f.author ? ' by ' + esc(f.author) : (q ? ' matching \u201c' + esc(q) + '\u201d' : '');
-
-  return '<div class="page-head"><h1>All papers</h1>' +
-    '<p>' + stats() + '. ' +
-    'Search covers paper IDs, titles, authors, affiliations, keywords and full abstracts \u2014 ' +
-    'best matches first.</p></div>' +
+  return '<div class="page-head"><p class="kicker">Book of abstracts</p><h1>Accepted papers</h1>' +
+    '<p>' + c.papers + ' papers — ' + c.oral + ' oral presentations in ' + c.os + ' sessions and ' + c.poster + ' posters in ' + c.ps +
+    ' judged sessions. Search covers IDs, titles, authors, affiliations, keywords and full abstracts.</p></div>' +
     authorChip + filters +
-    '<p class="result-count"><b>' + list.length + '</b> of ' + DATA.papers.length + ' papers' + what + '</p>' +
+    '<p class="result-count" aria-live="polite"><b>' + list.length + '</b> of ' + DATA.papers.length + ' papers' + what + '</p>' +
     paperList(list, q);
 }
 function opt(pairs, cur) {
@@ -392,6 +455,7 @@ function opt(pairs, cur) {
 /* ------------------------------------------------------------- view: authors */
 var AUTHORS = null;
 function buildAuthors() {
+  if (AUTHORS) return;
   var map = {};
   DATA.papers.forEach(function (p) {
     p.authors.forEach(function (a) {
@@ -406,8 +470,12 @@ function buildAuthors() {
   AUTHORS = Object.keys(map).map(function (k) { return map[k]; });
   AUTHORS.sort(function (a, b) { return a.name.localeCompare(b.name); });
 }
+function letterOf(name) {
+  var L = norm(name).charAt(0).toUpperCase();
+  return /[A-Z]/.test(L) ? L : '#';
+}
 function viewAuthors() {
-  if (!AUTHORS) buildAuthors();
+  buildAuthors();
   var q = $('#q').value;
   var ts = terms(q);
   var list = AUTHORS;
@@ -419,11 +487,16 @@ function viewAuthors() {
     });
   }
 
-  var head = '<div class="page-head"><h1>Authors</h1>' +
-    '<p>Every presenting and co-authoring name in the programme. ' +
-    'Tap a name to see that person\u2019s papers.</p></div>' +
-    '<p class="result-count"><b>' + list.length + '</b> of ' + AUTHORS.length + ' authors' +
-    (q ? ' matching \u201c' + esc(q) + '\u201d' : '') + '</p>';
+  var letters = [];
+  list.forEach(function (a) { var L = letterOf(a.name); if (letters.indexOf(L) < 0) letters.push(L); });
+
+  var head = '<div class="page-head"><p class="kicker">Author index</p><h1>Authors</h1>' +
+    '<p>Every presenting and co-authoring name in the programme, with affiliations. Select a name to list that person’s papers.</p></div>' +
+    (list.length > 30 ? '<nav class="letters" aria-label="Jump to letter">' + letters.map(function (L) {
+      return '<a href="#" data-jump="L-' + L + '">' + L + '</a>';
+    }).join('') + '</nav>' : '') +
+    '<p class="result-count" aria-live="polite"><b>' + list.length + '</b> of ' + AUTHORS.length + ' authors' +
+    (q ? ' matching “' + esc(q) + '”' : '') + '</p>';
 
   if (!list.length) {
     return head + '<div class="empty"><b>No author matches</b>Check the spelling, or try a surname on its own.</div>';
@@ -431,166 +504,221 @@ function viewAuthors() {
 
   var letter = '', html = '<div class="card"><ul class="plist">';
   list.forEach(function (a) {
-    var L = a.name.charAt(0).toUpperCase();
-    if (!/[A-Z]/.test(L)) L = '#';
+    var L = letterOf(a.name);
     if (L !== letter) {
       letter = L;
-      html += '<li class="pitem alpha"><div class="alpha-head">' + esc(letter) + '</div></li>';
+      html += '<li class="pitem alpha" id="L-' + L + '"><div class="alpha-head">' + esc(letter) + '</div></li>';
     }
-    html += '<li class="pitem"><button class="prow arow" data-author="' + esc(a.name) + '">' +
-      '<span class="pid ' + (a.papers.length > 1 ? 'oral' : '') + '">' + a.papers.length + '</span>' +
-      '<span><span class="ptitle">' + highlight(a.name, q) + '</span>' +
-      (a.affs.length ? '<span class="pauth">' + esc(a.affs.slice(0, 2).join(' \u00b7 ')) +
-        (a.affs.length > 2 ? ' \u00b7 +' + (a.affs.length - 2) : '') + '</span>' : '') +
+    html += '<li class="pitem"><button class="prow" type="button" data-author="' + esc(a.name) + '">' +
+      '<span class="pid">' + a.papers.length + '</span>' +
+      '<span class="pbody"><span class="ptitle">' + highlight(a.name, q) + '</span>' +
+      (a.affs.length ? '<span class="pauth">' + esc(a.affs.slice(0, 2).join(' · ')) +
+        (a.affs.length > 2 ? ' · +' + (a.affs.length - 2) : '') + '</span>' : '') +
       '<span class="pmeta">' + a.papers.map(function (p) {
-        return '<span class="tag ' + p.type + '">' + esc(p.id.replace('ID_', '#')) + '</span>';
+        return '<span class="tag ' + p.type + '">' + esc(p.id) + '</span>';
       }).join('') + '</span></span></button></li>';
   });
   return head + html + '</ul></div>';
 }
 
+/* ------------------------------------------------------------ view: speakers */
+function viewSpeakers() {
+  var sp = DATA.speakers || [];
+  var head = '<div class="page-head"><p class="kicker">Plenary programme</p><h1>Keynote &amp; invited speakers</h1>' +
+    '<p>Keynote lectures take place in Room 1; invited talks open the parallel sessions in each room.</p></div>';
+  if (!sp.length) return head + '<div class="empty"><b>Speakers to be announced</b></div>';
+  function card(s) {
+    var when = s.day
+      ? '<div class="spk-when"><span class="mono">' + ICON.cal + ' Day ' + s.day + ' · ' + DAY_SHORT[s.day] + '</span>' +
+        '<span class="mono">' + ICON.clock + ' ' + esc(s.time) + '</span><span>' + ICON.pin + ' ' + esc(s.room) + '</span></div>'
+      : '';
+    return '<article class="spk ' + s.kind + '" id="spk-' + esc(norm(s.name).replace(/[^a-z]+/g, '-')) + '">' +
+      '<span class="tag ' + (s.kind === 'keynote' ? 'key' : 'oral') + '" style="align-self:flex-start;margin-bottom:8px">' +
+        (s.kind === 'keynote' ? 'Keynote' : 'Invited') + (s.slot ? ' ' + s.slot : '') + '</span>' +
+      '<h3 class="spk-name">' + esc(s.name) + '</h3>' +
+      '<p class="spk-aff">' + esc(s.affiliation) + '</p>' +
+      (s.topic ? '<p class="spk-topic">' + esc(s.topic) + '</p>' : '') + when +
+      (s.abstract ? '<details><summary>' + ICON.right + 'Abstract</summary><p>' + esc(s.abstract) + '</p></details>' : '') +
+      '</article>';
+  }
+  var key = sp.filter(function (s) { return s.kind === 'keynote'; });
+  var inv = sp.filter(function (s) { return s.kind === 'invited'; });
+  var bySlot = function (a, b) { return ((a.day || 9) - (b.day || 9)) || String(a.time).localeCompare(String(b.time)) || String(a.room).localeCompare(String(b.room)); };
+  key.sort(bySlot); inv.sort(bySlot);
+  return head +
+    '<h2 class="spk-group">Keynote lectures <small>' + key.length + '</small></h2><div class="spk-grid">' + key.map(card).join('') + '</div>' +
+    '<h2 class="spk-group">Invited talks <small>' + inv.length + '</small></h2><div class="spk-grid">' + inv.map(card).join('') + '</div>';
+}
+
 /* --------------------------------------------------------------- view: rooms */
 function viewRooms() {
   var rooms = ['Room 1', 'Room 2', 'Room 3'];
-  var html = '<div class="page-head"><h1>By room</h1><p>What happens in each room, hour by hour.</p></div>';
+  var html = '<div class="page-head"><p class="kicker">Room schedule</p><h1>By room</h1><p>Everything that happens in each room, in order — useful for session chairs and room volunteers.</p></div>';
   html += '<div class="two-col">';
   rooms.forEach(function (r) {
-    html += '<div class="card"><div class="card-head"><b>' + r + '</b></div>';
+    html += '<section class="card room-col" aria-label="' + r + '"><div class="card-head"><h2>' + r + '</h2></div>';
     DATA.days.forEach(function (d) {
-      var slots = d.slots.filter(function (s) { return s.room === r || s.room === 'All rooms' || (s.room === 'All' && r === 'Room 1'); });
-      if (!slots.length) return;
-      html += '<div class="slot" style="grid-template-columns:1fr"><div class="slot-time">Day ' + d.day + ' — ' + (d.day === 1 ? '5' : d.day === 2 ? '6' : '7') + ' Nov</div><div class="slot-items">';
-      slots.forEach(function (s) {
-        var sid = slotSessionId(s.text);
-        var t = cleanSlotTitle(s.text);
-        var cls = 'ev ' + ROOM_CLASS(r) + (isBreak(s.text) ? ' break' : '');
-        var inner = '<span class="ev-room">' + esc(s.time) + '</span><span class="ev-title">' + esc(t) + '</span>';
-        html += sid && SESS[sid]
-          ? '<button class="' + cls + '" data-session="' + sid + '">' + inner + '<span class="ev-count">' + SESS[sid].paperIds.length + ' papers →</span></button>'
-          : '<div class="' + cls + '">' + inner + '</div>';
+      var slots = d.slots.filter(function (s) {
+        return (s.room === r || (r === 'Room 1' && (s.room === 'All' || s.room === 'All rooms'))) && !/Cruise|shuttle/i.test(s.text);
       });
+      if (!slots.length) return;
+      html += '<div class="slot"><div class="slot-time">' + esc(dayText(d.day)) + '</div><div class="slot-items">';
+      slots.forEach(function (s) { html += slotCell(d.day, s, '', true); });
       html += '</div></div>';
     });
-    html += '</div>';
+    html += '</section>';
   });
-  html += '</div>';
-  return html;
+  return html + '</div>';
 }
 
 /* -------------------------------------------------------------- view: saved */
 function viewSaved() {
   var list = saved.map(function (id) { return IDX[id]; }).filter(Boolean)
     .sort(function (a, b) { return (a.day - b.day) || a.time.localeCompare(b.time) || a.num - b.num; });
-  var head = '<div class="page-head"><h1>My programme</h1>' +
-    '<p>Papers you starred. Saved in this browser only — no account needed.</p></div>';
+  var head = '<div class="page-head"><p class="kicker">Personal agenda</p><h1>My programme</h1>' +
+    '<p>Papers you have starred, in chronological order. Stored only in this browser — no account, no tracking.</p></div>';
   if (!list.length) {
-    return head + '<div class="empty"><b>Nothing saved yet</b>Tap the ☆ next to any paper to build your own schedule.</div>';
+    return head + '<div class="empty"><b>Nothing saved yet</b>Use the star next to any paper to build your own agenda.' +
+      '<div class="actions"><a class="btn primary" href="#/papers">Browse papers</a></div></div>';
   }
   return head +
-    '<div class="detail-actions" style="border:0;margin-top:0"><button class="btn primary" id="ics-saved">Add all ' + list.length + ' to calendar (.ics)</button>' +
-    '<button class="btn" onclick="window.print()">Print</button>' +
-    '<button class="btn" id="clear-saved">Clear all</button></div>' +
+    '<div class="actions"><button class="btn primary" type="button" id="ics-saved">' + ICON.cal + 'Add all ' + list.length + ' to calendar</button>' +
+    '<button class="btn" type="button" data-print>' + ICON.print + 'Print</button>' +
+    '<button class="btn" type="button" id="clear-saved">Clear all</button></div>' +
     paperList(list, '');
 }
 
 /* --------------------------------------------------------------- view: info */
 function viewInfo() {
-  var c = DATA.conference;
-  var html = '<div class="page-head"><h1>Conference information</h1></div>';
-  html += '<div class="prose"><h2>At a glance</h2><ul>' +
-    '<li><b>Conference:</b> ' + esc(c.fullName) + ' (' + esc(c.name) + ')</li>' +
-    '<li><b>Dates:</b> ' + esc(c.dates) + '</li>' +
-    '<li><b>Venue:</b> ' + esc(c.venue) + '</li>' +
-    '<li><b>Host:</b> ' + esc(c.host) + '</li>' +
-    '<li><b>Programme:</b> 89 papers — 56 oral presentations (~15 min each) in 9 sessions, 33 posters in 2 judged sessions</li>' +
-    '<li><b>Rooms:</b> Room 1, Room 2, Room 3</li>' +
-    '</ul></div>';
+  var c = DATA.conference, n = counts();
+  var html = '<div class="page-head"><p class="kicker">About</p><h1>Conference information</h1></div>';
+  html += '<section class="prose"><h2>At a glance</h2><dl class="kv">' +
+    '<dt>Conference</dt><dd>' + esc(c.fullName) + ' (' + esc(c.name) + ')</dd>' +
+    '<dt>Dates</dt><dd>5–7 November 2026</dd>' +
+    '<dt>Venue</dt><dd>' + esc(c.venue) + '</dd>' +
+    '<dt>Host</dt><dd>' + esc(c.host) + '</dd>' +
+    '<dt>Programme</dt><dd>' + n.papers + ' papers — ' + n.oral + ' oral presentations in ' + n.os + ' sessions, ' + n.poster +
+      ' posters in ' + n.ps + ' judged sessions, ' + n.keynote + ' keynote lectures and ' + n.invited + ' invited talks</dd>' +
+    '<dt>Rooms</dt><dd>Room 1, Room 2, Room 3 (keynotes in Room 1)</dd>' +
+    '<dt>Day 3</dt><dd>Sun Moon Lake cruise, 08:30–10:30; shuttle bus back to Taichung from 10:30</dd>' +
+    '</dl></section>';
 
-  html += '<div class="prose"><h2>Day 3 — 7 November</h2><p>Sun Moon Lake Cruise, 08:30–10:30. Self-funded activity; advance reservation required through the MAMM 2026 organizer. From 10:30, shuttle bus back to Taichung.</p></div>';
-
-  html += '<div class="prose"><h2>Notes on the programme</h2>' +
-    DATA.notes.map(function (n) { return '<div class="note">' + esc(n) + '</div>'; }).join('') +
-    '<div class="note">Keynote and invited speakers are listed as time slots; speaker names will be announced by the organisers.</div>' +
-    '</div>';
-
-  html += '<div class="prose"><h2>Preface</h2>' + c.preface.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</div>';
-
-  html += '<div class="prose"><h2>Organised by</h2><ul>';
-  for (var i = 0; i < c.organizers.length; i += 2) {
-    html += '<li><b>' + esc(c.organizers[i]) + ':</b> ' + esc((c.organizers[i + 1] || '').replace(/ \/ /g, ' · ')) + '</li>';
+  if (c.preface && c.preface.length) {
+    html += '<section class="prose"><h2>Preface</h2>' + c.preface.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join('') + '</section>';
   }
-  html += '</ul></div>';
 
-  html += '<div class="prose"><h2>Committees</h2><div class="two-col">' +
-    DATA.committees.map(function (cm) {
-      return '<div><div class="section-title" style="margin-top:0">' + esc(cm.name) + '</div><ul>' +
-        cm.members.map(function (m) { return '<li><b>' + esc(m.name) + '</b>' + (m.affiliation ? '<br><span style="font-size:12.5px">' + esc(m.affiliation) + '</span>' : '') + '</li>'; }).join('') +
-        '</ul></div>';
-    }).join('') + '</div></div>';
+  if (c.organizers && c.organizers.length) {
+    html += '<section class="prose"><h2>Organisation</h2><dl class="kv">';
+    for (var i = 0; i < c.organizers.length; i += 2) {
+      html += '<dt>' + esc(c.organizers[i]) + '</dt><dd><ul class="org-list">' +
+        (c.organizers[i + 1] || '').split(' / ').map(function (x) { return '<li>' + esc(x.replace(/\.$/, '')) + '</li>'; }).join('') + '</ul></dd>';
+    }
+    html += '</dl></section>';
+  }
 
+  if (DATA.committees && DATA.committees.length) {
+    html += '<section class="prose"><h2>Committees</h2><div class="committee-grid">' +
+      DATA.committees.map(function (cm) {
+        return '<div class="committee"><h3>' + esc(cm.name.toLowerCase().replace(/(^|\s)\S/g, function (x) { return x.toUpperCase(); })) + '</h3><ul>' +
+          cm.members.map(function (m) { return '<li>' + esc(m.name) + (m.affiliation ? '<span>' + esc(m.affiliation) + '</span>' : '') + '</li>'; }).join('') +
+          '</ul></div>';
+      }).join('') + '</div></section>';
+  }
+
+  if (DATA.notes && DATA.notes.length) {
+    html += '<section class="prose"><h2>Notes on the programme</h2>' +
+      DATA.notes.map(function (x) { return '<p>' + esc(x) + '</p>'; }).join('') + '</section>';
+  }
   return html;
 }
 
 /* -------------------------------------------------------------- view: paper */
+function bylineHTML(p) {
+  var affs = [];
+  p.authors.forEach(function (a) {
+    (a.affiliations || []).forEach(function (x) { if (affs.indexOf(x) < 0) affs.push(x); });
+  });
+  var numbered = affs.length > 1;
+  var names = p.authors.map(function (a) {
+    var sups = numbered ? (a.affiliations || []).map(function (x) { return affs.indexOf(x) + 1; }) : [];
+    return '<span class="au"><button type="button" class="au" data-author="' + esc(a.name) + '">' + esc(a.name) + '</button>' +
+      (sups.length ? '<sup>' + sups.join(',') + '</sup>' : '') + '</span>';
+  });
+  var byline = names.length ? '<p class="byline">' + names.join(', ') + '</p>' : '<p class="byline" style="color:var(--muted)">Author details not listed.</p>';
+  if (!affs.length) affs = p.affiliations || [];
+  var list = affs.length
+    ? '<ul class="affs">' + affs.map(function (x, i) {
+        return '<li>' + (numbered ? '<sup>' + (i + 1) + '</sup>' : '') + '<span>' + esc(x) + '</span></li>';
+      }).join('') + '</ul>'
+    : '';
+  return byline + list;
+}
 function viewPaper(id) {
   var p = IDX[id];
-  if (!p) return '<div class="empty"><b>Paper not found</b>' + esc(id) + ' is not in the programme.</div>';
+  if (!p) return '<a class="backlink" href="#/papers">' + ICON.left + 'All papers</a><div class="empty"><b>Paper not found</b>' + esc(id) + ' is not in the programme.</div>';
   var isSaved = saved.indexOf(p.id) >= 0;
   var s = SESS[p.sessionId];
+  var sib = s ? s.paperIds : [];
+  var k = sib.indexOf(p.id);
+  var prev = k > 0 ? IDX[sib[k - 1]] : null, next = k >= 0 && k < sib.length - 1 ? IDX[sib[k + 1]] : null;
 
   var pendingNote = p.pending
-    ? '<div class="note">This paper is in the programme, but its title, authors and abstract ' +
-      'have not been published yet. It will appear here as soon as the organisers release them.</div>'
+    ? '<div class="note">This paper is in the programme, but its title, authors and abstract have not been released yet.</div>'
     : '';
-  var authors = p.authors.length
-    ? '<ul class="authors">' + p.authors.map(function (a) {
-        return '<li><span class="an">' + esc(a.name) + '</span>' +
-          (a.affiliations && a.affiliations.length ? '<span class="aa">' + esc(a.affiliations.join(' · ')) + '</span>' : '') + '</li>';
-      }).join('') + '</ul>'
-    : '<p style="color:var(--muted)">Author details not listed.</p>';
 
-  return '<a class="backlink" href="#/papers">← Back to all papers</a>' +
-    '<div class="detail">' +
-      '<div class="idline"><span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral' : 'Poster') + '</span>' +
-        '<span class="pid ' + p.type + '" style="padding:2px 9px">' + esc(p.id) + '</span>' +
+  var main = '<article class="article-main">' +
+      '<div class="idline"><span class="pid ' + p.type + '">' + esc(p.id) + '</span>' +
+        '<span class="tag ' + p.type + '">' + (p.type === 'oral' ? 'Oral presentation' : 'Poster') + '</span>' +
         (p.provisional ? '<span class="tag prov">provisional selection</span>' : '') + '</div>' +
       '<h1>' + esc(p.title) + '</h1>' + pendingNote +
-      '<dl class="factgrid">' +
-        '<div class="fact"><dt>Day</dt><dd>Day ' + p.day + ' — ' + (p.day === 1 ? '5' : '6') + ' Nov (' + DAY_NAMES[p.day] + ')</dd></div>' +
-        '<div class="fact"><dt>Time</dt><dd>' + esc(p.time) + '</dd></div>' +
-        '<div class="fact"><dt>Room</dt><dd>' + esc(p.room) + '</dd></div>' +
-        '<div class="fact"><dt>Session</dt><dd><a href="' + buildHash('session', {}, p.sessionId) + '">' +
-          esc((p.type === 'oral' ? 'Oral Session ' : 'Poster Session ') + p.sessionNum) + '</a></dd></div>' +
+      '<p class="meta-line m-only"><span class="mono">' + ICON.cal + 'Day ' + p.day + ' · ' + esc(p.time) + '</span><span>' + ICON.pin + esc(p.room) + '</span>' +
+        '<span>' + esc(s ? sessionLabel(s) : p.sessionId) + '</span></p>' +
+      bylineHTML(p) +
+      (p.abstract ? '<h2 class="section-title">Abstract</h2><p class="abstract" lang="en">' + esc(p.abstract) + '</p>' : '') +
+      (p.keywords.length ? '<h2 class="section-title">Keywords</h2><div class="kw">' +
+        p.keywords.map(function (kw) { return '<button type="button" data-kw="' + esc(kw) + '">' + esc(kw) + '</button>'; }).join('') + '</div>' : '') +
+      (s ? '<nav class="pager" aria-label="Other papers in this session">' +
+        (prev ? '<a class="btn" href="' + buildHash('paper', {}, prev.id) + '">' + ICON.left + '<span>' + esc(prev.id.replace('ID_', 'ID ')) + ' · ' + esc(prev.title) + '</span></a>' : '<span></span>') +
+        (next ? '<a class="btn next" href="' + buildHash('paper', {}, next.id) + '"><span>' + esc(next.id.replace('ID_', 'ID ')) + ' · ' + esc(next.title) + '</span>' + ICON.right + '</a>' : '<span></span>') +
+        '</nav>' : '') +
+    '</article>';
+
+  var aside = '<aside class="aside" aria-label="Presentation details">' +
+      '<dl class="facts">' +
+        '<div><dt>Day</dt><dd>' + esc(dayText(p.day)) + '</dd></div>' +
+        '<div><dt>Time</dt><dd><span class="mono">' + esc(p.time) + '</span> <span style="color:var(--muted);font-size:12.5px">UTC+8</span></dd></div>' +
+        '<div><dt>Room</dt><dd>' + esc(p.room) + '</dd></div>' +
+        '<div><dt>Session</dt><dd><a href="' + buildHash('session', {}, p.sessionId) + '">' + esc(s ? sessionLabel(s) : p.sessionId) + '</a><br>' +
+          '<span style="font-weight:400;color:var(--ink-2)">' + esc(p.type === 'oral' ? p.sessionName : (s && s.subtitle) || p.sessionName) + '</span></dd></div>' +
+        (p.chairs ? '<div><dt>Chairs</dt><dd style="font-weight:400">' + esc(p.chairs) + '</dd></div>' : '') +
       '</dl>' +
-      '<div class="section-title">Session</div><p style="margin:0">' + esc(p.sessionName) +
-        (p.chairs ? '<br><span style="color:var(--muted);font-size:13px">Chairs: ' + esc(p.chairs) + '</span>' : '') + '</p>' +
-      '<div class="section-title">Authors</div>' + authors +
-      (p.abstract ? '<div class="section-title">Abstract</div><p class="abstract">' +
-        esc(p.abstract) + '</p>' : '') +
-      (p.keywords.length ? '<div class="section-title">Keywords</div><div class="kw">' +
-        p.keywords.map(function (k) { return '<button data-kw="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '</div>' : '') +
-      '<div class="detail-actions">' +
-        '<button class="btn ' + (isSaved ? 'primary' : '') + '" data-star="' + p.id + '" aria-pressed="' + isSaved + '">' +
-          (isSaved ? '★ Saved' : '☆ Save to my programme') + '</button>' +
-        '<button class="btn" data-ics-paper="' + p.id + '">Add to calendar</button>' +
-        '<button class="btn" id="share-qr">Show QR for this paper</button>' +
-      '</div>' +
-    '</div>';
+      '<button class="btn ' + (isSaved ? 'primary' : '') + '" type="button" data-star="' + p.id + '" aria-pressed="' + isSaved + '">' +
+        ICON.star(isSaved) + (isSaved ? 'Saved to My programme' : 'Save to My programme') + '</button>' +
+      '<button class="btn" type="button" data-ics-paper="' + p.id + '">' + ICON.cal + 'Add to calendar</button>' +
+      '<button class="btn" type="button" id="share-qr">' + ICON.qr + 'QR code for this paper</button>' +
+    '</aside>';
+
+  return '<a class="backlink" href="#/papers">' + ICON.left + 'All papers</a>' +
+    '<div class="article">' + main + aside + '</div>';
 }
 
 /* ------------------------------------------------------------ view: session */
 function viewSession(id) {
   var s = SESS[id];
-  if (!s) return '<div class="empty"><b>Session not found</b></div>';
+  if (!s) return '<a class="backlink" href="#/schedule">' + ICON.left + 'Schedule</a><div class="empty"><b>Session not found</b></div>';
   var list = s.paperIds.map(function (x) { return IDX[x]; }).filter(Boolean);
-  return '<a class="backlink" href="' + buildHash('schedule', { day: s.day }) + '">← Back to the schedule</a>' +
-    '<div class="page-head">' +
-      '<h1>' + esc((s.kind === 'oral' ? 'Oral Session ' : 'Poster Session ') + s.num + ' — ' + s.name) + '</h1>' +
-      '<p>Day ' + s.day + ' · ' + esc(s.dateLabel || '') + ' · ' + esc(s.time) + ' · ' + esc(s.room) +
-      (s.chairs ? ' · Chairs: ' + esc(s.chairs) : '') + '</p>' +
-    '</div>' +
-    '<div class="detail-actions" style="border:0;margin-top:0"><button class="btn" data-ics-session="' + s.id + '">Add session to calendar</button>' +
-    '<button class="btn" id="share-qr">Show QR for this session</button></div>' +
+  return '<a class="backlink" href="' + buildHash('schedule', { day: s.day }) + '">' + ICON.left + 'Schedule — Day ' + s.day + '</a>' +
+    '<header class="sess-head ' + roomClass(s.room) + '">' +
+      '<span class="tag ' + s.kind + '">' + esc(sessionLabel(s)) + '</span>' +
+      '<h1>' + esc(s.kind === 'oral' ? s.name : sessionLabel(s) + ' — ' + (s.subtitle || '')) + '</h1>' +
+      '<p class="meta-line"><span>' + ICON.cal + esc(dayText(s.day)) + '</span>' +
+        '<span class="mono">' + ICON.clock + esc(s.time) + '</span>' +
+        '<span>' + ICON.pin + esc(s.room) + '</span>' +
+        (s.chairs ? '<span>' + ICON.user + 'Chairs: ' + esc(s.chairs) + '</span>' : '') + '</p>' +
+    '</header>' +
+    '<div class="actions"><button class="btn" type="button" data-ics-session="' + s.id + '">' + ICON.cal + 'Add session to calendar</button>' +
+    '<button class="btn" type="button" id="share-qr">' + ICON.qr + 'QR code for this session</button></div>' +
+    '<p class="result-count"><b>' + list.length + '</b> ' + (s.kind === 'oral' ? 'papers, in presentation order' : 'posters') + '</p>' +
     paperList(list, '');
 }
 
@@ -598,10 +726,11 @@ function viewSession(id) {
 var TABS = [
   { k: 'schedule', label: 'Schedule' },
   { k: 'papers', label: 'Papers', count: function () { return DATA.papers.length; } },
+  { k: 'speakers', label: 'Speakers' },
   { k: 'authors', label: 'Authors' },
   { k: 'rooms', label: 'Rooms' },
   { k: 'saved', label: 'My programme', count: function () { return saved.length; } },
-  { k: 'info', label: 'Info' }
+  { k: 'info', label: 'About' }
 ];
 function renderTabs() {
   var active = route.view;
@@ -609,26 +738,35 @@ function renderTabs() {
   if (active === 'session') active = 'schedule';
   $('#tabs').innerHTML = TABS.map(function (t) {
     var c = t.count ? t.count() : null;
-    return '<button class="tab" role="tab" aria-selected="' + (t.k === active) + '" data-tab="' + t.k + '">' +
+    var on = t.k === active;
+    return '<button class="tab" type="button" role="tab" aria-selected="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-tab="' + t.k + '">' +
       esc(t.label) + (c ? '<span class="badge">' + c + '</span>' : '') + '</button>';
   }).join('');
+  var cur = $('#tabs .tab[aria-selected="true"]');
+  if (cur && cur.scrollIntoView && window.innerWidth < 820) cur.scrollIntoView({ block: 'nearest', inline: 'nearest' });
 }
+var TITLES = { schedule: 'Schedule', papers: 'Papers', speakers: 'Speakers', authors: 'Authors', rooms: 'Rooms', saved: 'My programme', info: 'About' };
 function render() {
   var v = route.view, html;
   if (v === 'papers') html = viewPapers();
   else if (v === 'authors') html = viewAuthors();
+  else if (v === 'speakers') html = viewSpeakers();
   else if (v === 'rooms') html = viewRooms();
   else if (v === 'saved') html = viewSaved();
   else if (v === 'info') html = viewInfo();
   else if (v === 'paper') html = viewPaper(route.id);
   else if (v === 'session') html = viewSession(route.id);
-  else html = viewSchedule();
+  else { v = 'schedule'; html = viewSchedule(); }
   $('#view').innerHTML = html;
   renderTabs();
-  document.querySelector('.searchbar').style.display = (v === 'paper' || v === 'info' || v === 'rooms') ? 'none' : '';
+  $('#searchbar').hidden = !(v === 'schedule' || v === 'papers' || v === 'authors' || v === 'saved');
   $('#q').placeholder = (v === 'authors')
-    ? 'Search authors by name, affiliation or paper\u2026'
-    : 'Search papers, authors, keywords, sessions\u2026';
+    ? 'Search authors by name, affiliation or paper…'
+    : 'Search papers, authors, keywords, sessions…';
+  var t = v === 'paper' && IDX[route.id] ? route.id.replace('ID_', 'ID ') + ' — ' + IDX[route.id].title
+        : v === 'session' && SESS[route.id] ? sessionLabel(SESS[route.id]) + ' — ' + SESS[route.id].name
+        : TITLES[v];
+  document.title = t + ' · MAMM 2026';
 }
 
 /* --------------------------------------------------------------- QR modal */
@@ -636,40 +774,74 @@ function showQR(url, label) {
   var qr = qrcode(0, 'M');
   qr.addData(url);
   qr.make();
-  $('#qr-target').innerHTML = qr.createSvgTag({ cellSize: 6, margin: 0, scalable: true });
+  $('#qr-target').innerHTML = qr.createSvgTag({ cellSize: 6, margin: 2, scalable: true });
+  var svg = $('#qr-target svg');
+  if (svg) { svg.setAttribute('role', 'img'); svg.setAttribute('aria-label', 'QR code for ' + url); }
   $('#modal-title').textContent = label || 'Scan to open';
   $('#modal-url').textContent = url;
-  $('#modal').classList.add('open');
+  lastFocus = document.activeElement;
+  $('#modal').hidden = false;
   $('#modal').dataset.url = url;
+  $('#qr-close').focus();
 }
-function closeQR() { $('#modal').classList.remove('open'); }
+function closeQR() {
+  if ($('#modal').hidden) return;
+  $('#modal').hidden = true;
+  if (lastFocus && lastFocus.focus) lastFocus.focus();
+}
 
 /* ------------------------------------------------------------------ events */
 function toggleStar(id) {
   var i = saved.indexOf(id);
   if (i >= 0) saved.splice(i, 1); else saved.push(id);
   STORE.set('saved', saved);
+  var y = window.scrollY;
   render();
+  window.scrollTo(0, y);
+}
+function navTo(view, params, id) {
+  go(view, params, id);
+  window.scrollTo(0, 0);
 }
 function wire() {
-  // tabs
   $('#tabs').addEventListener('click', function (e) {
     var b = e.target.closest('[data-tab]');
-    if (b) go(b.dataset.tab, b.dataset.tab === 'papers' ? {} : {});
+    if (b) navTo(b.dataset.tab, {});
+  });
+  $('#tabs').addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var tabs = Array.prototype.slice.call(document.querySelectorAll('#tabs .tab'));
+    var i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    var n = tabs[(i + (e.key === 'ArrowRight' ? 1 : tabs.length - 1)) % tabs.length];
+    n.focus();
+    e.preventDefault();
   });
 
-  // global clicks inside the view
   $('#view').addEventListener('click', function (e) {
     var el;
-    if ((el = e.target.closest('[data-paper]'))) { go('paper', {}, el.dataset.paper); window.scrollTo(0, 0); return; }
-    if ((el = e.target.closest('[data-session]'))) { go('session', {}, el.dataset.session); window.scrollTo(0, 0); return; }
     if ((el = e.target.closest('[data-star]'))) { e.stopPropagation(); toggleStar(el.dataset.star); return; }
-    if ((el = e.target.closest('[data-day]'))) { go('schedule', { day: el.dataset.day }); return; }
-    if ((el = e.target.closest('[data-kw]'))) { $('#q').value = el.dataset.kw; go('papers', {}); return; }
     if ((el = e.target.closest('[data-author]'))) {
       $('#q').value = ''; $('#q-clear').hidden = true;
-      go('papers', { author: el.dataset.author }); window.scrollTo(0, 0); return;
+      navTo('papers', { author: el.dataset.author }); return;
     }
+    if ((el = e.target.closest('[data-paper]'))) { navTo('paper', {}, el.dataset.paper); return; }
+    if ((el = e.target.closest('[data-session]'))) { navTo('session', {}, el.dataset.session); return; }
+    if ((el = e.target.closest('[data-speaker]'))) {
+      var anchor = 'spk-' + norm(el.dataset.speaker).replace(/[^a-z]+/g, '-');
+      go('speakers', {});
+      setTimeout(function () { var t = document.getElementById(anchor); if (t) { t.scrollIntoView({ block: 'center' }); var d = t.querySelector('details'); if (d) d.open = true; } }, 30);
+      return;
+    }
+    if ((el = e.target.closest('[data-day]'))) { go('schedule', { day: el.dataset.day }); return; }
+    if ((el = e.target.closest('[data-kw]'))) { $('#q').value = el.dataset.kw; $('#q-clear').hidden = false; navTo('papers', {}); return; }
+    if ((el = e.target.closest('[data-jump]'))) {
+      e.preventDefault();
+      var tgt = document.getElementById(el.dataset.jump);
+      if (tgt) tgt.scrollIntoView({ block: 'start' });
+      return;
+    }
+    if (e.target.closest('[data-print]')) { window.print(); return; }
     if (e.target.closest('#clear-author')) { go('papers', {}); return; }
     if ((el = e.target.closest('[data-ics-paper]'))) {
       var p = IDX[el.dataset.icsPaper];
@@ -681,33 +853,31 @@ function wire() {
     if ((el = e.target.closest('[data-ics-session]'))) {
       var s = SESS[el.dataset.icsSession];
       downloadICS([{ uid: s.id, date: s.date, time: s.time, room: s.room,
-        title: (s.kind === 'oral' ? 'Oral Session ' : 'Poster Session ') + s.num + ' — ' + s.name,
+        title: sessionLabel(s) + ' — ' + s.name,
         desc: s.paperIds.map(function (x) { return x + ': ' + (IDX[x] ? IDX[x].title : ''); }).join('\n') }],
         s.id + '.ics');
       return;
     }
     if (e.target.closest('#ics-day')) {
-      var day = +(route.params.day || 1);
-      var evs = DATA.sessions.filter(function (s) { return s.day === day; }).map(function (s) {
-        return { uid: s.id, date: s.date, time: s.time, room: s.room,
-          title: (s.kind === 'oral' ? 'Oral Session ' : 'Poster Session ') + s.num + ' — ' + s.name,
-          desc: s.paperIds.join(', ') };
+      var day = +(route.params.day || STORE.get('day', 1));
+      var evs = DATA.sessions.filter(function (x) { return x.day === day; }).map(function (x) {
+        return { uid: x.id, date: x.date, time: x.time, room: x.room,
+          title: sessionLabel(x) + ' — ' + x.name, desc: x.paperIds.join(', ') };
       });
       downloadICS(evs, 'mamm2026-day' + day + '.ics');
       return;
     }
     if (e.target.closest('#ics-saved')) {
-      downloadICS(saved.map(function (id) { return IDX[id]; }).filter(Boolean).map(function (p) {
-        return { uid: p.id, date: p.date, time: p.time, room: p.room, title: p.id + ' — ' + p.title, desc: p.sessionName };
+      downloadICS(saved.map(function (id) { return IDX[id]; }).filter(Boolean).map(function (x) {
+        return { uid: x.id, date: x.date, time: x.time, room: x.room, title: x.id + ' — ' + x.title, desc: x.sessionName };
       }), 'mamm2026-my-programme.ics');
       return;
     }
     if (e.target.closest('#clear-saved')) { saved = []; STORE.set('saved', saved); render(); return; }
     if (e.target.closest('#share-qr')) { showQR(location.href, 'Scan to open this page'); return; }
-    if (e.target.closest('#f-reset')) { $('#q').value = ''; go('papers', {}); return; }
+    if (e.target.closest('#f-reset')) { $('#q').value = ''; $('#q-clear').hidden = true; go('papers', {}); render(); return; }
   });
 
-  // filter selects
   $('#view').addEventListener('change', function (e) {
     var id = e.target.id;
     if (!/^f-/.test(id)) return;
@@ -716,7 +886,6 @@ function wire() {
     go('papers', p);
   });
 
-  // search
   var t = null;
   $('#q').addEventListener('input', function () {
     $('#q-clear').hidden = !$('#q').value;
@@ -730,17 +899,23 @@ function wire() {
     $('#q').value = ''; $('#q-clear').hidden = true; render(); $('#q').focus();
   });
   document.addEventListener('keydown', function (e) {
-    if (e.key === '/' && document.activeElement !== $('#q')) { e.preventDefault(); $('#q').focus(); }
-    if (e.key === 'Escape') { closeQR(); }
+    var tag = (document.activeElement && document.activeElement.tagName) || '';
+    if (e.key === '/' && !/INPUT|SELECT|TEXTAREA/.test(tag) && !$('#searchbar').hidden) { e.preventDefault(); $('#q').focus(); }
+    if (e.key === 'Escape') closeQR();
+    if (e.key === 'Tab' && !$('#modal').hidden) {        // keep focus inside the dialog
+      var f = Array.prototype.slice.call($('#modal').querySelectorAll('button'));
+      var i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { f[f.length - 1].focus(); e.preventDefault(); }
+      else if (!e.shiftKey && i === f.length - 1) { f[0].focus(); e.preventDefault(); }
+    }
   });
 
-  // QR + theme
   $('#btn-qr').addEventListener('click', function () { showQR(location.href, 'Scan to open this page'); });
   $('#qr-close').addEventListener('click', closeQR);
   $('#modal').addEventListener('click', function (e) { if (e.target === $('#modal')) closeQR(); });
   $('#qr-copy').addEventListener('click', function () {
     var u = $('#modal').dataset.url;
-    if (navigator.clipboard) navigator.clipboard.writeText(u);
+    if (navigator.clipboard) navigator.clipboard.writeText(u).catch(function () {});
     $('#qr-copy').textContent = 'Copied';
     setTimeout(function () { $('#qr-copy').textContent = 'Copy link'; }, 1500);
   });
@@ -764,9 +939,9 @@ function countdown() {
   var el = $('#countdown');
   if (now < start) {
     var days = Math.ceil((start - now) / 86400000);
-    el.textContent = days === 1 ? 'starts tomorrow' : 'starts in ' + days + ' days';
+    el.textContent = days === 1 ? 'Opens tomorrow' : 'Opens in ' + days + ' days';
   } else if (now <= end) {
-    el.textContent = 'happening now';
+    el.textContent = 'In progress';
   } else {
     el.textContent = '';
   }
@@ -779,24 +954,21 @@ function boot(data) {
   data.sessions.forEach(function (s) { SESS[s.id] = s; });
   buildIndex();
   saved = saved.filter(function (id) { return IDX[id]; });
-  var th = STORE.get('theme', null);
-  if (th) document.documentElement.dataset.theme = th;
-  else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.dataset.theme = 'dark';
   route = parseHash();
-  $('#foot-note').textContent = data.papers.length + ' papers · ' + data.sessions.length + ' sessions · programme as of the proceedings file';
+  $('#foot-note').textContent = data.papers.length + ' papers · ' + data.sessions.length + ' sessions · data from the conference proceedings';
   countdown();
   wire();
   render();
 }
 
 fetch('program.json', { cache: 'no-cache' })
-  .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(boot)
   .catch(function (err) {
-    $('#view').innerHTML = '<div class="empty"><b>Could not load program.json</b>' +
-      'If you opened this file directly from disk, browsers block the data file. ' +
-      'Serve the folder over HTTP (for example <code>python3 -m http.server</code>) or publish it with GitHub Pages.<br><br>' +
-      '<small>' + esc(err.message) + '</small></div>';
+    $('#view').innerHTML = '<div class="empty" style="margin-top:24px"><b>Could not load the programme data</b>' +
+      'If you opened this file directly from disk, the browser blocks <code>program.json</code>. ' +
+      'Serve the folder over HTTP (for example <code>python -m http.server</code>) or open the published GitHub Pages site.' +
+      '<br><br><small>' + esc(err.message) + '</small></div>';
   });
 
 })();

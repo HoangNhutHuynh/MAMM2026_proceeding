@@ -41,6 +41,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import pdf_program
+import docx_program
 
 try:
     import docx
@@ -237,6 +238,38 @@ def parse_sessions(detail_tables):
 
 
 # ------------------------------------------------------------------ abstracts
+
+RE_AUTH_SPLIT = re.compile(r'\s*,\s*(?![\d\*\u2020,]+(?:\s|$|,))(?:and\s+)?|\s+and\s+')
+RE_AUTH = re.compile(r'^(.*?)\s*([\d\*\u2020]+(?:\s*,\s*[\d\*\u2020]+)*)?\s*$')
+
+
+def dedupe_name(nm):
+    """'Ira Puspitasari Ira Puspitasari' -> 'Ira Puspitasari' (a repeated multi-word name)."""
+    w = nm.split()
+    if len(w) >= 4 and len(w) % 2 == 0 and w[:len(w) // 2] == w[len(w) // 2:]:
+        fixed = ' '.join(w[:len(w) // 2])
+        warn('author name "%s" was written twice; shown as "%s"' % (nm, fixed))
+        return fixed
+    return nm
+
+
+def split_authors(line):
+    """'A1,2, B2* and C3' -> [('A', ['1','2']), ('B', ['2']), ('C', ['3'])]
+
+    Commas that belong to an affiliation list ('Tran1,2') do not split names."""
+    line = re.sub(r'\s+', ' ', line).strip()
+    out = []
+    for part in RE_AUTH_SPLIT.split(line):
+        part = part.strip(' ,')
+        if not part:
+            continue
+        m = RE_AUTH.match(part)
+        nm = m.group(1).strip().rstrip('*\u2020').strip()
+        refs = re.findall(r'\d+', m.group(2) or '')
+        if nm:
+            out.append((dedupe_name(nm), refs))
+    return out
+
 def parse_abstracts(items):
     papers, cur, mode = {}, None, None
     for kind, style, val in items:
@@ -258,20 +291,21 @@ def parse_abstracts(items):
             continue
         if style == 'Heading 2' and mode == 'authors':
             cur['authorsLine'] = val
-            for part in re.split(r',| and ', val):
-                part = part.strip()
-                if not part:
-                    continue
-                mm = re.match(r'^(.*?)[\s]*([\d\*\u2020,]*)$', part)
-                nm = mm.group(1).strip().rstrip('*').strip()
-                refs = re.findall(r'\d+', mm.group(2) or '')
-                if nm:
-                    cur['authors'].append({'name': nm, 'refs': refs})
+            for nm, refs in split_authors(val):
+                cur['authors'].append({'name': nm, 'refs': refs})
+            mode = 'affil'
         elif style == 'Affiliation':
             mm = re.match(r'^(\d+)\s+(.*)$', val)
             if mm:
                 cur['affiliations'][mm.group(1)] = mm.group(2).strip()
+                cur['_last_aff'] = mm.group(1)
+            elif cur.get('_last_aff') and not val.lstrip().startswith('*'):
+                # a numbered affiliation that Word wrapped onto a second line
+                k = cur['_last_aff']
+                cur['affiliations'][k] = (cur['affiliations'][k] + ' ' + val).strip()
             else:
+                if '1' not in cur['affiliations']:
+                    cur['_unnumbered'] = True
                 cur['affiliations'].setdefault('1', val)
         elif val.strip().lower() == 'abstract':
             mode = 'abstract'
@@ -331,19 +365,44 @@ def dehyphenate(papers):
 
 # ----------------------------------------------------------------- committees
 def parse_committees(items):
-    committees, cur = [], None
-    for kind, _, val in items[:120]:
+    """ALL-CAPS committee headings and '_ Name, Affiliation' lines, read from the
+    PREFACE heading up to ORGANIZED BY."""
+    committees, cur, on = [], None, False
+    for kind, style, val in items:
         if kind != 'p':
             continue
-        if val.rstrip(':') in STOP_HEADINGS:
+        key = val.rstrip(':').strip()
+        if style == 'Heading 1' and key == 'PREFACE':
+            on = True
+            continue
+        if not on or style.startswith('toc'):
+            continue
+        if key in STOP_HEADINGS or (style == 'Heading 1' and key != 'PREFACE'):
             break
-        if val.isupper() and not val.startswith('_') and len(val) < 60 and 'PREFACE' not in val:
-            cur = {'name': val.rstrip(':'), 'members': []}
+        if val.isupper() and not val.startswith('_') and len(val) < 60:
+            cur = {'name': key, 'members': []}
             committees.append(cur)
         elif val.startswith('_') and cur:
             nm, _, af = val.lstrip('_').strip().partition(',')
             cur['members'].append({'name': nm.strip(), 'affiliation': af.strip()})
     return committees
+
+
+def parse_preface(items):
+    out, on = [], False
+    for kind, style, val in items:
+        if kind != 'p':
+            continue
+        if style == 'Heading 1' and val.strip() == 'PREFACE':
+            on = True
+            continue
+        if not on or style.startswith('toc'):
+            continue
+        if style == 'Heading 1' or (val.isupper() and len(val) < 60):
+            break
+        if len(val) > 80:
+            out.append(val)
+    return out
 
 
 # ----------------------------------------------------------------- validation
@@ -440,16 +499,24 @@ def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
     abstracts = parse_abstracts(items) if items else {}
     extras, extras_file = load_extras(pdf_path, docx_path, extras_path)
 
-    summary_tables, org_rows, lists_ok = [], None, None
-    if pdf_path:
+    summary_tables, org_rows, lists_ok, speakers = [], None, None, []
+    if items:
+        _, _, summary_tables, org_rows = classify_tables(items)
+    # The Word proceedings file carries the newest programme, so its tables win.
+    # The PDF is only used when the Word file has no day/session tables.
+    if docx_path and docx_program.has_schedule(docx_path):
+        sched_src = 'Word'
+        wd = docx_program.parse(docx_path, warn)
+        days, sessions, speakers = wd['days'], wd['sessions'], wd['speakers']
+        provisional = wd['provisional']
+        lists_ok = validate_docx_lists(sessions, summary_tables)
+    elif pdf_path:
         sched_src = 'PDF'
         pdfdata = pdf_program.parse(pdf_path, warn)
         days, sessions = pdfdata['days'], pdfdata['sessions']
         provisional = {}
-        if items:
-            _, _, summary_tables, org_rows = classify_tables(items)
     else:
-        sched_src = 'Word'
+        sched_src = 'Word (legacy tables)'
         days, sessions, sched, summary_tables, org_rows = schedule_from_docx(items)
         provisional = dict((k, v['provisional']) for k, v in sched.items())
         lists_ok = validate_docx_lists(sessions, summary_tables)
@@ -468,9 +535,12 @@ def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
         title = x.get('title') or (a['title'] if a else 'Title to be announced')
         if a:
             authors = []
+            only = list(a['affiliations'].values())
             for au in a['authors']:
                 au['affiliations'] = [a['affiliations'][r] for r in au['refs']
                                       if r in a['affiliations']]
+                if not au['affiliations'] and not au['refs'] and len(only) == 1 and a.get('_unnumbered'):
+                    au['affiliations'] = only[:]      # one unnumbered affiliation for all
                 authors.append({'name': au['name'], 'affiliations': au['affiliations']})
         else:
             authors = []
@@ -507,14 +577,17 @@ def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
     merged = [] if keep_hyphens else dehyphenate([p for p in out_papers if p['abstract']])
 
     for p in out_papers:
-        p['affiliations'] = [y for y in (scrub(z) for z in p['affiliations']) if len(y) > 3]
+        p['affiliations'] = [y for y in (scrub(z) for z in p['affiliations']) if len(y) >= 3]
         for au in p['authors']:
-            au['affiliations'] = [y for y in (scrub(z) for z in au['affiliations']) if len(y) > 3]
+            au['affiliations'] = [y for y in (scrub(z) for z in au['affiliations']) if len(y) >= 3]
 
     validate_common(sessions, out_papers)
 
     organizers = [flat(c) for r in (org_rows or []) for c in r if flat(c)]
-    preface = [v for k, st, v in items[:12] if k == 'p' and st == 'Normal' and len(v) > 150]
+    for kind, _, rows in items:                       # the sponsors table
+        if kind == 't' and first_cell(rows).lower().startswith('sponsor'):
+            organizers += ['Sponsors'] + [flat(c) for r in rows for c in r[1:] if flat(c)][:1]
+    preface = parse_preface(items)
 
     conf = dict(CONFERENCE)
     conf['organizers'] = organizers
@@ -526,8 +599,8 @@ def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
                      'provisional pick pending confirmation from the corresponding professor.')
     if pending:
         notes.append('Details for %s will be announced.' % ', '.join(pending))
-    notes.append('Keynote and invited speaker slots follow the numbering printed in the '
-                 'official technical programme.')
+    notes.append('Keynote and invited speech numbers follow the official technical programme. '
+                 'Invited speeches in Room 3 open the ISET 2026 sessions.')
 
     data = {
         'conference': conf,
@@ -535,6 +608,7 @@ def build(pdf_path=None, docx_path=None, keep_hyphens=False, extras_path=None):
         'sessions': sessions,
         'papers': out_papers,
         'committees': parse_committees(items) if items else [],
+        'speakers': speakers,
         'notes': notes,
     }
     info = {'source': sched_src, 'lists_ok': lists_ok, 'merged': merged,

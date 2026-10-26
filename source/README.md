@@ -2,15 +2,15 @@ Programme sources. The website's `program.json` is generated from whatever is he
 
 | File | What it provides |
 |---|---|
-| `Technical.pdf` | the schedule: days, times, rooms, sessions, session chairs, keynote and invited speakers, and which paper is in which session |
-| `Proceedings MAMM_revise.docx` | paper titles, authors, affiliations, abstracts, keywords, committees, preface |
+| `Proceedings MAMM_revise.docx` | everything: schedule tables, sessions and chairs, keynote/invited talks, paper titles, authors, affiliations, abstracts, keywords, committees, preface |
+| `Technical.pdf` *(fallback)* | the schedule, read only if the Word file has no schedule tables |
 | `extra-papers.json` *(optional)* | fills in papers that are in the PDF but not yet in the Word file — see `extra-papers.json.example` |
 
 Push a change here and the **Rebuild programme data** GitHub Action regenerates
 `program.json` and commits it; GitHub Pages then redeploys on its own.
 
-Keep one `.pdf` and one `.docx`. With only the `.docx`, the schedule is read from
-the Word tables instead. With only the `.pdf`, papers have no abstracts.
+When the Word file contains the day and session tables it is the single source of
+truth and the PDF is ignored. Keep at most one `.pdf` and one `.docx` here.
 
 To rebuild by hand:
 
