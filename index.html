@@ -32,6 +32,7 @@
 <a class="skip" href="#view">Skip to programme</a>
 
 <header class="masthead">
+  <div class="mh-deco" aria-hidden="true"></div>
   <div class="wrap masthead-row">
     <a class="brand" href="#/schedule" aria-label="MAMM 2026 — programme home">
       <img class="brand-logo logo-light" src="assets/logo-h.png" width="552" height="100"
@@ -90,7 +91,18 @@
   </div>
 </div>
 
-<main id="main"><div class="wrap" id="view" tabindex="-1"><div class="loading" role="status">Loading programme…</div></div></main>
+<div class="read-progress" id="read-progress" hidden aria-hidden="true"></div>
+
+<main id="main" tabindex="-1"><div class="wrap" id="view" tabindex="-1">
+  <div class="skeleton" role="status" aria-label="Loading programme">
+    <span class="sk sk-h"></span><span class="sk sk-p"></span>
+    <span class="sk sk-card"></span><span class="sk sk-card"></span><span class="sk sk-card"></span>
+  </div>
+</div></main>
+
+<button class="to-top" id="to-top" type="button" aria-label="Back to top">
+  <svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
 
 <footer class="site-footer">
   <div class="wrap footer-grid">

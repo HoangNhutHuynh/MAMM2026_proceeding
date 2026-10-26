@@ -431,6 +431,7 @@ button.ev:hover { box-shadow: var(--shadow); border-color: var(--border-strong);
 .footer-grid p { margin: 0 0 4px; }
 .footer-name { font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); }
 .footer-meta { text-align: right; }
+.goose-toggle { min-height: 32px; padding: 0; font-size: 13.5px; }
 
 /* ------------------------------------------------------------------- modal */
 .modal-backdrop { position: fixed; inset: 0; z-index: 60; display: flex; align-items: center; justify-content: center; padding: 16px;
@@ -446,6 +447,115 @@ button.ev:hover { box-shadow: var(--shadow); border-color: var(--border-strong);
 .modal-actions { display: flex; gap: 10px; justify-content: center; }
 .modal-actions .btn { flex: 1; }
 @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+
+/* ------------------------------------------------------------------ motion
+   Durations: 160 ms feedback, 260 ms state change, 450 ms entrance.
+   Decelerate on enter; nothing loops except the live marker and two
+   very slow ambient backgrounds in the header. */
+:root { --dur-1: 160ms; --dur-2: 260ms; --dur-3: 450ms; --ease-out: cubic-bezier(.16, 1, .3, 1); }
+
+/* entrance + scroll reveal (classes added by app.js) */
+.rv { opacity: 0; transform: translateY(12px); }
+.rv.in { opacity: 1; transform: none;
+         transition: opacity var(--dur-3) var(--ease-out), transform var(--dur-3) var(--ease-out);
+         transition-delay: var(--d, 0ms); }
+.overview.rv:not(.in) { transform: translateY(8px) scale(.99); }
+
+/* header: blueprint grid that drifts very slowly, and a sheen across the facts bar */
+.masthead { position: relative; overflow: hidden; isolation: isolate; }
+.masthead-row { position: relative; z-index: 1; }
+.mh-deco { position: absolute; inset: 0 0 0 auto; width: min(560px, 55%); z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--primary) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--primary) 9%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px);
+  background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px;
+  -webkit-mask-image: radial-gradient(120% 140% at 100% 50%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(120% 140% at 100% 50%, #000 0%, transparent 72%);
+  animation: drift 60s linear infinite; }
+@keyframes drift { to { background-position: 96px 96px, 96px 96px, 24px 24px, 24px 24px; } }
+.facts-bar { position: relative; overflow: hidden; }
+.facts-bar::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .09) 50%, transparent 65%);
+  background-size: 250% 100%; animation: sheen 9s ease-in-out infinite; }
+@keyframes sheen { 0% { background-position: 130% 0; } 55%, 100% { background-position: -30% 0; } }
+.facts-row { position: relative; }
+
+/* sliding tab indicator */
+.tabs-row { position: relative; }
+.tabs .tab[aria-selected="true"]::after { background: transparent; }
+.tab-ink { position: absolute; left: 0; bottom: 0; height: 3px; width: 0; border-radius: 3px 3px 0 0;
+           background: var(--primary); pointer-events: none; }
+.tabs.ink-ready .tab-ink { transition: transform var(--dur-3) var(--ease-out), width var(--dur-3) var(--ease-out); }
+
+/* hover / press feedback */
+button.ev, .day-btn, .spk, .btn, .ov, .room-col { will-change: auto; }
+button.ev:hover { transform: translateY(-2px); }
+button.ev:active, .btn:active, .day-btn:active { transform: scale(.985); transition-duration: 80ms; }
+.ev-count svg, .backlink svg, .pager .btn svg, .spk summary svg { transition: transform var(--dur-2) var(--ease-out); }
+button.ev:hover .ev-count svg, .pager .btn.next:hover svg { transform: translateX(4px); }
+.backlink:hover svg, .pager .btn:not(.next):hover svg { transform: translateX(-4px); }
+.day-btn { transition: border-color var(--dur-2) var(--ease-out), background-color var(--dur-2) var(--ease-out),
+                       transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+.day-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+.btn { transition: background-color var(--dur-1), border-color var(--dur-1), transform var(--dur-1) var(--ease-out), box-shadow var(--dur-2); }
+.btn:hover { box-shadow: var(--shadow-sm); }
+.spk { transition: transform var(--dur-2) var(--ease-out), box-shadow var(--dur-2) var(--ease-out); }
+.spk:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.ov { transition: background-color var(--dur-2); }
+.ov:hover { background: var(--surface-2); }
+.prow { position: relative; }
+.prow::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 0 3px 3px 0;
+                background: var(--primary); transform: scaleY(0); transition: transform var(--dur-2) var(--ease-out); }
+.prow:hover::before, .prow:focus-visible::before { transform: scaleY(1); }
+.pid { transition: transform var(--dur-2) var(--ease-out); }
+.prow:hover .pid { transform: translateX(2px); }
+.kw button, .letters a, .chip { transition: border-color var(--dur-1), color var(--dur-1), transform var(--dur-1) var(--ease-out); }
+.kw button:hover, .letters a:hover { transform: translateY(-1px); }
+.spk details[open] p { animation: rise var(--dur-3) var(--ease-out); }
+@keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* star: a small pop when saved */
+.star.pop svg, .btn.pop svg { animation: pop-star .45s var(--ease-out); }
+@keyframes pop-star { 0% { transform: scale(.6) rotate(-20deg); } 55% { transform: scale(1.3) rotate(8deg); } 100% { transform: scale(1); } }
+
+/* live marker during the conference */
+.slot.live { background: color-mix(in srgb, var(--accent) 7%, transparent); box-shadow: inset 4px 0 0 var(--accent); }
+.live-badge, .next-badge { display: inline-flex; align-items: center; gap: 6px; margin-top: 6px; padding: 2px 8px; border-radius: 999px;
+  font-family: var(--font-sans); font-size: 11.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
+.slot-time .live-badge, .slot-time .next-badge { display: flex; width: max-content; }
+.live-badge { background: var(--accent); color: var(--surface); }
+.live-badge i { position: relative; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+.live-badge i::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: currentColor; animation: ping 1.6s var(--ease-out) infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: .8; } 100% { transform: scale(3); opacity: 0; } }
+.next-badge { border: 1px solid var(--border-strong); color: var(--ink-2); }
+
+/* reading progress on paper pages */
+.read-progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 45; transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--accent), var(--primary)); }
+
+/* back to top */
+.to-top { position: fixed; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); z-index: 40;
+  width: 48px; height: 48px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%;
+  border: 1px solid var(--border-strong); background: var(--surface); color: var(--primary); box-shadow: var(--shadow);
+  opacity: 0; transform: translateY(16px) scale(.9); pointer-events: none;
+  transition: opacity var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out), background-color var(--dur-1); }
+.to-top.show { opacity: 1; transform: none; pointer-events: auto; }
+.to-top:hover { background: var(--primary); color: var(--on-primary); }
+
+/* loading skeleton */
+.skeleton { display: grid; gap: 14px; padding: 26px 0; }
+.sk { display: block; border-radius: var(--radius-sm);
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%; animation: shimmer 1.3s linear infinite; }
+.sk-h { height: 34px; width: 46%; } .sk-p { height: 16px; width: 70%; } .sk-card { height: 84px; border-radius: var(--radius); }
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* dialog */
+.modal-backdrop:not([hidden]) { animation: fade var(--dur-2) ease-out; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+.modal { animation: pop var(--dur-3) var(--ease-out); }
 
 /* -------------------------------------------------------------- responsive */
 @media (max-width: 980px) {
@@ -506,11 +616,16 @@ button.ev:hover { box-shadow: var(--shadow); border-color: var(--border-strong);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+                           transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .rv { opacity: 1 !important; transform: none !important; }
+  .mh-deco, .facts-bar::before { animation: none !important; }
 }
 
 /* ------------------------------------------------------------------- print */
 @media print {
+  .rv { opacity: 1 !important; transform: none !important; }
+  .mh-deco, .read-progress, .to-top, .tab-ink { display: none !important; }
   :root { --bg: #fff; --surface: #fff; --surface-2: #f3f4f6; }
   body { font-size: 11pt; }
   .tabs, .searchbar, .masthead-actions, .facts-bar, .star, .actions, .backlink, .site-footer, .modal-backdrop, .pager, .aside .btn, .day-strip, .skip { display: none !important; }
