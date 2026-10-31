@@ -4,7 +4,7 @@ A mobile-first, searchable web version of the MAMM 2026 technical programme, gen
 `Proceedings MAMM_revise.docx`. Delegates scan a QR code and instantly look up **which paper is
 presented when, in which room, in which session** — plus the full abstract of every paper.
 
-**92 papers** · 63 oral in 10 sessions · 29 posters in 2 judged sessions · 5 keynote lectures ·
+**93 papers** · 63 oral in 10 sessions · 30 posters in 2 judged sessions · 5 keynote lectures ·
 9 invited talks · 3 rooms · 5–7 Nov 2026, Sun Moon Lake Teachers' Hostel, Nantou, Taiwan.
 
 ---
@@ -222,7 +222,7 @@ python3 -m http.server 8000
 - Source: `Proceedings MAMM_revise.docx` (technical programme, abstracts, speakers, committees).
 - Session paper lists are cross-checked against the document's own *ORAL Presentation List* and
   *POSTER Presentation List* summary tables on every build.
-- The document contains IDs `ID_01`–`ID_93` with **no `ID_87`**; 92 papers in total.
+- The document contains IDs `ID_01`–`ID_94` with **no `ID_87`**; 93 papers in total.
 - Author lines such as `Tran1,2, Ha1,2*, and Ching3,4,5*` are split on names, not on the commas
   inside the affiliation numbers; affiliations that Word wrapped onto a second line are rejoined.
   A name written twice in the source (`Ira Puspitasari Ira Puspitasari`) is shown once, and the

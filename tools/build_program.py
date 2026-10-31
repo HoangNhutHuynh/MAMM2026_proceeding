@@ -240,7 +240,7 @@ def parse_sessions(detail_tables):
 # ------------------------------------------------------------------ abstracts
 
 RE_AUTH_SPLIT = re.compile(r'\s*,\s*(?![\d\*\u2020,]+(?:\s|$|,))(?:and\s+)?|\s+and\s+')
-RE_AUTH = re.compile(r'^(.*?)\s*([\d\*\u2020]+(?:\s*,\s*[\d\*\u2020]+)*)?\s*$')
+RE_AUTH = re.compile(r'^(.*?)\s*([\d\*\u2020]+(?:\s*[,\s]\s*[\d\*\u2020]+)*)?\s*$')
 
 
 def dedupe_name(nm):
